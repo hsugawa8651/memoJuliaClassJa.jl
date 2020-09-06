@@ -1,3 +1,7 @@
 [deps]
+Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
+CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 memoJuliaClassJa = "13d03181-b015-4217-8264-c4cd2c741405"
