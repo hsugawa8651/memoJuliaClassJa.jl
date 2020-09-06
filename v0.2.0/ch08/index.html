@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第8回： ▼ 総和・数値積分 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch08/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li class="is-active"><a class="tocitem" href>第8回： ▼ 総和・数値積分</a><ul class="internal"><li><a class="tocitem" href="#級数和の公式（繰り返しで加算)"><span>▼ 級数和の公式（繰り返しで加算)</span></a></li><li><a class="tocitem" href="#ベクトルのインデックス"><span>■ ベクトルのインデックス</span></a></li><li><a class="tocitem" href="#ベクトルの生成"><span>■ ベクトルの生成</span></a></li><li><a class="tocitem" href="#内包表記"><span>● 内包表記</span></a></li><li><a class="tocitem" href="#フーリエ級数の和"><span>フーリエ級数の和</span></a></li><li><a class="tocitem" href="#数値積分"><span>▼ 数値積分</span></a></li><li><a class="tocitem" href="#繰返し内部からの脱出"><span>■ 繰返し内部からの脱出</span></a></li><li><a class="tocitem" href="#練習：-条件が成り立つまで繰り返す：数値積分"><span>◀● 練習： 条件が成り立つまで繰り返す：数値積分</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第8回： ▼ 総和・数値積分</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第8回： ▼ 総和・数値積分</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch08.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch08"><a class="docs-heading-anchor" href="#ch08">第8回： ▼ 総和・数値積分</a><a id="ch08-1"></a><a class="docs-heading-anchor-permalink" href="#ch08" title="Permalink"></a></h1><h2 id="級数和の公式（繰り返しで加算)"><a class="docs-heading-anchor" href="#級数和の公式（繰り返しで加算)">▼ 級数和の公式（繰り返しで加算)</a><a id="級数和の公式（繰り返しで加算)-1"></a><a class="docs-heading-anchor-permalink" href="#級数和の公式（繰り返しで加算)" title="Permalink"></a></h2><p>自然数の級数和の結果がいくつか知られている。 これらのグラフを描いて、結果を確認しよう。</p><div>\[\sum_{k=1}^{n} k = 1 + 2 + \cdots + k + \cdots + n = \dfrac{n(n+1)}{2}\]</div><pre><code class="language-julia">using PyPlot
+nmax=25
+xs1=0:0.2:nmax
+plt.plot(xs1, xs1.*(xs1 .+1)/2, label=&quot;sum i&quot;, &quot;b&quot;)
+
+ns=0:nmax
+for n in ns
+  s1=0.0
+  for i in 1:n
+    s1 += i
+  end
+  plt.plot(n,s1, &quot;bo&quot;)
+end
+
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;sum i up to n&quot;)</code></pre><p><img src="../ch08-sum1-plot.svg" alt/></p><div>\[\sum_{k=1}^{n} k^2 = 1^2 + 2^2 + \cdots + k^2 + \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}\]</div><pre><code class="language-julia">using PyPlot
+nmax=25
+xs1=0:0.2:nmax
+plt.plot(xs1, xs1.*(xs1 .+1).*(2*xs1 .+1)/6, &quot;b&quot;)
+
+ns=0:nmax
+for n in ns
+  s=0.0
+  for i in 1:n
+    s += i^2
+  end
+  plt.plot(n,s, &quot;bo&quot;)
+end
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;sum i^2 up to n&quot;)</code></pre><p><img src="../ch08-sum2-plot.svg" alt/></p><h2 id="ベクトルのインデックス"><a class="docs-heading-anchor" href="#ベクトルのインデックス">■ ベクトルのインデックス</a><a id="ベクトルのインデックス-1"></a><a class="docs-heading-anchor-permalink" href="#ベクトルのインデックス" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.1/base/collections/#Base.length"><code>Base.length</code> — Method</a></li></ul><p>参考 → <a href="../ch01/#ベクトル">■ ベクトル</a></p><p>ベクトル <code>a</code> の寸法は、関数 <code>length(a)</code> で得られる。</p><pre><code class="language-julia-repl">julia&gt; v=[11,21,31,41,51]
+5-element Array{Int64,1}:
+ 11
+ 21
+ 31
+ 41
+ 51
+
+julia&gt; length(v)
+5</code></pre><ul><li><a href="https://docs.julialang.org/en/v1.1/manual/interfaces/#Indexing-1">Indexing (section)</a></li></ul><p>ベクトル <code>a</code> 、整数 <code>i</code> に対して <code>a[i]</code> と書くと、 ベクトル <code>a</code>の <code>i</code>番目の要素の値が得られる。 要素の番号 (インデックス, indexという) <code>i</code>は 1から数える。 <code>end</code> というインデックスは、ベクトルの最後の要素を指す。</p><pre><code class="language-julia-repl">julia&gt; v[1]
+11
+
+julia&gt; v[2]
+21
+
+julia&gt; v[end] # 末尾の要素
+51
+
+julia&gt; v[end-1] # 末尾の一つ前の要素
+41</code></pre><p>存在しないインデックスを指定すると、例外が発生する。</p><pre><code class="language-julia-repl">julia&gt; v[0] # =&gt; ERROR: BoundsError
+ERROR: BoundsError: attempt to access 5-element Array{Int64,1} at index [0]</code></pre><p>インデックスとして、整数 <code>i</code> の代わりに、Range(範囲)を指定すると、 その範囲のインデックスを持つベクトルが得られる。 (参考 <a href="../ch01/#Range型">■ Range型</a> )</p><pre><code class="language-julia-repl">julia&gt; v[2:3]
+2-element Array{Int64,1}:
+ 21
+ 31
+
+julia&gt; v[1:end-1] # 最初から、末尾の一つ前の要素
+4-element Array{Int64,1}:
+ 11
+ 21
+ 31
+ 41
+
+julia&gt; v[4:6] # =&gt; ERROR: BoundsError
+ERROR: BoundsError: attempt to access 5-element Array{Int64,1} at index [4:6]</code></pre><h2 id="ベクトルの生成"><a class="docs-heading-anchor" href="#ベクトルの生成">■ ベクトルの生成</a><a id="ベクトルの生成-1"></a><a class="docs-heading-anchor-permalink" href="#ベクトルの生成" title="Permalink"></a></h2><p>ベクトルを作る方法は、いくつかある。</p><p>これまでに、以下の方法を紹介した。</p><ul><li>要素を列挙する方法 (<a href="../ch01/#ベクトル">■ ベクトル</a> )</li><li>Range型を用いる方法 (<a href="../ch01/#Range型">■ Range型</a> )</li><li>関数 <code>range</code>を用いる方法。結果はRangeとなる。( <a href="../ch07/#等差数列">■ 等差数列</a> )</li></ul><h3 id="要素が-0のベクトルを作る"><a class="docs-heading-anchor" href="#要素が-0のベクトルを作る">■ 要素が 0のベクトルを作る</a><a id="要素が-0のベクトルを作る-1"></a><a class="docs-heading-anchor-permalink" href="#要素が-0のベクトルを作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1/base/numbers/#Base.zero"><code>Base.zero</code> — Function</a></li></ul><p>数 <code>x</code> に対して、関数 <code>zero(x)</code> は、<code>x</code> と同じ型の値 <code>1</code> を作る。</p><pre><code class="language-julia-repl">julia&gt; zero(0)
+0
+
+julia&gt; zero(1)
+0
+
+julia&gt; zero(0.0)
+0.0
+
+julia&gt; zero(1.0)
+0.0</code></pre><p>型を指定してもよい。</p><pre><code class="language-julia-repl">julia&gt; zero(Int64)
+0
+
+julia&gt; zero(Float64)
+0.0</code></pre><ul><li><a href="https://docs.julialang.org/en/v1.1/base/arrays/#Base.zeros"><code>Base.zeros</code> — Function</a></li></ul><p>関数 <code>zeros</code>は、要素が零 <span>$0$</span> のベクトルを作る。</p><ul><li>関数 <code>zeros(n)</code> は、要素の型が浮動小数点で、寸法<code>n</code> のベクトルを作る。</li><li>関数 <code>zeros(T, n)</code> は、要素の型が <code>T</code> で、寸法<code>n</code> のベクトルを作る。</li></ul><pre><code class="language-julia-repl">julia&gt; zeros(5) # 要素は浮動小数点
+5-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+
+julia&gt; zeros(Float64,5) # 上と同じ
+5-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+
+julia&gt; zeros(Int64,5) # 要素は整数
+5-element Array{Int64,1}:
+ 0
+ 0
+ 0
+ 0
+ 0</code></pre><p>ベクトル <code>v</code> と同じ寸法の <code>0</code> ベクトルを作るには、</p><pre><code class="language-julia-repl">julia&gt; v=[1,2,3,4,5]
+5-element Array{Int64,1}:
+ 1
+ 2
+ 3
+ 4
+ 5
+
+julia&gt; zeros(length(v))
+5-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+
+julia&gt; zeros(Float64,length(v))
+5-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0</code></pre><p>関数 <code>zero.()</code> を以下のように用いれば <code>v</code> の要素の型と同じ要素の型を持ち、<code>v</code>と寸法が等しい <code>0</code> ベクトルを作れる。</p><pre><code class="language-julia-repl">julia&gt; zero.([1,2,3,4,5])
+5-element Array{Int64,1}:
+ 0
+ 0
+ 0
+ 0
+ 0
+
+julia&gt; zero.(1.0:5.0)
+5-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 0.0
+ 0.0
+ 0.0</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>関数 <code>zeros</code> と <code>zero</code> とを混同しないように。</p></div></div><h3 id="要素が-1-のベクトルを作る"><a class="docs-heading-anchor" href="#要素が-1-のベクトルを作る">■ 要素が 1 のベクトルを作る</a><a id="要素が-1-のベクトルを作る-1"></a><a class="docs-heading-anchor-permalink" href="#要素が-1-のベクトルを作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1/base/numbers/#Base.one"><code>Base.one</code> — Function</a></li></ul><p>数 <code>x</code> に対して、関数 <code>one(x)</code> は、<code>x</code> と同じ型の値 <code>1</code> を作る。</p><pre><code class="language-julia-repl">julia&gt; one(0)
+1
+
+julia&gt; one(1)
+1
+
+julia&gt; one(0.0)
+1.0
+
+julia&gt; one(1.0)
+1.0</code></pre><p>型を指定してもよい。</p><pre><code class="language-julia-repl">julia&gt; one(Int64)
+1
+
+julia&gt; one(Float64)
+1.0</code></pre><ul><li><a href="https://docs.julialang.org/en/v1.1/base/arrays/#Base.ones"><code>Base.ones</code> — Function</a></li></ul><p>関数 <code>ones</code>は、要素が零 <span>$0$</span> のベクトルを作る。</p><ul><li>関数 <code>ones(n)</code> は、要素の型が浮動小数点で、寸法<code>n</code> のベクトルを作る。</li><li>関数 <code>ones(T, n)</code> は、要素の型が <code>T</code> で、寸法<code>n</code> のベクトルを作る。</li></ul><pre><code class="language-julia-repl">julia&gt; ones(5) # 要素は浮動小数点
+5-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+
+julia&gt; ones(Float64,5) # 上と同じ
+5-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+
+julia&gt; ones(Int64,5) # 要素は整数
+5-element Array{Int64,1}:
+ 1
+ 1
+ 1
+ 1
+ 1</code></pre><p>ベクトル <code>v</code> と同じ寸法の <code>0</code> ベクトルを作るには、</p><pre><code class="language-julia-repl">julia&gt; v=[1,2,3,4,5]
+5-element Array{Int64,1}:
+ 1
+ 2
+ 3
+ 4
+ 5
+
+julia&gt; ones(length(v))
+5-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+
+julia&gt; ones(Float64,length(v))
+5-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0</code></pre><p>関数 <code>one.()</code> を以下のように用いれば 要素が <code>v</code> の要素と同じで、寸法が等しい <code>1</code> ベクトルを作れる。</p><pre><code class="language-julia-repl">julia&gt; one.([1,2,3,4,5])
+5-element Array{Int64,1}:
+ 1
+ 1
+ 1
+ 1
+ 1
+
+julia&gt; one.(1.0:5.0)
+5-element Array{Float64,1}:
+ 1.0
+ 1.0
+ 1.0
+ 1.0
+ 1.0</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>関数 <code>ones</code> と <code>one</code> とを混同しないように。</p></div></div><h3 id="疑似乱数を要素とするベクトルを作る"><a class="docs-heading-anchor" href="#疑似乱数を要素とするベクトルを作る">■ 疑似乱数を要素とするベクトルを作る</a><a id="疑似乱数を要素とするベクトルを作る-1"></a><a class="docs-heading-anchor-permalink" href="#疑似乱数を要素とするベクトルを作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/stdlib/Random/#Base.rand"><code>Base.Random.rand</code> — Function</a></li></ul><pre><code class="language-julia-repl">julia&gt; rand(10) # =&gt; 10-elements
+10-element Array{Float64,1}:
+ 0.9319790722391457
+ 0.7318904010949832
+ 0.01610034531403537
+ 0.5096245649345783
+ 0.30048992323300716
+ 0.8683596129962698
+ 0.08500826397354189
+ 0.18524234491868263
+ 0.2621796816557467
+ 0.6148628512233756
+
+julia&gt; rand([1,2,3], 10) # [1,2,3]からランダムに10個選ぶ
+10-element Array{Int64,1}:
+ 1
+ 1
+ 1
+ 2
+ 3
+ 2
+ 1
+ 2
+ 3
+ 1</code></pre><p>ヒストグラムを描く。分割数 10</p><pre><code class="language-julia">using PyPlot
+xs=rand(1000)
+plt.hist(xs, bins=10)
+plt.xlim(-0.2,1.2)</code></pre><p><img src="../ch08_hist1-plot.svg" alt/></p><h3 id="正規乱数を要素とするベクトルを作る"><a class="docs-heading-anchor" href="#正規乱数を要素とするベクトルを作る">■ 正規乱数を要素とするベクトルを作る</a><a id="正規乱数を要素とするベクトルを作る-1"></a><a class="docs-heading-anchor-permalink" href="#正規乱数を要素とするベクトルを作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/stdlib/Random/#Base.randn"><code>Base.Random.randn</code> — Function</a></li></ul><p>平均 <span>$0$</span>、標準偏差 <span>$1$</span> の正規分布の疑似乱数を作る</p><pre><code class="language-julia-repl">julia&gt; randn(10) # =&gt; 10-elements
+10-element Array{Float64,1}:
+ -0.6483541426823177
+ -0.8824699166547039
+  1.034683327655187
+  0.45736261931178035
+  0.09318459703026286
+  0.25813266152812625
+  0.7807491370509365
+  1.5405661392577263
+  1.124994461716021
+  0.7134738103733507</code></pre><p>ヒストグラムを描く。分割数 50</p><pre><code class="language-julia">using PyPlot
+xs=randn(1000)
+plt.hist(xs, bins=50)
+plt.xlim(-4,4)</code></pre><p><img src="../ch08_hist2-plot.svg" alt/></p><h2 id="内包表記"><a class="docs-heading-anchor" href="#内包表記">● 内包表記</a><a id="内包表記-1"></a><a class="docs-heading-anchor-permalink" href="#内包表記" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; [ x^2 for x in 0:10 ]
+11-element Array{Int64,1}:
+   0
+   1
+   4
+   9
+  16
+  25
+  36
+  49
+  64
+  81
+ 100
+
+julia&gt; [ x^2 for x in [-3,0,2] ]
+3-element Array{Int64,1}:
+ 9
+ 0
+ 4
+
+julia&gt; [ x^2 for x in -10:2:10 if rem(x,3) != 2 ]
+9-element Array{Int64,1}:
+ 100
+  64
+  36
+  16
+   4
+   0
+  16
+  36
+ 100</code></pre><h2 id="フーリエ級数の和"><a class="docs-heading-anchor" href="#フーリエ級数の和">フーリエ級数の和</a><a id="フーリエ級数の和-1"></a><a class="docs-heading-anchor-permalink" href="#フーリエ級数の和" title="Permalink"></a></h2><h3 id="フーリエ級数の和（繰り返しで加算)"><a class="docs-heading-anchor" href="#フーリエ級数の和（繰り返しで加算)">▼ フーリエ級数の和（繰り返しで加算)</a><a id="フーリエ級数の和（繰り返しで加算)-1"></a><a class="docs-heading-anchor-permalink" href="#フーリエ級数の和（繰り返しで加算)" title="Permalink"></a></h3><p>周期波形 <span>$f(t+T) = f(t)$</span> は、 以下のように、三角関数の級数和として表される。 ここで、<span>$a_0, a_1, \cdots$</span>, <span>$b_1, b_2, \cdots$</span> は実数の定数である。 これを、実フーリエ級数和という。</p>\begin{align*}
+f(t) & = a_0 \\
+& + a_1 \cos \omega{t}  + b_1 \sin \omega{t} \\
+& + a_2 \cos 2\omega{t} + b_2 \sin 2\omega{t} \\
+& + a_3 \cos 3\omega{t} + b_3 \sin 3\omega{t} + \cdots
+\end{align*}<p>ここで <span>$\omega$</span> は基本周波数である。</p><div>\[\omega=\dfrac{2\pi}{T}\]</div><p>以下の例では、既に知られているフーリエ級数和から、元の関数が近似される様子を観察するのに留める。</p><h3 id="方形波：フーリエ級数の有限和"><a class="docs-heading-anchor" href="#方形波：フーリエ級数の有限和">▼ 方形波：フーリエ級数の有限和</a><a id="方形波：フーリエ級数の有限和-1"></a><a class="docs-heading-anchor-permalink" href="#方形波：フーリエ級数の有限和" title="Permalink"></a></h3><p>方形波は、 <a href="../ch04/#方形波を描く">▶ 方形波を描く</a> で紹介した。</p><p>基本周波数 <span>$\omega=1$</span>、数 <span>$-1$</span>と<span>$1$</span>とを往復する方形波を描こう。</p><pre><code class="language-julia">using PyPlot
+ts=-3pi:pi/36:3pi
+plt.plot(ts, sign.(sin.(ts)) )
+plt.yticks( [-1,0,1], [ &quot;-1&quot;, &quot;0&quot;, &quot;1&quot;])
+plt.xticks( [-3pi,-2pi,-pi,0, pi,2pi,3pi],
+        [L&quot;-3\pi&quot;, L&quot;-2\pi&quot;, L&quot;-\pi&quot;,&quot;0&quot;, L&quot;\pi&quot;, L&quot;2\pi&quot;, L&quot;3\pi&quot;])</code></pre><p><img src="../ch08_sq1-plot.svg" alt/></p><p>この方形波のフーリエ級数和は、以下のように与えられる。</p><div>\[f(t) = \dfrac{4}{\pi}\left\{\sin{t}+\dfrac{\sin{3t}}{3}+\dfrac{\sin{5t}}{5}+\cdots\right\}\]</div><p>この式の <span>$\sin t$</span>, <span>$\sin 3t$</span>, <span>$\sin 5t$</span> の３つを加えると、方形波に近くなることを観察する。</p><pre><code class="language-julia">using PyPlot
+ts=-3pi:pi/36:3pi
+ys=sin.(ts)*4/pi
+plt.plot(ts, ys, label=&quot;n=1&quot;)
+plt.yticks( [-1,0,1], [ &quot;-1&quot;, &quot;0&quot;, &quot;1&quot;])
+plt.xticks( [-3pi,-2pi,-pi,0, pi,2pi,3pi],
+        [L&quot;-3\pi&quot;, L&quot;-2\pi&quot;, L&quot;-\pi&quot;,&quot;0&quot;, L&quot;\pi&quot;, L&quot;2\pi&quot;, L&quot;3\pi&quot;])
+ys += sin.(3ts)/3*4/pi
+plt.plot(ts, ys, label=&quot;n=1,3&quot;)
+ys += sin.(5ts)/5*4/pi
+plt.plot(ts, ys, label=&quot;n=1,3,5&quot;)
+plt.legend()</code></pre><p><img src="../ch08-fo-sq2-plot.svg" alt/></p><p>今度は <span>$\sin 13t$</span> まで加えた結果を観察しよう。</p><pre><code class="language-julia">using PyPlot
+ts=-3pi:pi/36:3pi
+n=13
+ys=zero.(ts)
+for i in 1:2:n
+  global ys
+  ys += sin.(i*ts)/i*4/pi
+end
+plt.plot(ts, ys)
+plt.plot(ts, sign.(sin.(ts)), label=&quot;up to&quot;*string(n) )
+
+plt.yticks( [-1,0,1], [ &quot;-1&quot;, &quot;0&quot;, &quot;1&quot;])
+plt.xticks( [-3pi,-2pi,-pi,0, pi,2pi,3pi],
+        [L&quot;-3\pi&quot;, L&quot;-2\pi&quot;, L&quot;-\pi&quot;,&quot;0&quot;, L&quot;\pi&quot;, L&quot;2\pi&quot;, L&quot;3\pi&quot;])</code></pre><p><img src="../ch08-fo-sq4-plot.svg" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>上のフーリエ級数和が方形波を近似すると説明したが、なめらかな三角関数の級数和をいくら加えていっても、なめらかでない方形波に一致することはない。級数和が元の関数に近づくのは「各点収束」(pointwise convergence)ではなく「一様収束」(uniform convergence)に相当する。</p></div></div><h3 id="三角波：フーリエ級数の有限和"><a class="docs-heading-anchor" href="#三角波：フーリエ級数の有限和">▼ 三角波：フーリエ級数の有限和</a><a id="三角波：フーリエ級数の有限和-1"></a><a class="docs-heading-anchor-permalink" href="#三角波：フーリエ級数の有限和" title="Permalink"></a></h3><p>一定の正の傾きで増加、一定の負の傾きで減少を繰り返す周期関数を、 三角波 (triangular wave)という。</p><p>傾き <span>$1$</span> と <span>$-1$</span>で、周期 <span>$2\pi$</span> の三角波を描こう。 この関数は、 絶対値関数 <code>abs</code> (参考: <a href="../ch04/#絶対値関数">▼ 絶対値関数</a> )と 関数 <code>mod2pi</code> (参考: <a href="../ch06/#2piで割った剰余">▶ 2piで割った剰余</a> ) とを組み合わせて定義できる。 参考→ <a href="../ch05/#関数の定義-(代入文形式)">■ 関数の定義 (代入文形式)</a></p><pre><code class="language-julia">triangular(t)=pi-abs.(mod2pi.(t)-pi)
+
+using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+ts=-3.5pi:pi/6:3.5pi
+plt.plot(ts, triangular.(ts) )
+plt.xlim(-pi*2.5,pi*2.5)
+plt.ylim(-pi*0.1,pi*1.1)</code></pre><p><img src="../ch08_fo_tri1-plot.svg" alt/></p><p>上の三角波のフーリエ級数展開は、以下の通りである。</p><div>\[f(t) = \dfrac{\pi}{2} - \dfrac{4}{\pi}\left\{ \cos t + \dfrac{\cos 3t}{3^2} + \dfrac{\cos 5t}{5^2} + \cdots\right\}\]</div><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+ts=-3.5pi:pi/6:3.5pi
+ys=one.(ts)*(pi/2)
+for n=1:2:5
+  global ys
+  ys -= cos.(n*ts)*(4/pi/n^2)
+end
+plt.plot(ts, ys, &quot;o&quot;)
+plt.plot(ts,triangular.(ts))
+plt.ylim(-pi*0.1,pi*1.1)</code></pre><p><img src="../ch08-fo-tri3-plot.svg" alt/></p><p>勾配が不連続に変化する点(キンク, kink)を拡大して描画しよう。</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+ts=-3.5pi:pi/6:3.5pi
+for nmax=3:2:11
+  ys=one.(ts)*(pi/2)
+  for n=1:2:nmax
+    ys -= cos.(n*ts)*(4/n^2/pi)
+  end
+  plt.plot(ts, ys, label=nmax)
+end
+plt.xlim(-pi*0.1,pi*2.1)
+plt.ylim(-pi*0.1,pi*1.1)
+plt.legend()</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `ys` in soft scope is ambiguous because a global variable by the same name exists: `ys` will be treated as a new local. Disambiguate by using `local ys` to suppress this warning or `global ys` to assign to the existing global variable.
+└ @ none:2</pre><p><img src="../ch08-fo-tri4-plot.svg" alt/></p><pre><code class="language-julia">using PyPlot
+fig, axes = plt.subplots(6,1)
+ts=-3.5pi:pi/6:3.5pi
+for j=1:6
+  nmax=1+2*j
+  ys=one.(ts)*(pi/2)
+  for n=1:2:nmax
+    ys -= cos.(n*ts)*(4/n^2/pi)
+  end
+  ax=axes[j]
+  # ax=plt.subplt.plot(610+j)
+  ax.plot(ts,triangular.(ts))
+  ax.plot(ts, ys, &quot;o&quot;)
+  ax.set_ylim(-pi*0.1,pi*1.1)
+end</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `nmax` in soft scope is ambiguous because a global variable by the same name exists: `nmax` will be treated as a new local. Disambiguate by using `local nmax` to suppress this warning or `global nmax` to assign to the existing global variable.
+└ @ none:2
+┌ Warning: Assignment to `ys` in soft scope is ambiguous because a global variable by the same name exists: `ys` will be treated as a new local. Disambiguate by using `local ys` to suppress this warning or `global ys` to assign to the existing global variable.
+└ @ none:3</pre><p><img src="../ch08-fo-tri5-plot.svg" alt/></p><h3 id="練習：フーリエ級数の有限和"><a class="docs-heading-anchor" href="#練習：フーリエ級数の有限和">◀ 練習：フーリエ級数の有限和</a><a id="練習：フーリエ級数の有限和-1"></a><a class="docs-heading-anchor-permalink" href="#練習：フーリエ級数の有限和" title="Permalink"></a></h3><p>次の級数和で表される曲線を描け。</p><div>\[f(t) = \dfrac{4}{\pi}\left\{ \sin t - \dfrac{\sin 3t}{3^2} + \dfrac{\sin 5t}{5^2} - \cdots\right\}\]</div><h2 id="数値積分"><a class="docs-heading-anchor" href="#数値積分">▼ 数値積分</a><a id="数値積分-1"></a><a class="docs-heading-anchor-permalink" href="#数値積分" title="Permalink"></a></h2><p>定積分の近似値を、級数和として求めることができる(数値積分)。</p><p>以下では、連続関数の、有限な区間に対する定積分の近似値を求めてみる。 参考→ <a href="../ch04/#関数が連続とは">▼ 関数が連続とは</a></p><p>例として、関数 <span>$g(x)$</span></p><div>\[g(x)=\dfrac{1}{1+x}\]</div><p>を、<span>$x=0$</span> から <span>$1$</span> の範囲で積分しよう。</p><p>関数 <span>$g(x)$</span>は、この範囲で単調減少である。</p><pre><code class="language-julia">using PyPlot
+xmin=0
+xmax=1
+m=6
+n=2^m
+xs=range(xmin,xmax,length=n+1)
+g(x)=1/(1+x)
+plt.plot(xs, g.(xs), &quot;b&quot;)
+plt.ylim(0,1.2)</code></pre><p><img src="../ch08-rie0-plot.svg" alt/></p><p>定積分の値は、</p><div>\[\int_{0}^{1}\dfrac{1}{1+x}\;dx = \left[\log\left\vert{1+x}\right\vert\right]_{x=0}^{x=1} = \log{2}\]</div><p>である。</p><h3 id="Riemann和（繰り返しで加算)"><a class="docs-heading-anchor" href="#Riemann和（繰り返しで加算)">▼ Riemann和（繰り返しで加算)</a><a id="Riemann和（繰り返しで加算)-1"></a><a class="docs-heading-anchor-permalink" href="#Riemann和（繰り返しで加算)" title="Permalink"></a></h3><p>積分すべき関数を、等間隔の短冊に区切り、短冊の面積の総和をとろう。</p><p>短冊の幅を <span>$d$</span>とすると、</p><div>\[s_{1} = \sum_{i=1}^{n} g(x_{i})\cdot{d}\]</div><p>という、総和 (Riemann和)をとることになる。</p><p>以下のグラフは、8枚の短冊に分けた様子を示す。 ここで、短冊の高さは、各短冊の左端の関数の値をとった。</p><pre><code class="language-julia">using PyPlot
+xmin=0
+xmax=1
+m=3
+n=2^m
+xs=range(xmin,xmax,length=n+1)  # n個の短冊に分割する
+d=(xmax-xmin)/n  # 短冊の刻み
+g(x)=1/(1+x)
+plt.plot(xs, g.(xs), &quot;b&quot;)
+plt.ylim(0,1.2)
+
+for x in xs[1:end-1]
+  plt.plot([x, x, x+d, x+d], [0, g(x), g(x), 0], &quot;k&quot;, lw=0.5)
+end</code></pre><p><img src="../ch08-rie1-plot.svg" alt/></p><p>では、短冊を <span>$2^4 = 16$</span> 枚に分けて、短冊の面積の総和をとろう。</p><pre><code class="language-julia">se=log(2)
+m=4
+n=2^m
+xs=range(xmin,xmax,length=n+1)
+d=(xmax-xmin)/n
+s1=0
+for i in 1:n
+  global s1
+  x=xs[i]
+  s1 += g(x)*d
+end
+#
+@show s1, se, (s1-se)/se;</code></pre><pre class="documenter-example-output">(0.7090162022075267, 0.6931471805599453, 0.022894158834725318)</pre><p>16分割でも、相対誤差 <span>$2.3\%$</span> を達成した。</p><p>分割数を増やせば、この和は、正しい定積分の値に近づいていくであろう。</p><p>分割数を <span>$2^m$</span> で増やして、絶対誤差を描こう。 横軸の分割数は、対数で示した。</p><pre><code class="language-julia">using PyPlot
+se=log(2)
+for m in 0:12
+  n=2^m
+  xs=range(xmin,xmax,length=n+1)
+  d=(xmax-xmin)/n
+  s1=0
+  for i in 1:n
+    x=xs[i]
+    s1 += g(x)*d
+  end
+  plt.plot(n, abs(s1 - se) , &quot;.&quot;, color=&quot;b&quot;)
+end
+plt.xscale(&quot;log&quot;)
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;absolute error&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
+└ @ none:2
+┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
+└ @ none:3
+┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
+└ @ none:4
+┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
+└ @ none:5</pre><p><img src="../ch08-rie2-plot.svg" alt/></p><p>今度は、相対誤差を、両対数グラフで描く。</p><pre><code class="language-julia">using PyPlot
+for m in 0:12
+  n=2^m
+  xs=range(xmin,xmax,length=n+1)
+  d=(xmax-xmin)/n
+  s1=0
+  for i in 1:n
+    x=xs[i]
+    s1 += g(x)*d
+  end
+  plt.plot(n, abs(s1 - se) / se, &quot;.&quot;, color=&quot;g&quot;)
+end
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;relative error (absolute value)&quot;)
+plt.xscale(&quot;log&quot;)
+plt.yscale(&quot;log&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
+└ @ none:2
+┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
+└ @ none:3
+┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
+└ @ none:4
+┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
+└ @ none:5</pre><p><img src="../ch08-rie3-plot.svg" alt/></p><h3 id="総和関数-sum"><a class="docs-heading-anchor" href="#総和関数-sum">■ 総和関数 sum</a><a id="総和関数-sum-1"></a><a class="docs-heading-anchor-permalink" href="#総和関数-sum" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/base/collections/#Base.sum"><code>Base.sum</code> — Function</a></li></ul><p>関数 <code>sum(xs)</code> は、数のコレクション <span>$v$</span> を引数にとり、<span>$v$</span> の全ての要素の総和を求める。</p><pre><code class="language-julia-repl">julia&gt; sum([1,2,3,4,5])
+15
+
+julia&gt; sum(1:5)
+15</code></pre><h3 id="級数和の公式（関数-sumを用いる)"><a class="docs-heading-anchor" href="#級数和の公式（関数-sumを用いる)">▼ 級数和の公式（関数 sumを用いる)</a><a id="級数和の公式（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#級数和の公式（関数-sumを用いる)" title="Permalink"></a></h3><div>\[\sum_{k=1}^{n} k = 1 + 2 + \cdots + k + \cdots + n^2 = \dfrac{n(n+1)}{2}\]</div><pre><code class="language-julia">using PyPlot
+nmax=25
+xs1=0:0.2:nmax
+plt.plot(xs1, xs1.*(xs1 .+1)/2, label=&quot;sum i&quot;, &quot;b&quot;)
+
+ns=0:nmax
+for n in ns
+  xs=1:n
+  s1=sum(xs)
+  plt.plot(n,s1, &quot;bo&quot;)
+end
+
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;sum i up to n&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
+└ @ none:2
+┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
+└ @ none:3</pre><p><img src="../ch08-sum3-plot.svg" alt/></p><div>\[\sum_{k=1}^{n} k^2 = 1^2 + 2^2 + \cdots + k^2 + \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}\]</div><pre><code class="language-julia">using PyPlot
+nmax=25
+xs1=0:0.2:nmax
+plt.plot(xs1, xs1.*(xs1 .+1).*(2*xs1 .+1)/6, &quot;b&quot;)
+
+ns=0:nmax
+for n in ns
+  # 各要素を二乗
+  xs=(1:n).^2
+  s=sum(xs)
+  plt.plot(n,s, &quot;bo&quot;)
+end
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;sum i^2 up to n&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
+└ @ none:3</pre><p><img src="../ch08-sum4-plot.svg" alt/></p><h3 id="Riemann和（関数-sumを用いる)"><a class="docs-heading-anchor" href="#Riemann和（関数-sumを用いる)">▼ Riemann和（関数 sumを用いる)</a><a id="Riemann和（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#Riemann和（関数-sumを用いる)" title="Permalink"></a></h3><p>Riemann和において、 刻み幅 <span>$d$</span> は全ての短冊に共通であるから、<span>$d$</span> をくくりだして</p><div>\[s_{1} = \sum_{i=1}^{n} g(x_{i})\cdot{d} = d\cdot\sum_{i=1}^{n} g( x_{i})\]</div><p>のようにまとめることができる。すなわち、関数の値の和 <span>$\sum_{i=1}^{n} g( x_{i})$</span> をとってから <span>$d$</span>倍すればよい。関数の値の和を取るのに、関数 <code>sum</code> を使うことができる。</p><p>下のプログラムで <code>g.(xs[1:end-1])</code> は、ベクトル <code>xs[1:end-1]</code> の各要素に関数 <code>g()</code> を適用したベクトルである。</p><p>ループで和を計算した場合と、関数 <code>sum</code> を用いる場合との両方で、相対誤差を描く。 計算結果が一致していることが見える。 (参考: 結果が一致することを確かめるグラフの描画   → <a href="../ch04/#周期関数を確認する">●▼ 周期関数を確認する</a></p><pre><code class="language-julia">using PyPlot
+se=log(2)
+for m in 0:12
+  n=2^m
+  xs=range(xmin,xmax,length=n+1)
+  d=(xmax-xmin)/n
+
+  # 和を取る
+  s1=0
+  for i in 1:n
+    x=xs[i]
+    s1 += g(x)*d
+  end
+  plt.plot(n, abs(s1 - se)/se , &quot;ro&quot;, color=&quot;b&quot;)
+
+  # sum を使う
+  s2=sum( g.(xs[1:end-1]))*d
+  plt.plot(n, abs(s2 - se)/se , &quot;b.&quot;, color=&quot;r&quot;)
+end
+plt.xscale(&quot;log&quot;)
+plt.yscale(&quot;log&quot;)
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;absolute error&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
+└ @ none:2
+┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
+└ @ none:3
+┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
+└ @ none:4
+┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
+└ @ none:7</pre><p><img src="../ch08-rie4-plot.svg" alt/></p><h3 id="台形則（関数-sumを用いる)"><a class="docs-heading-anchor" href="#台形則（関数-sumを用いる)">▼ 台形則（関数 sumを用いる)</a><a id="台形則（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#台形則（関数-sumを用いる)" title="Permalink"></a></h3><p>今度は、短冊を台形として計算してみる。</p><pre><code class="language-julia">using PyPlot
+m=2
+n=2^m
+xmin=0
+xmax=1
+xs=range(xmin,xmax,length=n+1)
+d=(xmax-xmin)/n
+
+g(x)=1/(1+x)
+plt.plot(xs, g.(xs), &quot;b&quot;)
+plt.ylim(0,1.2)
+
+for i in 1:n
+  x=xs[i]
+  plt.plot([x, x, x+d, x+d], [0, g(x), g(x+d), 0], &quot;k&quot;, lw=0.5)
+end</code></pre><p><img src="../ch08-tra1-plot.svg" alt/></p><p>総和をとるとき、隣り合う台形の面積をまとめることができることに注目しよう。</p><div>\[s_{t} = \sum_{i=1}^{n} \dfrac{g(x_i)+g(x_{i+1}) }{2}\cdot{d} = d\cdot\left[ \dfrac{g(x_1)}{2} + \sum_{i=2}^{n-1} g(x_i)  + \dfrac{g(x_{n})}{2} \right]\]</div><p>先の Riemann和と台形則の値を両方計算してみよう。</p><pre><code class="language-julia">se=log(2)
+
+# Riemann和
+s1=0
+for x in xs[1:end-1]
+  global s1
+  s1 += g(x)*d
+end
+
+# 台形則
+st=(g(xs[1])+g(xs[end]))/2
+for i in 2:n
+  global st
+  x=xs[i]
+  st += g(x)
+end
+st *= d
+#
+@show s1, st, (s1-se)/se, (s1-se)/se;</code></pre><pre class="documenter-example-output">(0.7595238095238095, 0.6970238095238095, 0.09576123343709363, 0.09576123343709363)</pre><p>関数 <code>sum</code>を使って簡潔に書こう。</p><pre><code class="language-julia">se=log(2)
+m=4
+n=2^m
+xs=range(xmin,xmax,length=n+1)
+d=(xmax-xmin)/n
+s1=sum( g.(xs[1:end-1]))*d
+
+st=(g(xs[1])+g(xs[end]))/2
+st += sum( g.(xs[2:end-1]))
+st *= d
+#
+@show s1, st, (s1-se)/se, (s1-se)/se;</code></pre><pre class="documenter-example-output">(0.7090162022075267, 0.6933912022075267, 0.022894158834725318, 0.022894158834725318)</pre><p>相対誤差を描く。</p><pre><code class="language-julia">using PyPlot
+se=log(2)
+for m in 0:12
+  n=2^m
+  xs=range(xmin,xmax,length=n+1)
+  d=(xmax-xmin)/n
+
+  s1=sum( g.(xs[1:end-1]))*d
+
+  st=(g(xs[1])+g(xs[end]))/2
+  st += sum( g.(xs[2:end-1]))
+  st *= d
+
+  plt.plot(n, abs(s1 - se) / se, &quot;.&quot;, color=&quot;g&quot;)
+  plt.plot(n, abs(st - se) / se , &quot;.&quot;, color=&quot;r&quot;)
+end
+
+plt.xlabel(&quot;n&quot;)
+plt.ylabel(&quot;relative error (absolute value)&quot;)
+plt.xscale(&quot;log&quot;)
+plt.yscale(&quot;log&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
+└ @ none:2
+┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
+└ @ none:3
+┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
+└ @ none:4
+┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
+└ @ none:6
+┌ Warning: Assignment to `st` in soft scope is ambiguous because a global variable by the same name exists: `st` will be treated as a new local. Disambiguate by using `local st` to suppress this warning or `global st` to assign to the existing global variable.
+└ @ none:8</pre><p><img src="../ch08-tra3-plot.svg" alt/></p><h3 id="練習：Riemann和・台形則"><a class="docs-heading-anchor" href="#練習：Riemann和・台形則">◀ 練習：Riemann和・台形則</a><a id="練習：Riemann和・台形則-1"></a><a class="docs-heading-anchor-permalink" href="#練習：Riemann和・台形則" title="Permalink"></a></h3><p>以下の定積分の近似値を、Riemann和と台形則でそれぞれ評価してみよ。 (注記されていない)定積分の理論値は各自計算せよ。</p>\begin{gather*}
+\int^{1}_{0} 3x^2\;dx\;, \\
+\int^{1}_{0} 3 \left(x+1 \right)^2\;dx\;, \\
+\int^{1}_{0} \exp{x}\;dx\;, \\
+\int^{2}_{0} \dfrac{1}{(1+x)^2}\;dx\;=\dfrac{2}{3}, \\
+\int^{\pi}_{0} \sin{x}\;dx\;, \\
+\int^{1}_{-1} \dfrac{2}{1+x^2}\;dx = \pi
+\end{gather*}<h2 id="繰返し内部からの脱出"><a class="docs-heading-anchor" href="#繰返し内部からの脱出">■ 繰返し内部からの脱出</a><a id="繰返し内部からの脱出-1"></a><a class="docs-heading-anchor-permalink" href="#繰返し内部からの脱出" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.1/manual/control-flow/#man-loops-1">Repeated Evaluation: Loops</a></li></ul><p><code>for</code>文の繰り返し (<code>for</code>ブロック)の内部で、<code>break</code> 文を使うと、現在繰り返し中のループから直ちに抜けることができる。</p><pre><code class="language-julia-repl">julia&gt; for i = 1:1000
+         println(i)
+         if i &gt;= 5
+           break
+         end
+       end
+1
+2
+3
+4
+5</code></pre><p>乱数の値が <span>$0.8$</span> を超えるまで繰り返す。</p><pre><code class="language-julia">for i in 1:10
+  r=rand()
+  println(r)
+  if r &gt; 0.8
+    break
+  end
+end</code></pre><pre class="documenter-example-output">0.010259872021514793
+0.9077869690586415</pre><p>二重ループ、内側のループからの脱出</p><pre><code class="language-julia-repl">julia&gt; for j in 1:3
+         for i in 1:5
+           println(&quot;i=&quot;*string(i)*&quot; j=&quot;*string(j))
+           if i &gt;= 3
+             break
+           end
+         end
+       end
+i=1 j=1
+i=2 j=1
+i=3 j=1
+i=1 j=2
+i=2 j=2
+i=3 j=2
+i=1 j=3
+i=2 j=3
+i=3 j=3</code></pre><p>一つの<code>for</code>文に二つの繰り返しを書いた場合、<code>break</code>で <code>for</code>文全体から抜けてしまう。</p><pre><code class="language-julia-repl">julia&gt; for j in 1:3, i in 1:5
+         println(&quot;i=&quot;*string(i)*&quot; j=&quot;*string(j))
+         if i &gt;= 3
+           break
+         end
+       end
+i=1 j=1
+i=2 j=1
+i=3 j=1</code></pre><p><code>for</code>ブロックの内部で、<code>continue</code> 文を使うと、次の繰り返しに直ちに移動できる。 以下で、<code>i % 3</code> は <code>rem(i,3)</code> と同じである。 参考→ <a href="../ch06/#残余-rem-と整商-div">■ 残余 rem と整商 div</a></p><pre><code class="language-julia-repl">julia&gt; for i = 1:10
+         if i % 3 != 0
+           continue
+         end
+         println(i)
+       end
+3
+6
+9</code></pre><h2 id="練習：-条件が成り立つまで繰り返す：数値積分"><a class="docs-heading-anchor" href="#練習：-条件が成り立つまで繰り返す：数値積分">◀● 練習： 条件が成り立つまで繰り返す：数値積分</a><a id="練習：-条件が成り立つまで繰り返す：数値積分-1"></a><a class="docs-heading-anchor-permalink" href="#練習：-条件が成り立つまで繰り返す：数値積分" title="Permalink"></a></h2><p>(少し難しいので、後回しにしてもよい)</p><p>分割数 <span>$n$</span>を <span>$2^{20}$</span>まで、2の冪乗で増やしていけ、 ただし、相対誤差が <span>$10^{-4}$</span> 以下になったら、そこで終了せよ。</p><p><a href="#Riemann和（関数-sumを用いる)">▼ Riemann和（関数 sumを用いる)</a> 、または、 <a href="#台形則（関数-sumを用いる)">▼ 台形則（関数 sumを用いる)</a> の、どちらを用いてもよい。</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルのインデックス</li><li>要素が <code>0</code>または<code>1</code>のベクトルの生成</li><li>ベクトルの総和 <code>sum</code></li><li>級数和</li><li>フーリエ級数の和</li><li>数値積分：Riemann和</li><li>数値積分：台形則</li><li>繰返し内部からの脱出</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch07/">« 第7回：■ 浮動小数点数</a><a class="docs-footer-nextpage" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 6 September 2020 23:59">Sunday 6 September 2020</span>. Using Julia version 1.5.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
