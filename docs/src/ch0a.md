@@ -7,8 +7,8 @@
 
 ただし、動径 $r$ は、以下の式で与えられるものとする。
 
-```@raw html
-\begin{align*}
+```math
+\begin{aligned}
 r_{1} & = \sin \theta + \cos \theta, \\
 r_{2} & = 2 + 2\sin \theta = 2 \left(1 + \sin\theta \right), \\
 r_{3} & = \dfrac{3}{2} + \sin \theta, \\
@@ -26,7 +26,7 @@ r_{14} & = \dfrac{1}{1+\dfrac{1}{2}\cos \theta}, \\
 r_{15} & = \dfrac{1}{1+2\cos \theta}, \\
 r_{16} & = \dfrac{1}{1-\cos \theta}, \\
 r_{17} & = \dfrac{1}{1+\sin \theta},
-\end{align*}
+\end{aligned}
 ```
 
 
@@ -101,12 +101,12 @@ plt.close("all"); nothing #hide
 
 三角関数の合成の公式を用いると、$r_{1}$ は、以下のように変形できる。
 
-```@raw html
-\begin{align*}
+```mathrm
+\begin{aligned}
 r_{1} & = \sin \theta + \cos \theta
 = \sqrt{2} \left\{ \sin \theta \dfrac{1}{\sqrt{2}} + \cos \theta \dfrac{1}{\sqrt{2}} \right\} \\
 & = \sqrt{2} \sin \left( \theta + \dfrac{\pi}{4} \right)
-\end{align*}
+\end{aligned}
 ```
 
 すなわち、曲線 $r_{0}$ を、時計方向に $\dfrac{\pi}{4}$ だけ回転し、
@@ -183,11 +183,11 @@ plt.close("all"); nothing #hide
 
 ## 曲線 $r_{6},r_{7}$
 
-```@raw html
-\begin{align*}
+```math
+\begin{aligned}
 r_{6} & = \cos \dfrac{\theta}{2} \quad \left( 0 \le \theta \le 4\pi \right), \\
 r_{7} & = \sin \dfrac{\theta}{2} \quad \left( 0 \le \theta \le 6\pi \right)
-\end{align*}
+\end{aligned}
 ```
 
 ```@example ch000
@@ -398,12 +398,12 @@ plt.close("all"); nothing #hide
 - 範囲 $a = 1$ : 放物線
 - 範囲 $a > 1$ : 双曲線
 
-```@raw html
-\begin{align*}
+```math
+\begin{aligned}
 r_{13} & = \dfrac{1}{1+\cos \theta}, \\
 r_{14} & = \dfrac{1}{1+\dfrac{1}{2}\cos \theta}, \\
 r_{15} & = \dfrac{1}{1+2\cos \theta}
-\end{align*}
+\end{aligned}
 ```
 
 
