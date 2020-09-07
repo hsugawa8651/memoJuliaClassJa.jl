@@ -23,13 +23,13 @@ v1.x ではできなくなった。
 1次元配列 (ベクトル)の場合
 
 ```@repl
-v=[ 1, 2, 3, 4]
-v+1 # エラー
-v.+1
-@. v+1
-v-1 # エラー
-v.-1
-@. v-1
+v = [1, 2, 3, 4]
+v + 1 # エラー
+v .+ 1
+@. v + 1
+v - 1 # エラー
+v .- 1
+@. v - 1
 ```
 
 2次元配列 (行列)の場合
@@ -47,7 +47,7 @@ m.-1
 ## 配列とスカラーの加減算による更新は `.+=`, `.-=` を用いる
 
 v0.6.4 では、
-配列 `v` にスカラー `a` を加減して更新すること (`v+a` または `v-a`) ができたが、
+配列 `v` にスカラー `a` を加減して更新すること（`v+a` または `v-a` ）ができたが、
 v1.x ではできなくなった。
 代わりに、`v.+=a` または　`v.=a` とする。
 あるいは、式の前に `@.` を置いて、`@. v+=a` または `@. v-=a` と書いてもよい。
@@ -55,34 +55,34 @@ v1.x ではできなくなった。
 1次元配列 (ベクトル)の場合
 
 ```@repl
-v=[ 1, 2, 3, 4]
-v+=1 # エラー
-v.+=1
-@. v+=1
-v-=1 # エラー
-v.-=1
-@. v-=1
+v = [1, 2, 3, 4]
+v += 1 # エラー
+v .+= 1
+@. v += 1
+v -= 1 # エラー
+v .-= 1
+@. v -= 1
 ```
 
 2次元配列 (行列)の場合
 
 ```@repl
-m=[ 1 2; 3 4]
-m+=1 # エラー
-m.+=1
-@. m+=1
-m-=1 # エラー
-m.-=1
-@. m-=1
+m = [1 2; 3 4]
+m += 1 # エラー
+m .+= 1
+@. m += 1
+m -= 1 # エラー
+m .-= 1
+@. m -= 1
 ```
 
 
-なお、配列 `v` にスカラー `a` を乗除して更新すること (`v*=a` または `v/=a`) は v1.x でも可能である。
+なお、配列 `v` にスカラー `a` を乗除して更新すること（`v*=a` または `v/=a` ）は v1.x でも可能である。
 
 ```@repl
-v=[ 1, 2, 3, 4]
-v*=2
-v/=2
+v = [1, 2, 3, 4]
+v *= 2
+v /= 2
 ```
 
 
@@ -95,7 +95,7 @@ v1.x では、代わりに `zero(a)`　を用いる。
 要素の値を全て `0` にする命令である。
 
 ```@repl
-a=[1 2; 3 4]
+a = [1 2; 3 4]
 zeros(a) # エラー
 zero(a)
 a *= 1.0
@@ -111,7 +111,7 @@ v1.1 では、代わりに `zero(a)`　を用いる。
 要素の値を全て `1` にする命令である。
 
 ```@repl
-a=[1 2; 3 4]
+a = [1 2; 3 4]
 ones(a) # エラー
 one(a)
 a *= 1.0
@@ -138,11 +138,11 @@ v0.6.4 では、PyPlot パッケージで `o[:s]`　の形で、
 
 ```@repl
 using PyPlot
-fig=plt.figure()
-ax1=fig.add_subplot(121)
-ax1.plot([3,2,1])
-ax2=fig.add_subplot(122)
-ax2.plot([2,3,1])
+fig = plt.figure()
+ax1 = fig.add_subplot(121)
+ax1.plot([3, 2, 1])
+ax2 = fig.add_subplot(122)
+ax2.plot([2, 3, 1])
 ```
 
 アスペクト比 (縦横の寸法の比) を等しくするのに、
@@ -152,11 +152,11 @@ ax2.plot([2,3,1])
 ```@repl
 using PyPlot
 plt.clf()
-xs=-1:0.1:1
-ys=xs.^2;
-zs=xs.^3;
-plot(xs,ys);
-plot(xs,zs);
+xs = -1:0.1:1
+ys = xs .^ 2;
+zs = xs .^ 3;
+plot(xs, ys);
+plot(xs, zs);
 plt.axes().set_aspect("equal")
 ```
 
@@ -174,9 +174,9 @@ v1.1で、上の２つに対応するのは、関数 `LinRange(a,b,n)` である
 `LinRange` は３番目の引数を省略できない。
 
 ```@repl
-linspace(-1,1) # エラー
-LinRange(-1,1) # エラー
-LinRange(-1,1,50)
+linspace(-1, 1) # エラー
+LinRange(-1, 1) # エラー
+LinRange(-1, 1, 50)
 ```
 
 より柔軟に等差数列を作るには、`range` 関数を用いる。
@@ -188,11 +188,11 @@ LinRange(-1,1,50)
 `step` の既定値は `1` である。
 
 ```@repl
-range(1,10) # エラー
+range(1, 10) # エラー
 # 初項 1, 最終項 10, 等差 1 (指定しない)
-range(1,10,length=10)
+range(1, 10, length = 10)
 # 初項 1, 最終項 10, 等差 2
-range(1,10,step=2)
+range(1, 10, step = 2)
 collect(ans)
 ```
 
@@ -202,29 +202,31 @@ collect(ans)
 `range(-1,1,length=50)`　である。
 
 ```@repl
-r1=LinRange(-1,1,50)
-r2=range(-1,1,length=50)
+r1 = LinRange(-1, 1, 50)
+r2 = range(-1, 1, length = 50)
 ```
 
 両者は計算方法が異なるので、数値は微妙に異なる。
 
 ```@repl
-r1=collect(r1)
-r2=collect(r2)
+r1 = LinRange(-1, 1, 50); nothing #hide
+r2 = range(-1, 1, length = 50); nothing #hide
+r1 = collect(r1)
+r2 = collect(r2)
 r1 .== r2 # 全て true ではない
 abs.(r1 .- r2) # 残差
-isapprox.(r1,r2) # 全て true となる
+isapprox.(r1, r2) # 全て true となる
 ```
 
-## `logspace`は廃止。`exp10.(LinRange(a,b,n))` などを用いる
+## `logspace` は廃止。`exp10.(LinRange(a,b,n))` などを用いる
 
 v0.6.4で、$10$ のべき乗で等比数列を作る `logspace` は、v1.x で廃止された。
 代わりに、`exp10.(LinRange(a,b,n))` などを用いる。
 
 ```@repl
-logspace(-2,2,5) # エラー
-exp10.(LinRange(-2,2,5)) # LinRange を用いる
-exp10.(range(-2,stop=2)) # range を用いる
+logspace(-2, 2, 5) # エラー
+exp10.(LinRange(-2, 2, 5)) # LinRange を用いる
+exp10.(range(-2, stop = 2)) # range を用いる
 ```
 
 
