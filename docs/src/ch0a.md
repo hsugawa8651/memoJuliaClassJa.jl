@@ -475,7 +475,7 @@ plt.close("all"); nothing #hide
 
 ## 曲線 $r_{13}$, $r_{16}$
 
-曲線 $r_{13} = \dfrac{1}{1+\cos \theta}$ と $r_{16} = \dfrac{1}{1-\cos \theta}$ は、``y`` 軸に対して鏡像の関係にある。
+曲線 $r_{13} = \dfrac{1}{1+\cos \theta}$ と $r_{16} = \dfrac{1}{1-\cos \theta}$ は、 ``y`` 軸に対して鏡像の関係にある。
 
 ```@example ch000
 using PyPlot
