@@ -152,6 +152,7 @@ ax2.plot([2, 3, 1])
 ```@repl
 using PyPlot
 plt.clf()
+
 xs = -1:0.1:1
 ys = xs .^ 2;
 zs = xs .^ 3;

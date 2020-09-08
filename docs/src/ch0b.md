@@ -73,8 +73,8 @@ end
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize = (6.4, 4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
 
 dora1()
@@ -116,8 +116,9 @@ end
 上の関数の動作を確認しよう。上に続けて
 
 ```@example ch000
-# clf() #hide
-plt.figure(figsize = (6.4, 4.8)) #hide
+using PyPlot
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
 
 draw_ellipse(1, 1, 2, 1, "g")
@@ -128,7 +129,7 @@ plt.axhline(1, color = "k", lw = 0.5)
 plt.axvline(1, color = "k", lw = 0.5)
 
 plt.savefig("ch0b-dora-ellipse.svg"); nothing; #hide
-plt.close("all"); nothing; #hide
+nothing; #hide
 ```
 
 ![](ch0b-dora-ellipse.svg)
@@ -146,10 +147,6 @@ end
 上の関数の動作を確認しよう。上に続けて
 
 ```@example ch000
-# clf() #hide
-plt.figure(figsize = (6.4, 4.8)) #hide
-plt.axes().set_aspect("equal")
-
 draw_line(-1, -1, 3, 2, "b")
 draw_line(-1, 3, 3, 0, "g")
 plt.xlim(-2, 4)
@@ -157,7 +154,7 @@ plt.ylim(-2, 4)
 plt.axhline(1, color = "k", lw = 0.5)
 plt.axvline(1, color = "k", lw = 0.5)
 plt.savefig("ch0b-dora-line.svg"); nothing; #hide
-plt.close("all"); nothing; #hide
+nothing; #hide
 ```
 
 ![](ch0b-dora-line.svg)
@@ -177,9 +174,6 @@ end
 上の関数の動作を確認しよう。上に続けて
 
 ```@example ch000
-plt.figure(figsize = (6.4, 4.8)) #hide
-plt.axes().set_aspect("equal")
-
 draw_para(1, 0, -1, -2, 2, "b")
 draw_para(-1, 0, 1, -2, 2, "g")
 plt.xlim(-3, 3)
@@ -197,7 +191,7 @@ plt.close("all"); nothing; #hide
 
 これらの「下請け」関数を呼び出す形で、元の関数 `dora1()` を書き直そう。
 隣接する部分がまとまるように、行の順番を少し入れ替えて、コメントをつけた
-( 元の描画順に意図があるなら、ご容赦願いたい )。
+（元の描画順に意図があるなら、ご容赦願いたい）。
 
 ```@example ch000
 function dora2()
@@ -237,8 +231,8 @@ end
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize = (6.4, 4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
 
 dora2()

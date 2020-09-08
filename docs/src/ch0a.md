@@ -71,10 +71,10 @@ r_{17} & = \dfrac{1}{1+\sin \theta},
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/72:2pi
 #
 r0 = sin.(ts)
@@ -101,7 +101,7 @@ plt.close("all"); nothing #hide
 
 三角関数の合成の公式を用いると、$r_{1}$ は、以下のように変形できる。
 
-```mathrm
+```math
 \begin{aligned}
 r_{1} & = \sin \theta + \cos \theta
 = \sqrt{2} \left\{ \sin \theta \dfrac{1}{\sqrt{2}} + \cos \theta \dfrac{1}{\sqrt{2}} \right\} \\
@@ -119,10 +119,10 @@ r_{1} & = \sin \theta + \cos \theta
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/72:2pi
 #
 r2 = 2 * (1 .+sin.(ts))
@@ -154,10 +154,10 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/72:2pi
 #
 r4 = 1 .+ cos.(ts)
@@ -192,10 +192,10 @@ r_{7} & = \sin \dfrac{\theta}{2} \quad \left( 0 \le \theta \le 6\pi \right)
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 #
 ts4=0:pi/18:4pi
 r6 = cos.(ts4./2)
@@ -226,10 +226,9 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
 #
 ts4=0:pi/18:pi        # <--
 r6 = cos.(ts4./2)
@@ -263,10 +262,9 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
 #
 ts=0:pi/72:2pi
 #
@@ -292,10 +290,9 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
 #
 ts=0:pi/72:2pi *3/8 # <--
 #
@@ -325,10 +322,10 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/72:2pi
 #
 r10 = (sin.(3ts)).^2
@@ -363,10 +360,10 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/72:2pi
 #
 r11 = tan.(ts)
@@ -409,10 +406,10 @@ r_{15} & = \dfrac{1}{1+2\cos \theta}
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/144:2pi
 #
 a=1
@@ -448,10 +445,10 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/144:2pi
 #
 r13 = 1 ./ (1 .+ cos.(ts))
@@ -482,10 +479,10 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-# clf() #hide
-plt.figure(figsize=(6.4,4.8)) #hide
+clf() #hide
+plt.figure(); nothing #hide
 plt.axes().set_aspect("equal")
-; #hide
+
 ts=0:pi/144:2pi
 #
 r13 = 1 ./ (1 .+ cos.(ts))
