@@ -3,8 +3,8 @@ CurrentModule = memoJuliaClassJa
 ```
 # 2020年度版
 
-この内容は、2020年度後期の授業（2020年10月から2021年1月）向けに公開するものです。
-- 実行結果は、Julia 1.5 （→ [Julia v1.5 Release Notes](https://docs.julialang.org/en/v1/NEWS/#Julia-v1.5-Release-Notes)）により出力されたものです。
+この内容は,2020年度後期の授業（2020年10月から2021年1月）向けに公開するものです．
+- 実行結果は,Julia 1.5 （→ [Julia v1.5 Release Notes](https://docs.julialang.org/en/v1/NEWS/#Julia-v1.5-Release-Notes)）により出力されたものです．
 
 ## Preface
 

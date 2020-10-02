@@ -1,11 +1,11 @@
 
 # [付録A：2018年度・定期レポートへのコメント（その1）](@id ch0a)
 
-※ 以下のプログラムは、Julia 1.1向けに書き直した。
+※ 以下のプログラムは,Julia 1.1向けに書き直した．
 
-極座標 $(r, \theta)$ で記述される曲線を描き、その類似点を考察せよ、という課題であった。
+極座標 $(r, \theta)$ で記述される曲線を描き,その類似点を考察せよ,という課題であった．
 
-ただし、動径 $r$ は、以下の式で与えられるものとする。
+ただし,動径 $r$ は,以下の式で与えられるものとする．
 
 ```math
 \begin{aligned}
@@ -32,14 +32,14 @@ r_{17} & = \dfrac{1}{1+\sin \theta},
 
 ## 分類
 
-引数 $\theta$ に対する周期性から、以下のように分類できるであろう。
+引数 $\theta$ に対する周期性から,以下のように分類できるであろう．
 
 - 周期 $2\pi$ を持つもの
   - 単純な余弦・正弦 $\cos \theta, \sin \theta$ を含む曲線
   - 曲線 $r_{1},r_{2},r_{3},r_{4},r_{5}$
 
 - 周期 $4\pi$ を持つもの
-  - 半角の余弦、正弦 $\cos \dfrac{\theta}{2}, \sin \dfrac{\theta}{2}$ を含む曲線
+  - 半角の余弦,正弦 $\cos \dfrac{\theta}{2}, \sin \dfrac{\theta}{2}$ を含む曲線
   - 曲線 $r_{6},r_{7}$
 
 - 周期 $\pi$ を持つもの
@@ -64,10 +64,10 @@ r_{17} & = \dfrac{1}{1+\sin \theta},
 
 ## 曲線 $r_{1}$
 
-以下、何も工夫せずに、曲線を描いてみる。
-ただし、描画範囲は適宜調整した。
+以下,何も工夫せずに,曲線を描いてみる．
+ただし,描画範囲は適宜調整した．
 
-曲線 $r_{1} = r_{1} = \sin \theta + \cos \theta$ を曲線 $r_{0} = \sin \theta$ と一緒に描く。
+曲線 $r_{1} = r_{1} = \sin \theta + \cos \theta$ を曲線 $r_{0} = \sin \theta$ と一緒に描く．
 
 ```@example ch000
 using PyPlot
@@ -99,7 +99,7 @@ plt.close("all"); nothing #hide
 ![](ch0a-plot1.svg)
 
 
-三角関数の合成の公式を用いると、$r_{1}$ は、以下のように変形できる。
+三角関数の合成の公式を用いると,$r_{1}$ は,以下のように変形できる．
 
 ```math
 \begin{aligned}
@@ -109,13 +109,13 @@ r_{1} & = \sin \theta + \cos \theta
 \end{aligned}
 ```
 
-すなわち、曲線 $r_{0}$ を、時計方向に $\dfrac{\pi}{4}$ だけ回転し、
-原点を中心に $\sqrt{2}$ だけ拡大したものが、曲線 $r_{1}$ である。
+すなわち,曲線 $r_{0}$ を,時計方向に $\dfrac{\pi}{4}$ だけ回転し,
+原点を中心に $\sqrt{2}$ だけ拡大したものが,曲線 $r_{1}$ である．
 
 
 ## 曲線 $r_{2},r_{3}$
 
-曲線 $r_{2} = 2 \left(1 + \sin\theta \right), r_{3} = \dfrac{3}{2} + \sin \theta$ は、y軸に対して対称である。
+曲線 $r_{2} = 2 \left(1 + \sin\theta \right), r_{3} = \dfrac{3}{2} + \sin \theta$ は,y軸に対して対称である．
 
 ```@example ch000
 using PyPlot
@@ -148,9 +148,9 @@ plt.close("all"); nothing #hide
 
 ## 曲線 $r_{4},r_{5}$
 
-曲線 $r_{2} = 2 \left(1 + \sin\theta \right)$ を時計方向に $\dfrac{\pi}{2}$ だけ回転したものが、曲線 $r_{4}$ である。
+曲線 $r_{2} = 2 \left(1 + \sin\theta \right)$ を時計方向に $\dfrac{\pi}{2}$ だけ回転したものが,曲線 $r_{4}$ である．
 
-曲線 $r_{4} = 1 + \cos \theta, r_{5} = \dfrac{1}{2} + \cos \theta$ は、x軸に対して対称である。
+曲線 $r_{4} = 1 + \cos \theta, r_{5} = \dfrac{1}{2} + \cos \theta$ は,x軸に対して対称である．
 
 ```@example ch000
 using PyPlot
@@ -220,9 +220,9 @@ plt.close("all"); nothing #hide
 
 ![](ch0a-plot2.svg)
 
-曲線 $r_{6}$ と $r_{7}$ は一致した。
+曲線 $r_{6}$ と $r_{7}$ は一致した．
 
-ちなみに、$\theta$ の定義域を狭めて描いてみよう。
+ちなみに,$\theta$ の定義域を狭めて描いてみよう．
 
 ```@example ch000
 using PyPlot
@@ -253,12 +253,12 @@ plt.close("all"); nothing #hide
 
 ![](ch0a-plot2b.svg)
 
-これをよく観察すると、
-曲線 $r_{6}$ 上の点と、曲線 $r_{7}$ 上の点の対応関係が見えてくるであろう。
+これをよく観察すると,
+曲線 $r_{6}$ 上の点と,曲線 $r_{7}$ 上の点の対応関係が見えてくるであろう．
 
 ## 曲線 $r_{8},r_{9}$
 
-曲線 $r_{8} = = \left(\sin \theta\right)^2, r_{9} = 1 + 3 \left(\cos 2\theta \right)^{2}$ の動径は、正である。
+曲線 $r_{8} = = \left(\sin \theta\right)^2, r_{9} = 1 + 3 \left(\cos 2\theta \right)^{2}$ の動径は,正である．
 
 ```@example ch000
 using PyPlot
@@ -286,7 +286,7 @@ plt.close("all"); nothing #hide
 
 ![](ch0a-plot3.svg)
 
-ちなみに、$t$ の定義域を狭めて描いてみよう。
+ちなみに,$t$ の定義域を狭めて描いてみよう．
 
 ```@example ch000
 using PyPlot
@@ -318,7 +318,7 @@ plt.close("all"); nothing #hide
 ## 曲線 $r_{10}$
 
 曲線 $r_{10} = \left( \sin 3\theta \right)^{2}$ と
-花曲線 $r_{10b} = \sin (3\theta)$ とともに描いてみよう。
+花曲線 $r_{10b} = \sin (3\theta)$ とともに描いてみよう．
 
 ```@example ch000
 using PyPlot
@@ -349,14 +349,14 @@ plt.close("all"); nothing #hide
 
 ## 曲線 $r_{11}$, $r_{12}$
 
-- 正接 $\tan \theta$ は $\dfrac{\pi}{2}$ の奇数倍で、正負の無限大に発散する。
-- 余接 $\cot \theta$ は $\dfrac{\pi}{2}$ の偶数倍で、正負の無限大に発散する。
+- 正接 $\tan \theta$ は $\dfrac{\pi}{2}$ の奇数倍で,正負の無限大に発散する．
+- 余接 $\cot \theta$ は $\dfrac{\pi}{2}$ の偶数倍で,正負の無限大に発散する．
 
-これら発散する $\theta$ においては、曲線は x軸や y軸に平行な直線に漸近することになる。
+これら発散する $\theta$ においては,曲線は x軸や y軸に平行な直線に漸近することになる．
 
-曲線 $r_{11} = \tan \theta$ は、$x = \pm {1}$ に漸近する。
+曲線 $r_{11} = \tan \theta$ は,$x = \pm {1}$ に漸近する．
 
-曲線 $r_{12} = \cot 2\theta$ は、$x = \pm\dfrac{1}{2}$ または $y = \pm\dfrac{1}{2}$ に漸近する。
+曲線 $r_{12} = \cot 2\theta$ は,$x = \pm\dfrac{1}{2}$ または $y = \pm\dfrac{1}{2}$ に漸近する．
 
 ```@example ch000
 using PyPlot
@@ -388,9 +388,9 @@ plt.close("all"); nothing #hide
 ## 曲線 $r_{13}$, $r_{14}$, $r_{15}$
 
 
-(再掲) これらの曲線は $r = \dfrac{1}{1+a \cos \theta}$ の形である。
+(再掲) これらの曲線は $r = \dfrac{1}{1+a \cos \theta}$ の形である．
 
-パラメータ $a$ の範囲により、見かけが異なる
+パラメータ $a$ の範囲により,見かけが異なる
 - 範囲 $0 < a < 1$ : 楕円
 - 範囲 $a = 1$ : 放物線
 - 範囲 $a > 1$ : 双曲線
@@ -441,7 +441,7 @@ plt.close("all"); nothing #hide
 
 ## 曲線 $r_{13}$, $r_{17}$
 
-曲線 $r_{13} = \dfrac{1}{1+\cos \theta}$ と $r_{17} = \dfrac{1}{1+\sin \theta}$ は、$\sin$ と $\cos$ を入れ替えたものである。
+曲線 $r_{13} = \dfrac{1}{1+\cos \theta}$ と $r_{17} = \dfrac{1}{1+\sin \theta}$ は,$\sin$ と $\cos$ を入れ替えたものである．
 
 ```@example ch000
 using PyPlot
@@ -475,7 +475,7 @@ plt.close("all"); nothing #hide
 
 ## 曲線 $r_{13}$, $r_{16}$
 
-曲線 $r_{13} = \dfrac{1}{1+\cos \theta}$ と $r_{16} = \dfrac{1}{1-\cos \theta}$ は、 ``y`` 軸に対して鏡像の関係にある。
+曲線 $r_{13} = \dfrac{1}{1+\cos \theta}$ と $r_{16} = \dfrac{1}{1-\cos \theta}$ は, ``y`` 軸に対して鏡像の関係にある．
 
 ```@example ch000
 using PyPlot
