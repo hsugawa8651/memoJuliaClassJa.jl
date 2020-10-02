@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第13回：複素数 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch13/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li class="is-active"><a class="tocitem" href>第13回：複素数</a><ul class="internal"><li><a class="tocitem" href="#複素数を作る"><span>■ 複素数を作る</span></a></li><li><a class="tocitem" href="#複素数と整数・浮動小数点数との四則演算"><span>▶ 複素数と整数・浮動小数点数との四則演算</span></a></li><li><a class="tocitem" href="#複素数同士の四則演算"><span>▶ 複素数同士の四則演算</span></a></li><li><a class="tocitem" href="#複素数のベクトル"><span>▶ 複素数のベクトル</span></a></li><li><a class="tocitem" href="#複素数の実数部・虚数部・共役複素数"><span>▶ 複素数の実数部・虚数部・共役複素数</span></a></li><li><a class="tocitem" href="#負の数に対する平方根"><span>▶ 負の数に対する平方根</span></a></li><li><a class="tocitem" href="#ガウス平面"><span>▶ ガウス平面</span></a></li><li><a class="tocitem" href="#伝達関数"><span>◀ 伝達関数</span></a></li><li><a class="tocitem" href="#複素数に拡張された関数"><span>■ 複素数に拡張された関数</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第13回：複素数</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第13回：複素数</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch13.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch13"><a class="docs-heading-anchor" href="#ch13">第13回：複素数</a><a id="ch13-1"></a><a class="docs-heading-anchor-permalink" href="#ch13" title="Permalink"></a></h1><h2 id="複素数を作る"><a class="docs-heading-anchor" href="#複素数を作る">■ 複素数を作る</a><a id="複素数を作る-1"></a><a class="docs-heading-anchor-permalink" href="#複素数を作る" title="Permalink"></a></h2><p>以下では、<code>x, y</code> は <code>Int64</code> 型または <code>Float64</code> 型の数とする。</p><ul><li>関数 <code>complex(x)</code> は、実数部が <span>$x$</span> の複素数を作る。</li><li>関数 <code>complex(x,y)</code> は、実数部(実数部)が <span>$x$</span>、虚数部(虚数部) が <span>$y$</span> の複素数を作る。</li><li>複素数の型は、実数部と虚数部の型に合わせて <code>Complex{Int64}</code> または <code>Complex{Float64}</code> となる。<span>$x, y$</span> で <code>Int64</code> と <code>Float64</code> 型が混在した場合には。後者になる。</li></ul><pre><code class="language-julia-repl">julia&gt; complex(1)
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第13回：複素数 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch13/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li class="is-active"><a class="tocitem" href>第13回：複素数</a><ul class="internal"><li><a class="tocitem" href="#複素数を作る"><span>■ 複素数を作る</span></a></li><li><a class="tocitem" href="#複素数と整数・浮動小数点数との四則演算"><span>▶ 複素数と整数・浮動小数点数との四則演算</span></a></li><li><a class="tocitem" href="#複素数同士の四則演算"><span>▶ 複素数同士の四則演算</span></a></li><li><a class="tocitem" href="#複素数のベクトル"><span>▶ 複素数のベクトル</span></a></li><li><a class="tocitem" href="#複素数の実数部・虚数部・共役複素数"><span>▶ 複素数の実数部・虚数部・共役複素数</span></a></li><li><a class="tocitem" href="#負の数に対する平方根"><span>▶ 負の数に対する平方根</span></a></li><li><a class="tocitem" href="#ガウス平面"><span>▶ ガウス平面</span></a></li><li><a class="tocitem" href="#伝達関数"><span>◀ 伝達関数</span></a></li><li><a class="tocitem" href="#複素数に拡張された関数"><span>■ 複素数に拡張された関数</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第13回：複素数</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第13回：複素数</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch13.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch13"><a class="docs-heading-anchor" href="#ch13">第13回：複素数</a><a id="ch13-1"></a><a class="docs-heading-anchor-permalink" href="#ch13" title="Permalink"></a></h1><h2 id="複素数を作る"><a class="docs-heading-anchor" href="#複素数を作る">■ 複素数を作る</a><a id="複素数を作る-1"></a><a class="docs-heading-anchor-permalink" href="#複素数を作る" title="Permalink"></a></h2><p>以下では，<code>x, y</code> は <code>Int64</code> 型または <code>Float64</code> 型の数とする．</p><ul><li>関数 <code>complex(x)</code> は，実数部が <span>$x$</span> の複素数を作る．</li><li>関数 <code>complex(x,y)</code> は，実数部（実部）が <span>$x$</span> ,虚数部（虚部）が <span>$y$</span> の複素数を作る．</li><li>複素数の型は，実数部と虚数部の型に合わせて <code>Complex{Int64}</code> または <code>Complex{Float64}</code> となる．<span>$x, y$</span> で <code>Int64</code> と <code>Float64</code> 型が混在した場合には．後者になる．</li></ul><pre><code class="language-julia-repl">julia&gt; complex(1)
 1 + 0im
 
 julia&gt; complex(1.0)
 1.0 + 0.0im
 
 julia&gt; complex(1.0, -1.0)
-1.0 - 1.0im</code></pre><p>定数 <code>im</code> は虚数単位である。これは、<code>complex(0,1)</code> または <code>complex(0.0,1.0)</code> と同じ意味である。 複素数 <span>$x+iy$</span> を作るのに、以下のように書いてもよい （が、乗算と加算の演算を含むので、関数 <code>complex</code>を使うほうが好ましい )。</p><pre><code class="language-repl">1 - 1im
-1.0 - 1.0im</code></pre><h2 id="複素数と整数・浮動小数点数との四則演算"><a class="docs-heading-anchor" href="#複素数と整数・浮動小数点数との四則演算">▶ 複素数と整数・浮動小数点数との四則演算</a><a id="複素数と整数・浮動小数点数との四則演算-1"></a><a class="docs-heading-anchor-permalink" href="#複素数と整数・浮動小数点数との四則演算" title="Permalink"></a></h2><p>複素数と整数または浮動小数点数との四則演算は、演算子 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> を用いる。</p><pre><code class="language-julia-repl">julia&gt; z = complex(1,-1)
+1.0 - 1.0im</code></pre><p>定数 <code>im</code> は虚数単位である．これは，<code>complex(0,1)</code> または <code>complex(0.0,1.0)</code> と同じ意味である． 複素数 <span>$x+iy$</span> を作るのに，以下のように書いてもよい （が，乗算と加算の演算を含むので，関数 <code>complex</code> を使うほうが好ましい )．</p><pre><code class="language-repl">1 - 1im
+1.0 - 1.0im</code></pre><h2 id="複素数と整数・浮動小数点数との四則演算"><a class="docs-heading-anchor" href="#複素数と整数・浮動小数点数との四則演算">▶ 複素数と整数・浮動小数点数との四則演算</a><a id="複素数と整数・浮動小数点数との四則演算-1"></a><a class="docs-heading-anchor-permalink" href="#複素数と整数・浮動小数点数との四則演算" title="Permalink"></a></h2><p>複素数と整数または浮動小数点数との四則演算は，演算子 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> を用いる．</p><pre><code class="language-julia-repl">julia&gt; z = complex(1, -1)
 1 - 1im
 
 julia&gt; z + 2
@@ -20,8 +20,8 @@ julia&gt; z * 2
 2 - 2im
 
 julia&gt; z / 2
-0.5 - 0.5im</code></pre><p>零 <code>0</code> による除算は、実数部と虚数部の各々で行われ、<code>Inf</code> ないし <code>NaN</code> の値となる。</p><pre><code class="language-julia-repl">julia&gt; complex(1,0) / 0
-Inf + NaN*im</code></pre><h2 id="複素数同士の四則演算"><a class="docs-heading-anchor" href="#複素数同士の四則演算">▶ 複素数同士の四則演算</a><a id="複素数同士の四則演算-1"></a><a class="docs-heading-anchor-permalink" href="#複素数同士の四則演算" title="Permalink"></a></h2><p>複素数同士の四則演算にも、演算子 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> を用いる。</p><pre><code class="language-julia-repl">julia&gt; z = complex(1,-1)
+0.5 - 0.5im</code></pre><p>零 <code>0</code> による除算は，実数部と虚数部の各々で行われ，<code>Inf</code> ないし <code>NaN</code> の値となる．</p><pre><code class="language-julia-repl">julia&gt; complex(1, 0) / 0
+Inf + NaN*im</code></pre><h2 id="複素数同士の四則演算"><a class="docs-heading-anchor" href="#複素数同士の四則演算">▶ 複素数同士の四則演算</a><a id="複素数同士の四則演算-1"></a><a class="docs-heading-anchor-permalink" href="#複素数同士の四則演算" title="Permalink"></a></h2><p>複素数同士の四則演算にも，演算子 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> を用いる．</p><pre><code class="language-julia-repl">julia&gt; z = complex(1,-1)
 1 - 1im
 
 julia&gt; w = complex(2,-2)
@@ -37,33 +37,33 @@ julia&gt; z * w
 0 - 4im
 
 julia&gt; z / w
-0.5 - 0.0im</code></pre><p>複素数を値とする変数に対して、更新演算子 <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code> も使える。</p><pre><code class="language-julia-repl">julia&gt; z *= w
-0 - 4im</code></pre><h2 id="複素数のベクトル"><a class="docs-heading-anchor" href="#複素数のベクトル">▶ 複素数のベクトル</a><a id="複素数のベクトル-1"></a><a class="docs-heading-anchor-permalink" href="#複素数のベクトル" title="Permalink"></a></h2><p>整数または浮動小数点数のベクトルを作るのと同様な方法で、複素数のベクトルを作ることができる。</p><pre><code class="language-julia-repl">julia&gt; [ complex(0,0), complex(1,0), complex(1,1) ]
+0.5 - 0.0im</code></pre><p>複素数を値とする変数に対して，更新演算子 <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code> も使える．</p><pre><code class="language-julia-repl">julia&gt; z *= w
+0 - 4im</code></pre><h2 id="複素数のベクトル"><a class="docs-heading-anchor" href="#複素数のベクトル">▶ 複素数のベクトル</a><a id="複素数のベクトル-1"></a><a class="docs-heading-anchor-permalink" href="#複素数のベクトル" title="Permalink"></a></h2><p>整数または浮動小数点数のベクトルを作るのと同様な方法で，複素数のベクトルを作ることができる．</p><pre><code class="language-julia-repl">julia&gt; [complex(0, 0), complex(1, 0), complex(1, 1)]
 3-element Array{Complex{Int64},1}:
  0 + 0im
  1 + 0im
  1 + 1im
 
-julia&gt; [ complex(i,2i) for i in -2:2 ]
+julia&gt; [complex(i, 2i) for i = -2:2]
 5-element Array{Complex{Int64},1}:
  -2 - 4im
  -1 - 2im
   0 + 0im
   1 + 2im
-  2 + 4im</code></pre><p>複素数の零 <code>complex(0.0,0.0)</code> を 5個含むベクトルを作るには、以下のように書けばよい。</p><pre><code class="language-julia-repl">julia&gt; zeros( Complex{Float64}, 5)
+  2 + 4im</code></pre><p>複素数の零 <code>complex(0.0,0.0)</code> を <span>$5$</span> 個含むベクトルを作るには，以下のように書けばよい．</p><pre><code class="language-julia-repl">julia&gt; zeros(Complex{Float64}, 5)
 5-element Array{Complex{Float64},1}:
  0.0 + 0.0im
  0.0 + 0.0im
  0.0 + 0.0im
  0.0 + 0.0im
- 0.0 + 0.0im</code></pre><h2 id="複素数の実数部・虚数部・共役複素数"><a class="docs-heading-anchor" href="#複素数の実数部・虚数部・共役複素数">▶ 複素数の実数部・虚数部・共役複素数</a><a id="複素数の実数部・虚数部・共役複素数-1"></a><a class="docs-heading-anchor-permalink" href="#複素数の実数部・虚数部・共役複素数" title="Permalink"></a></h2><ul><li>関数 <code>real(z)</code> は複素数<code>z</code> の実数部(実数部)を返す。</li><li>関数 <code>imag(z)</code> は複素数<code>z</code> の虚数部(虚数部)を返す。</li></ul><pre><code class="language-julia-repl">julia&gt; z = complex(1,-1)
+ 0.0 + 0.0im</code></pre><h2 id="複素数の実数部・虚数部・共役複素数"><a class="docs-heading-anchor" href="#複素数の実数部・虚数部・共役複素数">▶ 複素数の実数部・虚数部・共役複素数</a><a id="複素数の実数部・虚数部・共役複素数-1"></a><a class="docs-heading-anchor-permalink" href="#複素数の実数部・虚数部・共役複素数" title="Permalink"></a></h2><ul><li>関数 <code>real(z)</code> は複素数 <code>z</code> の実数部（実部，real part）を返す．</li><li>関数 <code>imag(z)</code> は複素数 <code>z</code> の虚数部（虚部，imaginary part）を返す．</li></ul><pre><code class="language-julia-repl">julia&gt; z = complex(1, -1)
 1 - 1im
 
 julia&gt; real(z)
 1
 
 julia&gt; imag(z)
--1</code></pre><p>複素数ベクトルの各要素の実数部ないし虚数部を計算するには、dot記法を用いる。</p><pre><code class="language-julia-repl">julia&gt; zs = [ complex(0,0), complex(1,0), complex(1,1), complex(0,1), complex(0,0)]
+-1</code></pre><p>複素数ベクトルの各要素の実数部ないし虚数部を計算するには，dot記法を用いる．</p><pre><code class="language-julia-repl">julia&gt; zs = [complex(0, 0), complex(1, 0), complex(1, 1), complex(0, 1), complex(0, 0)]
 5-element Array{Complex{Int64},1}:
  0 + 0im
  1 + 0im
@@ -85,74 +85,79 @@ julia&gt; imag.(zs)
  0
  1
  1
- 0</code></pre><ul><li>関数 <code>conj(z)</code> は複素数 <code>z</code> の共役(きょうえき)複素数 (conjugate complex number) を返す。</li></ul><pre><code class="language-julia-repl">julia&gt; z = complex(1,-1)
+ 0</code></pre><ul><li>関数 <code>conj(z)</code> は複素数 <code>z</code> の「共役（きょうえき）複素数（conjugate complex number）」を返す．</li></ul><pre><code class="language-julia-repl">julia&gt; z = complex(1, -1)
 1 - 1im
 
 julia&gt; conj(z)
-1 + 1im</code></pre><h2 id="負の数に対する平方根"><a class="docs-heading-anchor" href="#負の数に対する平方根">▶ 負の数に対する平方根</a><a id="負の数に対する平方根-1"></a><a class="docs-heading-anchor-permalink" href="#負の数に対する平方根" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1/base/math/#Base.sqrt-Tuple{Real}"><code>Base.sqrt</code> - Function</a></li></ul><p>平方根 <code>sqrt(x)</code>は、負の実数 <code>x</code> に対して例外を出すが、引数を複素数の引数を与えれば計算できる。</p><pre><code class="language-julia-repl">julia&gt; # 例外を出す
+1 + 1im</code></pre><h2 id="負の数に対する平方根"><a class="docs-heading-anchor" href="#負の数に対する平方根">▶ 負の数に対する平方根</a><a id="負の数に対する平方根-1"></a><a class="docs-heading-anchor-permalink" href="#負の数に対する平方根" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1/base/math/#Base.sqrt-Tuple{Real}"><code>Base.sqrt</code> - Function</a></li></ul><p>平方根 <code>sqrt(x)</code>は，負の実数 <code>x</code> に対して例外を出すが，引数を複素数の引数を与えれば計算できる．</p><pre><code class="language-julia-repl">julia&gt; # 例外を出す
        sqrt(-1)
 ERROR: DomainError with -1.0:
 sqrt will only return a complex result if called with a complex argument. Try sqrt(Complex(x)).
 
 julia&gt; # 計算できる
        sqrt(complex(-1))
-0.0 + 1.0im</code></pre><p>正負の実数に対して、平方根の実数部と虚数部を描け。</p><pre><code class="language-julia">using PyPlot
+0.0 + 1.0im</code></pre><p>正負の実数に対して，平方根の実数部と虚数部を描け．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-xs=-1:0.05:1
-zs=complex.(xs)
-sqzs=sqrt.(zs)
-plt.plot(xs, real.(sqzs), label=&quot;real part&quot;)
-plt.plot(xs, imag.(sqzs), label=&quot;imaginary part&quot;)
+
+xs = -1:0.05:1
+zs = complex.(xs)
+sqzs = sqrt.(zs)
+plt.plot(xs, real.(sqzs), label = &quot;real part&quot;)
+plt.plot(xs, imag.(sqzs), label = &quot;imaginary part&quot;)
 plt.xlabel(&quot;x&quot;)
 plt.ylabel(&quot;sqrt of x&quot;)
 plt.legend()
-plt.xlim(-1.5,1.5)
-plt.ylim(-1.5,1.5)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-sqrt1-plot.svg" alt/></p><h3 id="2次方程式の解：一般の場合"><a class="docs-heading-anchor" href="#2次方程式の解：一般の場合">◀ 2次方程式の解：一般の場合</a><a id="2次方程式の解：一般の場合-1"></a><a class="docs-heading-anchor-permalink" href="#2次方程式の解：一般の場合" title="Permalink"></a></h3><p>2次方程式 <span>$x^2-bx+c=0$</span> の解を求める方法について、<a href="../ch07/#2次方程式">▼ 2次方程式</a> で紹介したが、 実数解のみに留めていた。 以下では、複素数解を含めて求めてみる。 一方の解 <span>$x_1$</span> を、2次方程式の解の公式で求め、 他方の解を、係数と解の関係により求める。</p>\begin{align*}
-x_{1} &= \dfrac{b+\sqrt{b^2-4c}}{2}, \\
-x_{2} &= \dfrac{c}{x_1}
-\end{align*}<p>係数 <span>$b=1$</span> を一定とし、係数 <span>$c$</span> を <span>$-1$</span> から <span>$1$</span>の範囲で動かす。</p><p>実数部を実線で、虚数部を点線で表した。</p><pre><code class="language-julia">using PyPlot
+plt.xlim(-1.5, 1.5)
+plt.ylim(-1.5, 1.5)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-sqrt1-plot.svg" alt/></p><h3 id="2次方程式の解：一般の場合"><a class="docs-heading-anchor" href="#2次方程式の解：一般の場合">◀ 2次方程式の解：一般の場合</a><a id="2次方程式の解：一般の場合-1"></a><a class="docs-heading-anchor-permalink" href="#2次方程式の解：一般の場合" title="Permalink"></a></h3><p>2次方程式 <span>$x^{2} -bx + c = 0$</span> の解を求める方法について，<a href="../ch07/#2次方程式">▼ 2次方程式</a> で紹介したが， 実数解のみに留めていた． 以下では，複素数解を含めて求めてみる． 一方の解 <span>$x_{1}$</span> を，2次方程式の解の公式で求め， 他方の解を，係数と解の関係により求める．</p><div>\[\begin{aligned}
+x_{1} &amp;= \dfrac{b+\sqrt{b^2-4c}}{2}, \\
+x_{2} &amp;= \dfrac{c}{x_1}
+\end{aligned}\]</div><p>係数 <span>$b=1$</span> を一定とし，係数 <span>$c$</span> を <span>$-1$</span> から <span>$1$</span> の範囲で動かす．</p><p>実数部を実線で，虚数部を点線で表した．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-b=1
-cs=range(-2,2,length=200)
-ds=complex(b.*b .-4cs)
-x1s=(b .+sqrt.(ds))/2;
-x2v=cs./x1s;
-plt.plot(cs, real.(x1s), &quot;b-&quot;, label=&quot;x1, real part&quot;)
-plt.plot(cs, imag.(x1s), &quot;b:&quot;, label=&quot;x1, imag part&quot;)
-plt.plot(cs, real.(x2v), &quot;g-&quot;, label=&quot;x2, real part&quot;)
-plt.plot(cs, imag.(x2v), &quot;g:&quot;, label=&quot;x2, imag part&quot;)
+
+b = 1
+cs = range(-2, 2, length = 200)
+ds = complex(b .* b .- 4cs)
+x1s = (b .+ sqrt.(ds)) / 2;
+x2v = cs ./ x1s;
+plt.plot(cs, real.(x1s), &quot;b-&quot;, label = &quot;x1, real part&quot;)
+plt.plot(cs, imag.(x1s), &quot;b:&quot;, label = &quot;x1, imag part&quot;)
+plt.plot(cs, real.(x2v), &quot;g-&quot;, label = &quot;x2, real part&quot;)
+plt.plot(cs, imag.(x2v), &quot;g:&quot;, label = &quot;x2, imag part&quot;)
 plt.legend()
 plt.xlabel(&quot;c&quot;)
-plt.xlim(-2.5,2.5)
-plt.ylim(-2.5,2.5)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-sqrt2-plot.svg" alt/></p><p>定数 <span>$c$</span> の値により、解の形が異なる様子が観察できる。すなわち、</p><ul><li>範囲 <span>$c \lt \dfrac{1}{4}$</span> では実数解 (虚数部は零)</li><li>範囲 <span>$c = \dfrac{1}{4}$</span> では重解 <span>$\dfrac{1}{2}$</span></li><li>範囲 <span>$c \gt \dfrac{1}{4}$</span> では複素解 (共役複素数)</li></ul><h2 id="ガウス平面"><a class="docs-heading-anchor" href="#ガウス平面">▶ ガウス平面</a><a id="ガウス平面-1"></a><a class="docs-heading-anchor-permalink" href="#ガウス平面" title="Permalink"></a></h2><p>複素数 <span>$x + i y$</span> は、平面上の点 <span>$(x,y)$</span> と一対一に対応する。複素数を平面に表したものをガウス平面という。</p><pre><code class="language-julia">using PyPlot
+plt.xlim(-2.5, 2.5)
+plt.ylim(-2.5, 2.5)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-sqrt2-plot.svg" alt/></p><p>定数 <span>$c$</span> の値により，解の形が異なる様子が観察できる．すなわち，</p><ul><li>範囲 <span>$c \lt \dfrac{1}{4}$</span> では実数解（虚数部は零 <span>$0$</span> ）</li><li>範囲 <span>$c = \dfrac{1}{4}$</span> では重解 <span>$\dfrac{1}{2}$</span></li><li>範囲 <span>$c \gt \dfrac{1}{4}$</span> では複素解（共役複素数）</li></ul><h2 id="ガウス平面"><a class="docs-heading-anchor" href="#ガウス平面">▶ ガウス平面</a><a id="ガウス平面-1"></a><a class="docs-heading-anchor-permalink" href="#ガウス平面" title="Permalink"></a></h2><p>複素数 <span>$x + i y$</span> は，平面上の点 <span>$(x,y)$</span> と一対一に対応する．複素数を平面に表したものをガウス平面という．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-z = complex(1,1)
-w = complex(-2,1)
+z = complex(1, 1)
+w = complex(-2, 1)
 
-plt.plot( real(z), imag(z), &quot;b.&quot;, label=&quot;z&quot;)
-plt.plot( real(w), imag(w), &quot;r.&quot;, label=&quot;w&quot;)
+plt.plot(real(z), imag(z), &quot;b.&quot;, label = &quot;z&quot;)
+plt.plot(real(w), imag(w), &quot;r.&quot;, label = &quot;w&quot;)
 plt.legend()
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
-plt.xlim(-3,3)
-plt.ylim(-3,3)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-gauss1-plot.svg" alt/></p><p>複素数ベクトルで表された図形を、ガウス平面に描こう。</p><pre><code class="language-julia">using PyPlot
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-gauss1-plot.svg" alt/></p><p>複素数ベクトルで表された図形を，ガウス平面に描こう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-zs = [ complex(0,0), complex(1,0), complex(1,1), complex(0,1), complex(0,0)]
 
-plt.plot( real.(zs), imag.(zs), &quot;.-&quot;)
+zs = [complex(0, 0), complex(1, 0), complex(1, 1), complex(0, 1), complex(0, 0)]
+
+plt.plot(real.(zs), imag.(zs), &quot;.-&quot;)
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
-plt.xlim(-2,2)
-plt.ylim(-2,2)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-gauss2-plot.svg" alt/></p><h3 id="複素数の絶対値と偏角"><a class="docs-heading-anchor" href="#複素数の絶対値と偏角">▶ 複素数の絶対値と偏角</a><a id="複素数の絶対値と偏角-1"></a><a class="docs-heading-anchor-permalink" href="#複素数の絶対値と偏角" title="Permalink"></a></h3><ul><li>関数 <code>abs(z)</code> は、複素数 <code>z</code> の絶対値 <span>$\left\vert{z}\right\vert$</span> を返す。</li><li>関数 <code>abs2(z)</code> は、複素数 <code>z</code> の絶対値の2乗 <span>$\left\vert{z}\right\vert|^{2}$</span> を返す。</li><li>関数 <code>angle(z)</code> は、複素数 <code>z</code> の偏角 <span>$\angle{z}$</span> をラジアンで返す。結果(値域)は <span>$-\pi$</span> から <span>$\pi$</span>である。</li></ul><p>これは、ガウス平面上で、複素数を極座標で表示したものに対応している。次の <a href="#オイラーの公式">▶ オイラーの公式</a> も参照。</p><pre><code class="language-julia-repl">julia&gt; for z in [ 0, complex(1,1), 1im, complex(-1,1), -1, complex(-1,-1), -im, complex(1,-1), ]
-         @show z, abs(z), angle(z)
+plt.xlim(-2, 2)
+plt.ylim(-2, 2)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-gauss2-plot.svg" alt/></p><h3 id="複素数の絶対値と偏角"><a class="docs-heading-anchor" href="#複素数の絶対値と偏角">▶ 複素数の絶対値と偏角</a><a id="複素数の絶対値と偏角-1"></a><a class="docs-heading-anchor-permalink" href="#複素数の絶対値と偏角" title="Permalink"></a></h3><ul><li>関数 <code>abs(z)</code> は，複素数 <code>z</code> の絶対値 <span>$\left\vert{z}\right\vert$</span> を返す．</li><li>関数 <code>abs2(z)</code> は，複素数 <code>z</code> の絶対値の2乗 <span>$\left\vert{z}\right\vert|^{2}$</span> を返す．</li><li>関数 <code>angle(z)</code> は，複素数 <code>z</code> の偏角 <span>$\angle{z}$</span> をラジアンで返す．</li></ul><p>結果（値域）は <span>$-\pi$</span> から <span>$\pi$</span> である．</p><p>これは，ガウス平面上で，複素数を極座標で表示したものに対応している．次の <a href="#オイラーの公式">▶ オイラーの公式</a> も参照．</p><pre><code class="language-julia-repl">julia&gt; for z in [
+          0,   complex(1, 1), 1im, complex(-1, 1),
+          -1, complex(-1, -1), -im, complex(1, -1), ]
+          @show z, abs(z), angle(z)
        end
 (z, abs(z), angle(z)) = (0 + 0im, 0.0, 0.0)
 (z, abs(z), angle(z)) = (1 + 1im, 1.4142135623730951, 0.7853981633974483)
@@ -161,226 +166,227 @@ plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-gau
 (z, abs(z), angle(z)) = (-1 + 0im, 1.0, 3.141592653589793)
 (z, abs(z), angle(z)) = (-1 - 1im, 1.4142135623730951, -2.356194490192345)
 (z, abs(z), angle(z)) = (0 - 1im, 1.0, -1.5707963267948966)
-(z, abs(z), angle(z)) = (1 - 1im, 1.4142135623730951, -0.7853981633974483)</code></pre><h3 id="オイラーの公式"><a class="docs-heading-anchor" href="#オイラーの公式">▶ オイラーの公式</a><a id="オイラーの公式-1"></a><a class="docs-heading-anchor-permalink" href="#オイラーの公式" title="Permalink"></a></h3><p>実数 <span>$\theta$</span> に対して、指数関数 <span>$\exp{i\theta}$</span> は、以下のように書き表される。これをオイラーの公式という。</p><div>\[\exp{i\theta} = \cos\theta+ i \sin\theta\]</div><p>指数関数は、複素数を引数とするように拡張されている。 <span>$\exp{i\theta}$</span> をガウス平面上に描く。これは、単位円 (半径 <span>$1$</span>)の円を描く。</p><pre><code class="language-julia">using PyPlot
-plt.axes().set_aspect(&quot;equal&quot;)
-zs = [ exp(im*t) for t in 0:pi/18:2pi ]
+(z, abs(z), angle(z)) = (1 - 1im, 1.4142135623730951, -0.7853981633974483)</code></pre><h3 id="オイラーの公式"><a class="docs-heading-anchor" href="#オイラーの公式">▶ オイラーの公式</a><a id="オイラーの公式-1"></a><a class="docs-heading-anchor-permalink" href="#オイラーの公式" title="Permalink"></a></h3><p>実数 <span>$\theta$</span> に対して，指数関数 <span>$\exp{i\theta}$</span> は，以下のように書き表される．これをオイラーの公式という．</p><div>\[\exp{i\theta} = \cos\theta+ i \sin\theta\]</div><p>指数関数は，複素数を引数とするように拡張されている． <span>$\exp{i\theta}$</span> をガウス平面上に描く．これは，単位円（半径 <span>$1$</span> ）の円を描く．</p><pre><code class="language-julia">plt.axes().set_aspect(&quot;equal&quot;)
 
-plt.plot( real.(zs), imag.(zs), &quot;.&quot;)
+zs = [exp(im * t) for t = 0:pi/18:2pi]
+
+plt.plot(real.(zs), imag.(zs), &quot;.&quot;)
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-cis1-plot.svg" alt/></p><p>関数 <code>cis(x)</code> は、数 <code>x</code>に対して <span>$\exp{i x}$</span> を計算する。同じ結果が得られることを確認しよう。</p><pre><code class="language-julia">using PyPlot
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-cis1-plot.svg" alt/></p><p>関数 <code>cis(x)</code> は，数 <code>x</code> に対して <span>$\exp{i x}$</span> を計算する．同じ結果が得られることを確認しよう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-zs = [ cis(t) for t in 0:pi/18:2pi ]
-plt.plot( real.(zs), imag.(zs), &quot;o&quot;)
 
-zs = [ exp(im*t) for t in 0:pi/18:2pi ]
-plt.plot( real.(zs), imag.(zs), &quot;.&quot;)
+zs = [cis(t) for t = 0:pi/18:2pi]
+plt.plot(real.(zs), imag.(zs), &quot;o&quot;)
+
+zs = [exp(im * t) for t = 0:pi/18:2pi]
+plt.plot(real.(zs), imag.(zs), &quot;.&quot;)
 
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
 
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-cis2-plot.svg" alt/></p><h3 id="ガウス平面内で回転する"><a class="docs-heading-anchor" href="#ガウス平面内で回転する">◀ ガウス平面内で回転する</a><a id="ガウス平面内で回転する-1"></a><a class="docs-heading-anchor-permalink" href="#ガウス平面内で回転する" title="Permalink"></a></h3><p>複素数に <span>$\exp(i \theta)$</span> を乗ずることは、ガウス平面上で、原点に対して、反時計方向に角度 <span>$\theta$</span> だけ回転することに相当する。</p><pre><code class="language-julia">using PyPlot
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-cis2-plot.svg" alt/></p><h3 id="ガウス平面内で回転する"><a class="docs-heading-anchor" href="#ガウス平面内で回転する">◀ ガウス平面内で回転する</a><a id="ガウス平面内で回転する-1"></a><a class="docs-heading-anchor-permalink" href="#ガウス平面内で回転する" title="Permalink"></a></h3><p>複素数に <span>$\exp(i \theta)$</span> を乗ずることは，ガウス平面上で，原点に対して，反時計方向に角度 <span>$\theta$</span> だけ回転することに相当する．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15 = cis(pi*15/180)
-zs = complex(1,1)
 
-for i in 1:10
-  global zs
-  plt.plot( [0, real.(zs)], [0, imag.(zs)], &quot;.-&quot;)
-  zs *= r15
+r15 = cis(pi * 15 / 180)
+zs = complex(1, 1)
+
+for i = 1:10
+   global zs
+   plt.plot([0, real.(zs)], [0, imag.(zs)], &quot;.-&quot;)
+   zs *= r15
 end
 
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)
 
-plt.xlim(-2,2)
-plt.ylim(-2,2)</code></pre><p><img src="../ch13-cis0-plot.svg" alt/></p><h3 id="アルキメデスの渦を描く（複素数版）"><a class="docs-heading-anchor" href="#アルキメデスの渦を描く（複素数版）">◀ アルキメデスの渦を描く（複素数版）</a><a id="アルキメデスの渦を描く（複素数版）-1"></a><a class="docs-heading-anchor-permalink" href="#アルキメデスの渦を描く（複素数版）" title="Permalink"></a></h3><p>実数 <span>$t$</span> に対して、複素数 <span>$z=t \exp(i t)$</span> の軌跡を、ガウス平面上に描いてみよう。 これは、アルキメデスの渦である。参考 →  <a href="../ch03/#アルキメデスの渦を描く">▼ アルキメデスの渦を描く</a></p><pre><code class="language-julia">using PyPlot
+plt.xlim(-2, 2)
+plt.ylim(-2, 2)</code></pre><p><img src="../ch13-cis0-plot.svg" alt/></p><h3 id="アルキメデスの渦を描く（複素数版）"><a class="docs-heading-anchor" href="#アルキメデスの渦を描く（複素数版）">◀ アルキメデスの渦を描く（複素数版）</a><a id="アルキメデスの渦を描く（複素数版）-1"></a><a class="docs-heading-anchor-permalink" href="#アルキメデスの渦を描く（複素数版）" title="Permalink"></a></h3><p>実数 <span>$t$</span> に対して，複素数 <span>$z=t \exp(i t)$</span> の軌跡を，ガウス平面上に描いてみよう． これは，アルキメデスの渦である．参考 →  <a href="../ch03/#アルキメデスの渦を描く">▼ アルキメデスの渦を描く</a></p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-ts=range(0,4pi,length=200)
-zs=ts.*exp.(im*ts)
-plt.plot(real.(zs), imag.(zs) )</code></pre><p><img src="../ch13-cis4-plot.svg" alt/></p><h3 id="花曲線（複素数版）"><a class="docs-heading-anchor" href="#花曲線（複素数版）">●▼ 花曲線（複素数版）</a><a id="花曲線（複素数版）-1"></a><a class="docs-heading-anchor-permalink" href="#花曲線（複素数版）" title="Permalink"></a></h3><p>実数 <span>$t$</span> に対して、 複素数 <span>$z= \cos(nt) \exp(i t)$</span> の軌跡をガウス平面上に描いてみよ。 これは、花曲線となる。 参考 → <a href="../ch03/#花曲線を描く">▼ 花曲線を描く</a></p><h3 id="複素数同士の乗算の意味"><a class="docs-heading-anchor" href="#複素数同士の乗算の意味">◀ 複素数同士の乗算の意味</a><a id="複素数同士の乗算の意味-1"></a><a class="docs-heading-anchor-permalink" href="#複素数同士の乗算の意味" title="Permalink"></a></h3><p>複素数同士の乗算は、極座標で表示すると、その意味が明らかになる。</p><p>オイラーの公式を使うと、複素数 <span>$z, w$</span> は、その絶対値と偏角を用いて、以下のように書いて、</p>\begin{align*}
-z &= \left\vert{z}\right\vert \exp(i \angle{z}), \\
-w &= \left\vert{w}\right\vert \exp(i \angle{w}
-\end{align*}<p>複素数 <span>$z$</span> と <span>$w$</span> の積を求めると、次のようになる。</p><div>\[zw = \left\vert{z}\right\vert \left\vert{w}\right\vert \exp\left( i \left(\angle{z}+\angle{w}\right)\right)\]</div><p>つまり、積 <span>$zw$</span> の絶対値は、2つの複素数の絶対値の積である。 また、積 <span>$zw$</span> の偏角は、2つの複素数の偏角の和である。</p><p>まとめると、複素数同士の積は、ガウス平面上で拡大縮小と回転を同時に行う演算である。</p><pre><code class="language-julia">using PyPlot
+
+ts = range(0, 4pi, length = 200)
+zs = ts .* exp.(im * ts)
+plt.plot(real.(zs), imag.(zs))</code></pre><p><img src="../ch13-cis4-plot.svg" alt/></p><h3 id="花曲線（複素数版）"><a class="docs-heading-anchor" href="#花曲線（複素数版）">●▼ 花曲線（複素数版）</a><a id="花曲線（複素数版）-1"></a><a class="docs-heading-anchor-permalink" href="#花曲線（複素数版）" title="Permalink"></a></h3><p>実数 <span>$t$</span> に対して， 複素数 <span>$z= \cos(nt) \exp(i t)$</span> の軌跡をガウス平面上に描いてみよ． これは，花曲線となる． 参考 → <a href="../ch03/#花曲線を描く">▼ 花曲線を描く</a></p><h3 id="複素数同士の乗算の意味"><a class="docs-heading-anchor" href="#複素数同士の乗算の意味">◀ 複素数同士の乗算の意味</a><a id="複素数同士の乗算の意味-1"></a><a class="docs-heading-anchor-permalink" href="#複素数同士の乗算の意味" title="Permalink"></a></h3><p>複素数同士の乗算は，極座標で表示すると，その意味が明らかになる．</p><p>オイラーの公式を使うと，複素数 <span>$z, w$</span> は，その絶対値と偏角を用いて，以下のように書いて，</p><div>\[\begin{aligned}
+z &amp;= \left\vert{z}\right\vert \exp(i \angle{z}), \\
+w &amp;= \left\vert{w}\right\vert \exp(i \angle{w})
+\end{aligned}\]</div><p>複素数 <span>$z$</span> と <span>$w$</span> の積を求めると，次のようになる．</p><div>\[zw = \left\vert{z}\right\vert \left\vert{w}\right\vert \exp\left( i \left(\angle{z}+\angle{w}\right)\right)\]</div><p>つまり，積 <span>$zw$</span> の絶対値は，2つの複素数の絶対値の積である． また，積 <span>$zw$</span> の偏角は，2つの複素数の偏角の和である．</p><p>まとめると，複素数同士の積は，ガウス平面上で拡大縮小と回転を同時に行う演算である．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-z = 1*cis(pi/3)
-w = 2*cis(pi/4)
-zw=z*w
 
-plt.plot( [0, real(z)], [0, imag(z)], &quot;r.-&quot;, label=&quot;z&quot;)
-plt.plot( [0, real(w)], [0, imag(w)], &quot;b.-&quot;, label=&quot;w&quot;)
-plt.plot( [0,real(zw)], [0,imag(zw)], &quot;g.-&quot;, label=&quot;z*w&quot;)
+z = 1 * cis(pi / 3)
+w = 2 * cis(pi / 4)
+zw = z * w
 
-zs = [ cis(t) for t in 0:pi/18:2pi ]
-plt.plot( real.(zs),  imag.(zs), &quot;r&quot;, lw=0.5)
-plt.plot( real.(2zs), imag.(2zs), &quot;g&quot;, lw=0.5)
+plt.plot([0, real(z)], [0, imag(z)], &quot;r.-&quot;, label = &quot;z&quot;)
+plt.plot([0, real(w)], [0, imag(w)], &quot;b.-&quot;, label = &quot;w&quot;)
+plt.plot([0, real(zw)], [0, imag(zw)], &quot;g.-&quot;, label = &quot;z*w&quot;)
+
+zs = [cis(t) for t = 0:pi/18:2pi]
+plt.plot(real.(zs), imag.(zs), &quot;r&quot;, lw = 0.5)
+plt.plot(real.(2zs), imag.(2zs), &quot;g&quot;, lw = 0.5)
 
 plt.legend()
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
 
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)
-plt.xlim(-3,3)
-plt.ylim(-3,3)</code></pre><p><img src="../ch13-gauss3-plot.svg" alt/></p><h3 id="複素数の平方根とは"><a class="docs-heading-anchor" href="#複素数の平方根とは">◀ 複素数の平方根とは</a><a id="複素数の平方根とは-1"></a><a class="docs-heading-anchor-permalink" href="#複素数の平方根とは" title="Permalink"></a></h3><p>上の特別な場合として、<span>$z$</span> の二乗を検討する。 <span>$w=z$</span> として、以下を得る。</p><div>\[z^2 = {\left\vert{z}\right\vert}^2 \exp\left( i 2 \angle{z} \right)\]</div><p>これから、<span>$z$</span> の平方根 <span>$\sqrt{z}$</span> は、以下のように求められる。</p><div>\[z = \sqrt{\left\vert{z}\right\vert} \exp\left( i \dfrac{\angle{z}}{2} \right)\]</div><p>すなわち、複素数の平方根は、</p><ul><li>絶対値が、元の複素数の絶対値の平方根</li><li>偏角が、元の複素数の偏角の半分</li></ul><p>となる。</p><p>以下に、数値例を示す。</p>\begin{align*}
-z & = -1 + i \sqrt{3} = 2 \left( -\dfrac{1}{2} + i \dfrac{\sqrt{3}}{2} \right) = 2 \exp\left(i \dfrac{\pi}{3}\right), \\
-\sqrt{z} & = \sqrt{2} \exp\left(i \dfrac{\pi}{6} \right) =  \sqrt{2} \left( \dfrac{\sqrt{3}}{2} + i \dfrac{1}{2} \right)
-\end{align*}<pre><code class="language-julia">z = complex(-1, sqrt(3));
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)</code></pre><p><img src="../ch13-gauss3-plot.svg" alt/></p><h3 id="複素数の平方根とは"><a class="docs-heading-anchor" href="#複素数の平方根とは">◀ 複素数の平方根とは</a><a id="複素数の平方根とは-1"></a><a class="docs-heading-anchor-permalink" href="#複素数の平方根とは" title="Permalink"></a></h3><p>上の特別な場合として，<span>$z$</span> の二乗を検討する． <span>$w=z$</span> として，以下を得る．</p><div>\[z^2 = {\left\vert{z}\right\vert}^2 \exp\left( i 2 \angle{z} \right)\]</div><p>これから，<span>$z$</span> の平方根 <span>$\sqrt{z}$</span> は，以下のように求められる．</p><div>\[z = \sqrt{\left\vert{z}\right\vert} \exp\left( i \dfrac{\angle{z}}{2} \right)\]</div><p>すなわち，複素数の平方根は，</p><ul><li>絶対値が，元の複素数の絶対値の平方根</li><li>偏角が，元の複素数の偏角の半分</li></ul><p>となる．</p><p>以下に，数値例を示す．</p><div>\[\begin{aligned}
+z &amp; = -1 + i \sqrt{3} = 2 \left( -\dfrac{1}{2} + i \dfrac{\sqrt{3}}{2} \right) = 2 \exp\left(i \dfrac{\pi}{3}\right), \\
+\sqrt{z} &amp; = \sqrt{2} \exp\left(i \dfrac{\pi}{6} \right) =  \sqrt{2} \left( \dfrac{\sqrt{3}}{2} + i \dfrac{1}{2} \right)
+\end{aligned}\]</div><pre><code class="language-julia">z = complex(-1, sqrt(3));
 @show z, abs(z), angle(z);
-w= sqrt(z);
+w = sqrt(z);
 @show w, abs(w), angle(w);</code></pre><pre class="documenter-example-output">(0.7071067811865476 + 1.224744871391589im, 1.414213562373095, 1.0471975511965976)</pre><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
+
 z = complex(-1, sqrt(3))
 w = sqrt(z)
 
-plt.plot( [0, real(z)], [0, imag(z)], &quot;r.-&quot;, label=&quot;z&quot;)
-plt.plot( [0, real(w)], [0, imag(w)], &quot;b.-&quot;, label=&quot;sqrt(z)&quot;)
+plt.plot([0, real(z)], [0, imag(z)], &quot;r.-&quot;, label = &quot;z&quot;)
+plt.plot([0, real(w)], [0, imag(w)], &quot;b.-&quot;, label = &quot;sqrt(z)&quot;)
 
-zs = [ cis(t) for t in 0:pi/18:2pi ]
-plt.plot( real.(zs)*2,       imag.(zs)*2,       &quot;r&quot;, lw=0.5)
-plt.plot( real.(zs)*sqrt(2), imag.(zs)*sqrt(2), &quot;b&quot;, lw=0.5)
+zs = [cis(t) for t = 0:pi/18:2pi]
+plt.plot(real.(zs) * 2, imag.(zs) * 2, &quot;r&quot;, lw = 0.5)
+plt.plot(real.(zs) * sqrt(2), imag.(zs) * sqrt(2), &quot;b&quot;, lw = 0.5)
 
 plt.legend()
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
 
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)
-plt.xlim(-3,3)
-plt.ylim(-3,3)</code></pre><p><img src="../ch13-gauss4-plot.svg" alt/></p><h3 id="図形を回転する"><a class="docs-heading-anchor" href="#図形を回転する">◀ 図形を回転する</a><a id="図形を回転する-1"></a><a class="docs-heading-anchor-permalink" href="#図形を回転する" title="Permalink"></a></h3><p>複素数に <span>$\exp(i \theta)$</span> を乗ずることは、 ガウス平面上で、原点に対して、反時計方向に角度 <span>$\theta$</span> だけ回転することに相当する。 平面図形を複素数ベクトルとして表して、図形を回転しよう。</p><pre><code class="language-julia">using PyPlot
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)</code></pre><p><img src="../ch13-gauss4-plot.svg" alt/></p><h3 id="図形を回転する"><a class="docs-heading-anchor" href="#図形を回転する">◀ 図形を回転する</a><a id="図形を回転する-1"></a><a class="docs-heading-anchor-permalink" href="#図形を回転する" title="Permalink"></a></h3><p>複素数に <span>$\exp(i \theta)$</span> を乗ずることは， ガウス平面上で，原点に対して，反時計方向に角度 <span>$\theta$</span> だけ回転することに相当する． 平面図形を複素数ベクトルとして表して，図形を回転しよう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15 = cis(pi*15/180)
-zs = [ complex(0,0), complex(1,0), complex(1,2), complex(0,0)]
 
-for i in 1:10
-  global zs
-  plt.plot( real.(zs), imag.(zs), &quot;.-&quot;)
-  zs *= r15
+r15 = cis(pi * 15 / 180)
+zs = [complex(0, 0), complex(1, 0), complex(1, 2), complex(0, 0)]
+
+for i = 1:10
+   global zs
+   plt.plot(real.(zs), imag.(zs), &quot;.-&quot;)
+   zs *= r15
 end
 
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
 
-plt.xlim(-3,3)
-plt.ylim(-3,3)
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axvline(0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-cis3-plot.svg" alt/></p><h2 id="伝達関数"><a class="docs-heading-anchor" href="#伝達関数">◀ 伝達関数</a><a id="伝達関数-1"></a><a class="docs-heading-anchor-permalink" href="#伝達関数" title="Permalink"></a></h2><p>制御工学や電気電子回路では「線形システム」に着目する。 これは、入力と出力が、時刻 <span>$t$</span> に対する定数係数の微積分方程式で表されるようなものである。 線形システムでは、</p><ul><li>角振動数 <span>$\omega=2\pi{f}$</span> の正弦波 <span>$x(t) = x_0 \cos \left(\omega{t}+\phi \angle{X}\right)$</span> を入力に与えると、</li><li>同じ角振動数の正弦波 <span>$y(t) = y_0 \cos \left(\omega{t}+\angle{Y} \right)$</span> が出力として得られること</li></ul><p>が知られている。</p><p>そこで、</p><ul><li>複素数 <span>$X = x_0 \exp(i\angle{X})$</span> を入力の正弦波 <span>$x(t)$</span> と同一視し(=同じものと考え)、</li><li>複素数 <span>$Y = y_0 \exp(i\angle{Y})$</span> を出力の正弦波 <span>$y(t)$</span> と同一視すると、</li></ul><p>入力と出力との比は、複素数 <span>$H$</span> になる。</p><div>\[Y = H X\]</div><p>ここで、<span>$X, Y, H$</span> は、一般に、 角振動数 <span>$\omega$</span> または 周波数 <span>$f$</span> の関数である。</p><div>\[Y({\omega}) = H({\omega}) X({\omega})\]</div><p>複素数 <span>$H(\omega)$</span> を、伝達関数 (transfer function) という。</p><ul><li>伝達関数の絶対値は、入力と出力の振幅の比 (振幅比)を与える。</li><li>伝達関数の偏角は、入力の位相と出力の位相の「ズレ」 (位相差) を与える。</li></ul>\begin{align*}
-\left\vert{H({\omega})}\right\vert &= \dfrac{\left\vert{Y({\omega})}\right\vert}{\left\vert{X({\omega})}\right\vert} = \dfrac{y_0}{x_0}, \\
-\angle{H(\omega)} &= \angle{Y(\omega)} - \angle{X(\omega)}
-\end{align*}<p>周波数応答 (frequency response)とは、 角振動数 <span>$\omega$</span> または 周波数 <span>$f$</span> の関数として 伝達関数の振幅 <span>$\left\vert{H({\omega})}\right\vert$</span> と 位相 <span>$\angle{H(\omega)}$</span> を描いた図である。 線形システムの振る舞いを観察するのに便利である。</p><h3 id="共振回路"><a class="docs-heading-anchor" href="#共振回路">◀ 共振回路</a><a id="共振回路-1"></a><a class="docs-heading-anchor-permalink" href="#共振回路" title="Permalink"></a></h3><p><img src="../ac-lcr-ser2-1.png" alt/></p><p>自己インダクタンス（コイル） <span>$L$</span>, 電気容量（コンデンサ） <span>$C$</span>, 電気抵抗 <span>$R$</span> を直列に接続した <span>$LCR$</span> 直列回路の電源に正弦波電圧 <span>$e(t)$</span> を加える。 抵抗 <span>$R$</span> の両端子間の電圧 <span>$v(t)$</span> は、同じ角振動数を持つ正弦波 <span>$v(t)$</span> となる。 正弦波 <span>$e(t)$</span> と <span>$v(t)$</span> を複素数 <span>$E(\omega)$</span> と <span>$V(\omega)$</span> で表したとき、 両者の比は、以下の複素数 <span>$H(\omega)$</span> で表される。</p><div>\[H(\omega) = \dfrac{V(\omega)}{E(\omega)} = \dfrac{1}{1 + i Q \left(\dfrac{\omega}{\omega_0} - \dfrac{\omega_0}{\omega}\right)}\]</div><p>ここで、<span>$\omega_0 = 2\pi{f_0}$</span> と <span>$Q$</span> は、回路素子 <span>$L, C, R$</span>の値から 決まる正の定数である。<span>$f_0$</span> は周波数の次元、<span>$\omega_0$</span> は角振動数の次元を持ち、<span>$Q$</span> は無次元である。</p><p>まず、<span>$f_0= 1\;\mathrm{kHz}, Q = 1$</span> として、<span>$H(\omega)$</span> の振幅 <span>$\left\vert{H(\omega)}\right\vert$</span> を描く。横軸 周波数は対数で表示する。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-cis3-plot.svg" alt/></p><h2 id="伝達関数"><a class="docs-heading-anchor" href="#伝達関数">◀ 伝達関数</a><a id="伝達関数-1"></a><a class="docs-heading-anchor-permalink" href="#伝達関数" title="Permalink"></a></h2><p>制御工学や電気電子回路では「線形システム」に着目する． これは，入力と出力が，時刻 <span>$t$</span> に対する定数係数の微積分方程式で表されるようなものである． 線形システムでは，</p><ul><li>角振動数 <span>$\omega=2\pi{f}$</span> の正弦波 <span>$x(t) = x_0 \cos \left(\omega{t}+\phi \angle{X}\right)$</span> を入力に与えると，</li><li>同じ角振動数の正弦波 <span>$y(t) = y_0 \cos \left(\omega{t}+\angle{Y} \right)$</span> が出力として得られること</li></ul><p>が知られている．</p><p>そこで，</p><ul><li>複素数 <span>$X = x_0 \exp(i\angle{X})$</span> を入力の正弦波 <span>$x(t)$</span> と同一視し（＝同じものと考え），</li><li>複素数 <span>$Y = y_0 \exp(i\angle{Y})$</span> を出力の正弦波 <span>$y(t)$</span> と同一視すると，</li></ul><p>入力と出力との比は，複素数 <span>$H$</span> になる．</p><div>\[Y = H X\]</div><p>ここで，<span>$X, Y, H$</span> は，一般に， 角振動数 <span>$\omega$</span> または 周波数 <span>$f$</span> の関数である．</p><div>\[Y({\omega}) = H({\omega}) X({\omega})\]</div><p>複素数 <span>$H(\omega)$</span> を，「伝達関数（transfer function）」という．</p><ul><li>伝達関数の絶対値は，入力と出力の振幅の比（振幅比）を与える．</li><li>伝達関数の偏角は，入力の位相と出力の位相の「ズレ」（位相差）を与える．</li></ul><div>\[\begin{aligned}
+\left\vert{H({\omega})}\right\vert &amp;= \dfrac{\left\vert{Y({\omega})}\right\vert}{\left\vert{X({\omega})}\right\vert} = \dfrac{y_0}{x_0}, \\
+\angle{H(\omega)} &amp;= \angle{Y(\omega)} - \angle{X(\omega)}
+\end{aligned}\]</div><p>「周波数応答（frequency response）」とは， 角振動数 <span>$\omega$</span> または 周波数 <span>$f$</span> の関数として 伝達関数の振幅 <span>$\left\vert{H({\omega})}\right\vert$</span> と 位相 <span>$\angle{H(\omega)}$</span> を描いた図である． 線形システムの振る舞いを観察するのに便利である．</p><h3 id="共振回路"><a class="docs-heading-anchor" href="#共振回路">◀ 共振回路</a><a id="共振回路-1"></a><a class="docs-heading-anchor-permalink" href="#共振回路" title="Permalink"></a></h3><p><img src="../ac-lcr-ser2-1.png" alt/></p><p>自己インダクタンス（コイル） <span>$L$</span>, 電気容量（コンデンサ） <span>$C$</span>,  電気抵抗 <span>$R$</span> を直列に接続した <span>$LCR$</span> 直列回路の電源に正弦波電圧 <span>$e(t)$</span> を加える． 抵抗 <span>$R$</span> の両端子間の電圧 <span>$v(t)$</span> は，同じ角振動数を持つ正弦波 <span>$v(t)$</span> となる． 正弦波 <span>$e(t)$</span> と <span>$v(t)$</span> を複素数 <span>$E(\omega)$</span> と <span>$V(\omega)$</span> で表したとき， 両者の比は，以下の複素数 <span>$H(\omega)$</span> で表される．</p><div>\[H(\omega) = \dfrac{V(\omega)}{E(\omega)} 
+= \dfrac{1}{1 + i Q \left(\dfrac{\omega}{\omega_{0}} - \dfrac{\omega_{0}}{\omega}\right)}\]</div><p>ここで，<span>$\omega_{0} = 2\pi{f_0}$</span> と <span>$Q$</span> は，回路素子 <span>$L, C, R$</span> の値から 決まる正の定数である．<span>$f_{0}$</span> は周波数の次元，<span>$\omega_0$</span> は角振動数の次元を持ち，<span>$Q$</span> は無次元である．</p><p>まず，<span>$f_0= 1\;\mathrm{kHz}, Q = 1$</span> として，<span>$H(\omega)$</span> の 振幅 <span>$\left\vert{H(\omega)}\right\vert$</span> を描く．横軸 周波数は対数で表示する．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=200))
+fs = exp10.(range(1, 5, length = 200))
 
-ws=2pi*fs
+ws = 2pi * fs
 
-q=1
-h1=1 ./ (1 .+ im * q * (ws/w0-w0./ws))
+q = 1
+h1 = 1 ./ (1 .+ im * q * (ws / w0 - w0 ./ ws))
 
 using PyPlot
 plt.plot(fs, abs.(h1))
 plt.xscale(&quot;log&quot;)
 plt.ylabel(&quot;Amplitude&quot;)
 plt.xlabel(&quot;f / Hz&quot;)
-plt.axvline(f0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-lcr1-plot.svg" alt/></p><p>振幅は、単峰性の極大値 <span>$1$</span> をとる。</p><p>極大となる周波数 <span>$f_0$</span> を共振周波数 (resonance frequency)、 これに対応する角振動数 <span>$\omega_{0}=2\pi{f_0}$</span> を共振角振動数 (resonance angular frequency)という。</p><p>今度は、振幅の二乗 <span>$\left\vert{H(\omega)}\right\vert^2$</span> と位相 <span>$\angle{H(\omega)}$</span> を同時に描こう。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+plt.axvline(f0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-lcr1-plot.svg" alt/></p><p>振幅は，単峰性の極大値 <span>$1$</span> をとる．</p><p>極大となる周波数 <span>$f_{0}$</span> を「共振周波数（resonance frequency）」， これに対応する角振動数 <span>$\omega_{0}=2\pi{f_0}$</span> を 「共振角振動数（resonance angular frequency）」という．</p><p>今度は，振幅の二乗 <span>$\left\vert{H(\omega)}\right\vert^2$</span> と 位相 <span>$\angle{H(\omega)}$</span> を同時に描こう．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=200))
+fs = exp10.(range(1, 5, length = 200))
 
-ws=2pi*fs
+ws = 2pi * fs
 
-q=1
-h1=1 ./ (1 .+ im * q * (ws/w0-w0./ws))
+q = 1
+h1 = 1 ./ (1 .+ im * q * (ws / w0 - w0 ./ ws))
 
 using PyPlot
-# fig=plt.figure()
-# ax1=fig.add_subplt.plot(211)
-fig,axs=plt.subplots(2,1)
-ax1=axs[1]
+fig, axs = plt.subplots(2, 1)
+ax1 = axs[1]
 ax1.plot(fs, abs2.(h1))
 ax1.set_ylabel(&quot;Amplitude&quot;)
 ax1.set_xscale(&quot;log&quot;)
-ax1.axvline(f0, lw=0.5, color=&quot;k&quot;)
-ax1.axhline(1/sqrt(2), lw=0.5, color=&quot;k&quot;)
+ax1.axvline(f0, lw = 0.5, color = &quot;k&quot;)
+ax1.axhline(1 / sqrt(2), lw = 0.5, color = &quot;k&quot;)
 
-# ax2=fig.add_subplt.plot(212)
-ax2=axs[2]
-ax2.plot(fs, angle.(h1)*180/pi)
+ax2 = axs[2]
+ax2.plot(fs, angle.(h1) * 180 / pi)
 
 ax2.set_xscale(&quot;log&quot;)
 ax2.set_xlabel(&quot;f / Hz&quot;)
 ax2.set_ylabel(&quot;Phase&quot;)
-ax2.set_ylim(-100,100)
-ytics = [-90,-45,0,45,90]
-ax2.set_yticks( ytics )
+ax2.set_ylim(-100, 100)
+ytics = [-90, -45, 0, 45, 90]
+ax2.set_yticks(ytics)
 for y in ytics
-  ax2.axhline(y, lw=0.5, color=&quot;k&quot;)
+   ax2.axhline(y, lw = 0.5, color = &quot;k&quot;)
 end
-ax2.axvline( f0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-lcr2-plot.svg" alt/></p><p>位相は <span>$90^{\circ}$</span> から始まり <span>$-90^{\circ}$</span> に単調減少する。 振幅が極大となる周波数 <span>$f_0$</span> で位相は <span>$0$</span> となる。</p><p>さらに、<span>$\left\vert{H(\omega)}\right\vert^2 = \dfrac{1}{2}$</span> となる周波数 (２つある)で、位相は <span>$\pm 45^{\circ}$</span> をとる。</p><p>次に、<span>$f_0, \omega_0$</span> を変えずに、<span>$Q$</span> の値を増減して、振幅の二乗 <span>$\left\vert{H(\omega)}\right\vert^2$</span> を描く。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+ax2.axvline(f0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-lcr2-plot.svg" alt/></p><p>位相は <span>$90^{\circ}$</span> から始まり <span>$-90^{\circ}$</span> に単調減少する． 振幅が極大となる周波数 <span>$f_0$</span> で位相は <span>$0$</span> となる．</p><p>さらに，<span>$\left\vert{H(\omega)}\right\vert^2 = \dfrac{1}{2}$</span> となる周波数（２つある）で， 位相は <span>$\pm 45^{\circ}$</span> をとる．</p><p>次に，<span>$f_0, \omega_0$</span> を変えずに，<span>$Q$</span> の値を増減して， 振幅の二乗 <span>$\left\vert{H(\omega)}\right\vert^2$</span> を描く．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=200))
+fs = exp10.(range(1, 5, length = 200))
 
-ws=2pi*fs
+ws = 2pi * fs
 
 using PyPlot
-for q in [ 0.5, 1, 2 ]
-  h1=1 ./ (1 .+ im * q * (ws/w0-w0./ws))
-  plt.plot(fs, abs2.(h1), label=&quot;Q=&quot;*string(q) )
+for q in [0.5, 1, 2]
+   h1 = 1 ./ (1 .+ im * q * (ws / w0 - w0 ./ ws))
+   plt.plot(fs, abs2.(h1), label = &quot;Q=&quot; * string(q))
 end
 plt.legend()
 plt.xscale(&quot;log&quot;)
 plt.xlabel(&quot;f / Hz&quot;)
 
-plt.axhline(1/sqrt(2), lw=0.5, color=&quot;k&quot;)
-plt.axvline(f0, lw=0.5, color=&quot;k&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `h1` in soft scope is ambiguous because a global variable by the same name exists: `h1` will be treated as a new local. Disambiguate by using `local h1` to suppress this warning or `global h1` to assign to the existing global variable.
-└ @ none:2</pre><p><img src="../ch13-lcr3-plot.svg" alt/></p><p>定数 <span>$Q$</span> が小さくなると、峰が鋭くなる (幅が狭くなる) 様子が観察される。</p><p>更に、位相のグラフを加えよう。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+plt.axhline(1 / sqrt(2), lw = 0.5, color = &quot;k&quot;)
+plt.axvline(f0, lw = 0.5, color = &quot;k&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `h1` in soft scope is ambiguous because a global variable by the same name exists: `h1` will be treated as a new local. Disambiguate by using `local h1` to suppress this warning or `global h1` to assign to the existing global variable.
+└ @ none:2</pre><p><img src="../ch13-lcr3-plot.svg" alt/></p><p>定数 <span>$Q$</span> が小さくなると，峰が鋭くなる（幅が狭くなる）様子が観察される．</p><p>更に，位相のグラフを加えよう．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=200))
+fs = exp10.(range(1, 5, length = 200))
 
-ws=2pi*fs
+ws = 2pi * fs
 
 using PyPlot
-# fig=plt.figure()
-# ax1=fig.add_subplt.plot(211)
-# ax2=fig.add_subplt.plot(212)
-fig,axs=plt.subplots(2,1)
-ax1=axs[1]
-ax2=axs[2]
+fig, axs = plt.subplots(2, 1)
+ax1 = axs[1]
+ax2 = axs[2]
 
-for q in [0.5,1,2]
-  h1=1 ./ (1 .+ im * q * (ws/w0-w0./ws))
-  ax1.plot(fs, abs.(h1), label=&quot;Q=&quot;*string(q))
-  ax2.plot(fs, angle.(h1)*180/pi)
+for q in [0.5, 1, 2]
+   h1 = 1 ./ (1 .+ im * q * (ws / w0 - w0 ./ ws))
+   ax1.plot(fs, abs.(h1), label = &quot;Q=&quot; * string(q))
+   ax2.plot(fs, angle.(h1) * 180 / pi)
 end
 ax1.legend()
 ax1.set_xscale(&quot;log&quot;)
 ax1.set_ylabel(&quot;Amplitude&quot;)
-ax1.axvline(f0, lw=0.5, color=&quot;k&quot;)
-ax1.axhline(1/sqrt(2), lw=0.5, color=&quot;k&quot;)
+ax1.axvline(f0, lw = 0.5, color = &quot;k&quot;)
+ax1.axhline(1 / sqrt(2), lw = 0.5, color = &quot;k&quot;)
 
 ax2.set_xscale(&quot;log&quot;)
 ax2.set_ylabel(&quot;Phase&quot;)
 ax2.set_xlabel(&quot;f / Hz&quot;)
-ax2.set_ylim(-100,100)
-ytics = [-90,-45,0,45,90]
-ax2.set_yticks( ytics )
+ax2.set_ylim(-100, 100)
+ytics = [-90, -45, 0, 45, 90]
+ax2.set_yticks(ytics)
 for y in ytics
-  ax2.axhline(y, lw=0.5, color=&quot;k&quot;)
+   ax2.axhline(y, lw = 0.5, color = &quot;k&quot;)
 end
-ax2.axvline( f0, lw=0.5, color=&quot;k&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `h1` in soft scope is ambiguous because a global variable by the same name exists: `h1` will be treated as a new local. Disambiguate by using `local h1` to suppress this warning or `global h1` to assign to the existing global variable.
-└ @ none:3</pre><p><img src="../ch13-lcr4-plot.svg" alt/></p><h3 id="練習：共振回路"><a class="docs-heading-anchor" href="#練習：共振回路">●◀ 練習：共振回路</a><a id="練習：共振回路-1"></a><a class="docs-heading-anchor-permalink" href="#練習：共振回路" title="Permalink"></a></h3><p>複素数 <span>$H(\omega)$</span> の分母の虚数部分 <span>$Q \left( \dfrac{\omega}{\omega_0} - \dfrac{\omega_0}{\omega} \right)$</span> を、角振動数 <span>$\omega$</span> の関数として描け。 その特徴を記せ。</p><p>振幅の二乗が最大値の半分 <span>$\left\vert{H(\omega)}\right\vert^2 = \dfrac{1}{2}$</span> になる角振動数は2つある。その周波数 <span>$\omega_1, \omega_2$</span> を数値的に求めてみよ。 参考 → <a href="../ch05/#「はさみうち」法による、方程式の求解">▼ 「はさみうち」法による、方程式の求解</a></p><p>２つの角振動数の差 <span>$\Delta\omega = \omega_2 - \omega_1$</span> を、 角振動数の半値全幅 (FWHM; full width of half maximum) という。</p><p>定数 <span>$Q$</span> は、半値全幅 <span>$\Delta{\omega}$</span> と共振角振動数 <span>$\omega_0$</span> の比に、ほぼ等しい。</p><div>\[Q \simeq \dfrac{\omega_0}{\Delta\omega} = \dfrac{f_0}{\Delta{f}}\]</div><p>これを、数値的に確かめてみよ。</p><p>ヒント： 半値全幅を与える角振動数 <span>$\omega_1, \omega_2$</span> では、以下が成り立つ。複号 <span>$\pm$</span> が、<span>$\omega_1, \omega_2$</span> のどちらかに対応するかを考えよ。</p><div>\[H(\omega_{1,2} ) = \dfrac{1}{1 \pm i}\]</div><h3 id="低域通過フィルタ"><a class="docs-heading-anchor" href="#低域通過フィルタ">◀ 低域通過フィルタ</a><a id="低域通過フィルタ-1"></a><a class="docs-heading-anchor-permalink" href="#低域通過フィルタ" title="Permalink"></a></h3><p><img src="../ac-lr-ser-1.png" alt/></p><p>自己インダクタンス L と電気抵抗 R を直列に接続したLR直列回路の電源に正弦波電圧 <span>$e(t)$</span> を加える。 抵抗 <span>$R$</span> の両端子間の電圧 <span>$v(t)$</span> は、同じ角振動数を持つ正弦波 <span>$v(t)$</span> となる。 正弦波 <span>$e(t)$</span> と <span>$v(t)$</span> を複素数 <span>$E(\omega)$</span> と <span>$V(\omega)$</span> で表したとき、 両者の比は、以下の複素数 <span>$H(\omega)$</span> で表される。</p><div>\[H(\omega) = \dfrac{V(\omega)}{E(\omega)} = \dfrac{1}{1+i\dfrac{\omega}{\omega_0}}\]</div><p>ここで、<span>$\omega_0 = 2\pi{f_0}$</span> は、回路素子 <span>$L, R$</span>の値から 決まる正の定数である。<span>$f_0$</span> は周波数の次元、<span>$\omega_0$</span> は角振動数の次元を持つ。</p><p>まず、<span>$f_0= 1\;\mathrm{kHz}$</span> として、<span>$H(\omega)$</span> の振幅 <span>$\left\vert{H(\omega)}\right\vert$</span> を、描く。横軸の周波数は対数で表示する。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+ax2.axvline(f0, lw = 0.5, color = &quot;k&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `h1` in soft scope is ambiguous because a global variable by the same name exists: `h1` will be treated as a new local. Disambiguate by using `local h1` to suppress this warning or `global h1` to assign to the existing global variable.
+└ @ none:3</pre><p><img src="../ch13-lcr4-plot.svg" alt/></p><h3 id="練習：共振回路"><a class="docs-heading-anchor" href="#練習：共振回路">●◀ 練習：共振回路</a><a id="練習：共振回路-1"></a><a class="docs-heading-anchor-permalink" href="#練習：共振回路" title="Permalink"></a></h3><p>複素数 <span>$H(\omega)$</span> の分母の虚数部分</p><div>\[Q \left( \dfrac{\omega}{\omega_0} - \dfrac{\omega_0}{\omega} \right)\]</div><p>を，角振動数 <span>$\omega$</span> の関数として描け． その特徴を記せ．</p><p>振幅の二乗が最大値の半分 <span>$\left\vert{H(\omega)}\right\vert^2 = \dfrac{1}{2}$</span> になる角振動数は2つある． その周波数 <span>$\omega_1, \omega_2$</span> を数値的に求めてみよ． 参考 → <a href="../ch05/#「はさみうち」法による，方程式の求解">▼ 「はさみうち」法による，方程式の求解</a></p><p>２つの角振動数の差 <span>$\Delta\omega = \omega_2 - \omega_1$</span> を， 角振動数の半値全幅（FWHM; full width of half maximum）という．</p><p>定数 <span>$Q$</span> は，半値全幅 <span>$\Delta{\omega}$</span> と共振角振動数 <span>$\omega_{0}$</span> の比に，ほぼ等しい．</p><div>\[Q \simeq \dfrac{\omega_0}{\Delta\omega} = \dfrac{f_0}{\Delta{f}}\]</div><p>これを，数値的に確かめてみよ．</p><p>ヒント： 半値全幅を与える角振動数 <span>$\omega_{1}, \omega_2$</span> では，以下が成り立つ． 複号 <span>$\pm$</span> が，<span>$\omega_{1}, \omega_{2}$</span> のどちらかに対応するかを考えよ．</p><div>\[H(\omega_{1,2} ) = \dfrac{1}{1 \pm i}\]</div><h3 id="低域通過フィルタ"><a class="docs-heading-anchor" href="#低域通過フィルタ">◀ 低域通過フィルタ</a><a id="低域通過フィルタ-1"></a><a class="docs-heading-anchor-permalink" href="#低域通過フィルタ" title="Permalink"></a></h3><p><img src="../ac-lr-ser-1.png" alt/></p><p>自己インダクタンス L と電気抵抗 R を直列に接続したLR直列回路の電源に正弦波電圧 <span>$e(t)$</span> を加える． 抵抗 <span>$R$</span> の両端子間の電圧 <span>$v(t)$</span> は，同じ角振動数を持つ正弦波 <span>$v(t)$</span> となる． 正弦波 <span>$e(t)$</span> と <span>$v(t)$</span> を複素数 <span>$E(\omega)$</span> と <span>$V(\omega)$</span> で表したとき， 両者の比は，以下の複素数 <span>$H(\omega)$</span> で表される．</p><div>\[H(\omega) = \dfrac{V(\omega)}{E(\omega)} = \dfrac{1}{1+i\dfrac{\omega}{\omega_0}}\]</div><p>ここで，<span>$\omega_0 = 2\pi{f_0}$</span> は，回路素子 <span>$L, R$</span> の値から 決まる正の定数である．<span>$f_0$</span> は周波数の次元，<span>$\omega_{0}$</span> は角振動数の次元を持つ．</p><p>まず，<span>$f_{0} = 1\;\mathrm{kHz}$</span> として，<span>$H(\omega)$</span> の 振幅 <span>$\left\vert{H(\omega)}\right\vert$</span> を，描く．横軸の周波数は対数で表示する．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=100))
+fs = exp10.(range(1, 5, length = 100))
 
-ws=2pi*fs
-h1=1 ./ (1 .+ im * ws/w0)
+ws = 2pi * fs
+h1 = 1 ./ (1 .+ im * ws / w0)
 
 using PyPlot
 plt.plot(fs, abs.(h1))
@@ -388,112 +394,115 @@ plt.xscale(&quot;log&quot;)
 plt.xlabel(&quot;f / Hz&quot;)
 plt.ylabel(&quot;Amplitude&quot;)
 
-plt.axhline(1, lw=0.5, color=&quot;k&quot;)
-plt.axhline(1/sqrt(2), lw=0.5, color=&quot;k&quot;)
-plt.axvline(f0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-lpf1-plot.svg" alt/></p><p>振幅は、周波数が低いとき <span>$1$</span> にほぼ等しく、周波数の増加に伴い、単調減少する。 周波数が低い正弦波をそのまま通し、周波数の高い正弦波を減衰させるので、低域通過フィルタ (Low Pass Filter; LPF) と呼ばれる。</p><p>周波数 <span>$f_0$</span> における振幅は <span>$\dfrac{1}{\sqrt{2}}$</span> である。 周波数 <span>$f_0$</span> は、振幅が減衰する周波数の目安であり、遮断(しゃだん)周波数 (cut-off frequecy) と呼ばれる。</p><p>振幅 <span>$A$</span> の常用対数 (底が <span>$10$</span> の対数)をとり、20 倍したものを利得 (gain) という。利得の「単位」をデシベル (dB) という。</p><div>\[G = 20 \log_{10} A\]</div><p>上のグラフを、縦軸を利得に変換して描く。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+plt.axhline(1, lw = 0.5, color = &quot;k&quot;)
+plt.axhline(1 / sqrt(2), lw = 0.5, color = &quot;k&quot;)
+plt.axvline(f0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-lpf1-plot.svg" alt/></p><p>振幅は，周波数が低いとき <span>$1$</span> にほぼ等しく，周波数の増加に伴い，単調減少する． 周波数が低い正弦波をそのまま通し，周波数の高い正弦波を減衰させるので，「低域通過フィルタ（Low Pass Filter; LPF）」と呼ばれる．</p><p>周波数 <span>$f_0$</span> における振幅は <span>$\dfrac{1}{\sqrt{2}}$</span> である． 周波数 <span>$f_0$</span> は，振幅が減衰する周波数の目安であり，「遮断（しゃだん）周波数（cut-off frequecy）」と呼ばれる．</p><p>振幅 <span>$A$</span> の常用対数（底が <span>$10$</span> の対数）をとり，<span>$20$</span> 倍したものを「利得（gain）」という． 利得の「単位」はデシベル（dB）である．</p><div>\[G = 20 \log_{10} A\]</div><p>上のグラフを，縦軸を利得に変換して描く．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=100))
+fs = exp10.(range(1, 5, length = 100))
 
-ws=2pi*fs
-h1=1 ./ (1 .+ im * ws/w0)
+ws = 2pi * fs
+h1 = 1 ./ (1 .+ im * ws / w0)
 
 using PyPlot
-plt.plot(fs, 20*log10.(abs.(h1)))
+plt.plot(fs, 20 * log10.(abs.(h1)))
 plt.xscale(&quot;log&quot;)
 plt.xlabel(&quot;f / Hz&quot;)
 plt.ylabel(&quot;gain / dB&quot;)
 
-plt.axhline(0, lw=0.5, color=&quot;k&quot;)
-plt.axhline(-3, lw=0.5, color=&quot;k&quot;)
-plt.axvline(f0, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-lpf2-plot.svg" alt/></p><p>振幅 <span>$1$</span> は 利得 <span>$0\;\mathrm{dB}$</span> である。減衰動作の周波数領域では、周波数が <span>$10$</span> 倍になると利得は <span>$-20\;\mathrm{dB}$</span> 減少する。 この傾きを <span>$-20\;\mathrm{dB}/\mathrm{decade}$</span> と称する (decade は <span>$10$</span> 倍の意味)。</p><p>更に、位相を加えて描く。</p><pre><code class="language-julia">f0=1e3
-w0=2pi*f0
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axhline(-3, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(f0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-lpf2-plot.svg" alt/></p><p>振幅 <span>$1$</span> は 利得 <span>$0\;\mathrm{dB}$</span> である． 減衰動作の周波数領域では，周波数が <span>$10$</span> 倍になると利得は <span>$-20\;\mathrm{dB}$</span> 減少する． この傾きを <span>$-20\;\mathrm{dB}/\mathrm{decade}$</span> と称する（decade は <span>$10$</span> 倍の意味）．</p><p>更に，位相を加えて描く．</p><pre><code class="language-julia">f0 = 1e3
+w0 = 2pi * f0
 
-fs=exp10.(range(1,5,length=100))
+fs = exp10.(range(1, 5, length = 100))
 
-ws=2pi*fs
-h1=1 ./ (1 .+ im * ws/w0)
+ws = 2pi * fs
+h1 = 1 ./ (1 .+ im * ws / w0)
 
 using PyPlot
-fig,axs=plt.subplots(2,1)
+fig, axs = plt.subplots(2, 1)
 #
-ax1=axs[1]
-ax1.plot(fs, 20*log10.(abs.(h1)))
+ax1 = axs[1]
+ax1.plot(fs, 20 * log10.(abs.(h1)))
 ax1.set_xscale(&quot;log&quot;)
 ax1.set_xlabel(&quot;f / Hz&quot;)
 ax1.set_ylabel(&quot;gain / dB&quot;)
 
-ax1.axvline(f0, lw=0.5, color=&quot;k&quot;)
-ax1.axhline( 0, lw=0.5, color=&quot;k&quot;)
-ax1.axhline(-3, lw=0.5, color=&quot;k&quot;)
+ax1.axvline(f0, lw = 0.5, color = &quot;k&quot;)
+ax1.axhline(0, lw = 0.5, color = &quot;k&quot;)
+ax1.axhline(-3, lw = 0.5, color = &quot;k&quot;)
 #
-ax2=axs[2]
+ax2 = axs[2]
 ax2.plot(fs, rad2deg.(angle.(h1)))
-ax2.set_ylim(-100,10)
-ax2.set_yticks([-90,-75,-60,-45,-30,-15,0]) # y軸の刻みを指定する
+ax2.set_ylim(-100, 10)
+ax2.set_yticks([-90, -75, -60, -45, -30, -15, 0]) # y軸の刻みを指定する
 ax2.set_xscale(&quot;log&quot;)
 ax2.set_xlabel(&quot;f / Hz&quot;)
 ax2.set_ylabel(&quot;phase / degree&quot;)
-ax2.axvline(f0, lw=0.5, color=&quot;k&quot;)
-ax2.axhline(-45, lw=0.5, color=&quot;k&quot;)
-ax2.axhline(0, lw=0.5, color=&quot;k&quot;)
-ax2.axhline(-90, lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-lpf3-plot.svg" alt/></p><p>位相は 周波数の増加に伴い単調減少する。 低い周波数では <span>$0^{\circ}$</span> に、高い周波数では <span>$-90^{\circ}$</span> にそれぞれ漸近する。</p><p>遮断周波数 <span>$f_0$</span> では伝達関数は <span>$H(\omega_0) = \dfrac{1}{1+i}$</span> である。 したがって、遮断周波数 <span>$f_0$</span> での利得は <span>$-3\;\mathrm{dB}$</span>、位相は <span>$-45^{\circ}$</span> である (註: <span>$\log_{10} 2 \simeq 0.3$</span> を覚えておくとよい)。</p><h3 id="練習：低域通過フィルタ"><a class="docs-heading-anchor" href="#練習：低域通過フィルタ">◀ 練習：低域通過フィルタ</a><a id="練習：低域通過フィルタ-1"></a><a class="docs-heading-anchor-permalink" href="#練習：低域通過フィルタ" title="Permalink"></a></h3><p>以下の伝達関数に対して、周波数応答を描け。</p><div>\[H(\omega) = \dfrac{-A}{1+i\dfrac{\omega}{\omega_0}}\]</div><p>まず、<span>$A = 1$</span> を保ったまま <span>$f_0 = 100, 1000, 10000\;\mathrm{Hz}$</span> と増やしてみよ。</p><p>次に、<span>$A = 1, 10, 100$</span> と増やしてみよ。</p><p>それぞれ、どのように変化するか、言葉で記述してみよ。</p><h2 id="複素数に拡張された関数"><a class="docs-heading-anchor" href="#複素数に拡張された関数">■ 複素数に拡張された関数</a><a id="複素数に拡張された関数-1"></a><a class="docs-heading-anchor-permalink" href="#複素数に拡張された関数" title="Permalink"></a></h2><p>平方根や指数関数以外でも、実数を引数とする関数の多くが、複素数を引数とするように拡張されている。</p><h3 id="対数関数（複素数）"><a class="docs-heading-anchor" href="#対数関数（複素数）">▶ 対数関数（複素数）</a><a id="対数関数（複素数）-1"></a><a class="docs-heading-anchor-permalink" href="#対数関数（複素数）" title="Permalink"></a></h3><p>複素数 <span>$z = r\exp(i\theta)$</span> と極座標表示したとき、その自然対数は、以下のように計算できる。 すなわち、実数部は絶対値の自然対数、虚数部は偏角である。</p><div>\[\log{z} = \log r\exp(i\theta) = \log{r} + i \theta\]</div><p>複素数 <span>$z = 1 + i y$</span> の自然対数 <span>$\log{z}$</span> の実数部と虚数部を描く。</p><pre><code class="language-julia">using PyPlot
+ax2.axvline(f0, lw = 0.5, color = &quot;k&quot;)
+ax2.axhline(-45, lw = 0.5, color = &quot;k&quot;)
+ax2.axhline(0, lw = 0.5, color = &quot;k&quot;)
+ax2.axhline(-90, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-lpf3-plot.svg" alt/></p><p>位相は 周波数の増加に伴い単調減少する． 低い周波数では <span>$0^{\circ}$</span> に，高い周波数では <span>$-90^{\circ}$</span> にそれぞれ漸近する．</p><p>遮断周波数 <span>$f_0$</span> では伝達関数は <span>$H(\omega_0) = \dfrac{1}{1+i}$</span> である． したがって，遮断周波数 <span>$f_0$</span> での利得は <span>$-3\;\mathrm{dB}$</span> ,位相は <span>$-45^{\circ}$</span> である （註: <span>$\log_{10} 2 \simeq 0.3$</span> ）．</p><p>以下の伝達関数に対して，周波数応答を描け．</p><div>\[H(\omega) = \dfrac{-A}{1+i\dfrac{\omega}{\omega_0}}\]</div><p>まず，<span>$A = 1$</span> を保ったまま <span>$f_0 = 100, 1000, 10000\;\mathrm{Hz}$</span> と増やしてみよ．</p><p>次に，<span>$A = 1, 10, 100$</span> と増やしてみよ．</p><p>それぞれ，どのように変化するか，言葉で記述してみよ．</p><h2 id="複素数に拡張された関数"><a class="docs-heading-anchor" href="#複素数に拡張された関数">■ 複素数に拡張された関数</a><a id="複素数に拡張された関数-1"></a><a class="docs-heading-anchor-permalink" href="#複素数に拡張された関数" title="Permalink"></a></h2><p>平方根や指数関数以外でも，実数を引数とする関数の多くが，複素数を引数とするように拡張されている．</p><h3 id="対数関数（複素数）"><a class="docs-heading-anchor" href="#対数関数（複素数）">▶ 対数関数（複素数）</a><a id="対数関数（複素数）-1"></a><a class="docs-heading-anchor-permalink" href="#対数関数（複素数）" title="Permalink"></a></h3><p>複素数 <span>$z = r\exp(i\theta)$</span> と極座標表示したとき，その自然対数は，以下のように計算できる． すなわち，実数部は絶対値の自然対数，虚数部は偏角である．</p><div>\[\log{z} = \log r\exp(i\theta) = \log{r} + i \theta\]</div><p>複素数 <span>$z = 1 + i y$</span> の自然対数 <span>$\log{z}$</span> の実数部と虚数部を描く．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-ys=range(-2pi,2pi,length=101)
-zs=complex.(1,ys)
-cs=log.(zs)
-plt.plot(ys, real.(cs), label=&quot;real log (1+i*y)&quot; )
-plt.plot(ys, imag.(cs), label=&quot;imag log (1+i*y)&quot; )
+
+ys = range(-2pi, 2pi, length = 101)
+zs = complex.(1, ys)
+cs = log.(zs)
+plt.plot(ys, real.(cs), label = &quot;real log (1+i*y)&quot;)
+plt.plot(ys, imag.(cs), label = &quot;imag log (1+i*y)&quot;)
 plt.legend()
 
 plt.xlabel(&quot;y&quot;)
-plt.legend(loc=4)
-plt.ylim(-3,3)
-plt.xlim(-3,3)
+plt.legend(loc = 4)
+plt.ylim(-3, 3)
+plt.xlim(-3, 3)
 
-plt.axhline(0,lw=0.5, color=&quot;k&quot;)
-plt.axvline(0,lw=0.5, color=&quot;k&quot;)
-plt.axhline( pi/2, lw=0.5, color=&quot;c&quot;)
-plt.axhline(-pi/2, lw=0.5, color=&quot;c&quot;)
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axhline(pi / 2, lw = 0.5, color = &quot;c&quot;)
+plt.axhline(-pi / 2, lw = 0.5, color = &quot;c&quot;)
 #
-plt.axhline(log(sqrt(2)), lw=0.5, color=&quot;m&quot;)
-plt.axhline( pi/4, 0.6, 1, lw=0.5, color=&quot;m&quot;)
-plt.axhline(-pi/4, 0, 0.4, lw=0.5, color=&quot;m&quot;)
-plt.axvline( 1, lw=0.5, color=&quot;m&quot;)
-plt.axvline(-1, lw=0.5, color=&quot;m&quot;)</code></pre><p><img src="../ch13-log1-plot.svg" alt/></p><p>変数 <span>$y$</span> の増加に伴い、<span>$\log{z}$</span> の虚数部は <span>$-\dfrac{\pi}{2}$</span> から <span>$\dfrac{\pi}{2}$</span> へ単調に増加する (シアン色の補助線)。 実数部は下に凸で、<span>$y=0$</span> で極小値 <span>$\log{1} = 0$</span> をとる。</p><p>特に、<span>$y = \pm{1}$</span> において、虚数部は <span>$\pm\dfrac{\pi}{4}$</span>、実数部は <span>$\log\sqrt{2}$</span> をとる (マゼンダ色の補助線)。</p><p>上のグラフは、ガウス平面上の <span>$z = 1 + i y$</span> の軌跡から理解できるであろう。</p><pre><code class="language-julia">using PyPlot
+plt.axhline(log(sqrt(2)), lw = 0.5, color = &quot;m&quot;)
+plt.axhline(pi / 4, 0.6, 1, lw = 0.5, color = &quot;m&quot;)
+plt.axhline(-pi / 4, 0, 0.4, lw = 0.5, color = &quot;m&quot;)
+plt.axvline(1, lw = 0.5, color = &quot;m&quot;)
+plt.axvline(-1, lw = 0.5, color = &quot;m&quot;)</code></pre><p><img src="../ch13-log1-plot.svg" alt/></p><p>変数 <span>$y$</span> の増加に伴い，<span>$\log{z}$</span> の虚数部は <span>$-\dfrac{\pi}{2}$</span> から <span>$\dfrac{\pi}{2}$</span> へ単調に増加する（シアン色の補助線） ． 実数部は下に凸で，<span>$y=0$</span> で極小値 <span>$\log{1} = 0$</span> をとる．</p><p>特に，<span>$y = \pm{1}$</span> において，虚数部は <span>$\pm\dfrac{\pi}{4}$</span> ,実数部は <span>$\log\sqrt{2}$</span> をとる（マゼンダ色の補助線）．</p><p>上のグラフは，ガウス平面上の <span>$z = 1 + i y$</span> の軌跡から理解できるであろう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-plt.xlim(-3,3)
-plt.ylim(-3,3)
+
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)
 plt.xlabel(&quot;real part&quot;)
 plt.ylabel(&quot;imag part&quot;)
-plt.axhline(0, lw=0.5, c=&quot;k&quot;)
-plt.axvline(0, lw=0.5, c=&quot;k&quot;)
-plt.axvline(1, lw=0.5, c=&quot;k&quot;)
-for y in [-2, -1, 1,2]
-  plt.plot([0,1], [0,y], &quot;b.-&quot;)
-  text(1.1, y, &quot;1+i &quot;*string(y))
-end</code></pre><p><img src="../ch13-log2-plot.svg" alt/></p><h3 id="練習：対数関数（複素数）"><a class="docs-heading-anchor" href="#練習：対数関数（複素数）">◀ 練習：対数関数（複素数）</a><a id="練習：対数関数（複素数）-1"></a><a class="docs-heading-anchor-permalink" href="#練習：対数関数（複素数）" title="Permalink"></a></h3><p>複素数 <span>$z = x + i$</span> の自然対数 <span>$\log{z}$</span> の実数部と虚数部を描け。 その結果を、ガウス平面上の <span>$z$</span> の軌跡を描いて、考察せよ。</p><h3 id="三角関数と双曲線関数"><a class="docs-heading-anchor" href="#三角関数と双曲線関数">▶ 三角関数と双曲線関数</a><a id="三角関数と双曲線関数-1"></a><a class="docs-heading-anchor-permalink" href="#三角関数と双曲線関数" title="Permalink"></a></h3><p>双曲線関数 <span>$\cosh{t}, \sinh{t}$</span> や三角関数 <span>$\cos{t}, \sin{t}$</span> は、指数関数 <span>$\exp(z)$</span> を用いて、定義されることもある。</p>\begin{align*}
-\cosh x &= \dfrac{\exp(x)+\exp(-x)}{2}, \\
-\sinh x &= \dfrac{\exp(x)-\exp(-x)}{2}, \\
-\cos x &= \dfrac{\exp(ix)+\exp(-ix)}{2}, \\
-\sin x &= \dfrac{\exp(ix)-\exp(-ix)}{2i}
-\end{align*}<p>したがって、三角関数に純虚数を与えると、双曲線関数となる。</p>\begin{align*}
-\cos ix & = \cosh x, \\  
-\sin ix & = i \sinh x
-\end{align*}<p>上の等式がなりたつことを、グラフで観察しよう。</p><pre><code class="language-julia">using PyPlot
+plt.axhline(0, lw = 0.5, c = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, c = &quot;k&quot;)
+plt.axvline(1, lw = 0.5, c = &quot;k&quot;)
+for y in [-2, -1, 1, 2]
+   plt.plot([0, 1], [0, y], &quot;b.-&quot;)
+   text(1.1, y, &quot;1+i &quot; * string(y))
+end</code></pre><p><img src="../ch13-log2-plot.svg" alt/></p><h3 id="練習：対数関数（複素数）"><a class="docs-heading-anchor" href="#練習：対数関数（複素数）">◀ 練習：対数関数（複素数）</a><a id="練習：対数関数（複素数）-1"></a><a class="docs-heading-anchor-permalink" href="#練習：対数関数（複素数）" title="Permalink"></a></h3><p>複素数 <span>$z = x + i$</span> の自然対数 <span>$\log{z}$</span> の実数部と虚数部を描け． その結果を，ガウス平面上の <span>$z$</span> の軌跡を描いて，考察せよ．</p><h3 id="三角関数と双曲線関数"><a class="docs-heading-anchor" href="#三角関数と双曲線関数">▶ 三角関数と双曲線関数</a><a id="三角関数と双曲線関数-1"></a><a class="docs-heading-anchor-permalink" href="#三角関数と双曲線関数" title="Permalink"></a></h3><p>双曲線関数 <span>$\cosh{t}, \sinh{t}$</span> や三角関数 <span>$\cos{t}, \sin{t}$</span> は，指数関数 <span>$\exp(z)$</span> を用いて，定義されることもある．</p><div>\[\begin{aligned}
+\cosh x &amp;= \dfrac{\exp(x)+\exp(-x)}{2}, \\
+\sinh x &amp;= \dfrac{\exp(x)-\exp(-x)}{2}, \\
+\cos x &amp;= \dfrac{\exp(ix)+\exp(-ix)}{2}, \\
+\sin x &amp;= \dfrac{\exp(ix)-\exp(-ix)}{2i}
+\end{aligned}\]</div><p>したがって，三角関数に純虚数を与えると，双曲線関数となる．</p><div>\[\begin{aligned}
+\cos ix &amp; = \cosh x, \\
+\sin ix &amp; = i \sinh x
+\end{aligned}\]</div><p>上の等式がなりたつことを，グラフで観察しよう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-xs=range(-1,1,length=21)
-cz=cos.( im*xs )
-plt.plot(xs, real.(cz), &quot;r-&quot;, label=&quot;real cos(ix)&quot;)
-plt.plot(xs, cosh.(xs), &quot;ro&quot;, label=&quot;cosh(x)&quot;)
+
+xs = range(-1, 1, length = 21)
+cz = cos.(im * xs)
+plt.plot(xs, real.(cz), &quot;r-&quot;, label = &quot;real cos(ix)&quot;)
+plt.plot(xs, cosh.(xs), &quot;ro&quot;, label = &quot;cosh(x)&quot;)
 #
-sz=sin.( im*xs )
-plt.plot(xs, imag.(sz), &quot;b-&quot;, label=&quot;imag sin(ix)&quot;)
-plt.plot(xs, sinh.(xs), &quot;bo&quot;, label=&quot;sinh(x)&quot;)
+sz = sin.(im * xs)
+plt.plot(xs, imag.(sz), &quot;b-&quot;, label = &quot;imag sin(ix)&quot;)
+plt.plot(xs, sinh.(xs), &quot;bo&quot;, label = &quot;sinh(x)&quot;)
 #
 plt.xlabel(&quot;x&quot;)
-plt.xlim(-1.8,1.8)
-plt.ylim(-1.8,1.8)
+plt.xlim(-1.8, 1.8)
+plt.ylim(-1.8, 1.8)
 plt.legend()
-plt.axhline(0,lw=0.5, color=&quot;k&quot;)
-plt.axvline(0,lw=0.5, color=&quot;k&quot;)</code></pre><p><img src="../ch13-tri1-plot.svg" alt/></p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>複素数</li><li>複素数のベクトル・行列</li><li>複素数の加減乗除</li><li>ガウス平面</li><li>オイラーの公式</li><li>極座標表示</li><li>複素数に拡張された関数</li><li>応用：伝達関数</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch12/">« 第12回：関数の定義と呼び出し</a><a class="docs-footer-nextpage" href="../porting/">Julia 0.6 から 1.x への移植 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 6 September 2020 17:37">Sunday 6 September 2020</span>. Using Julia version 1.5.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plt.axhline(0, lw = 0.5, color = &quot;k&quot;)
+plt.axvline(0, lw = 0.5, color = &quot;k&quot;)</code></pre><p><img src="../ch13-tri1-plot.svg" alt/></p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>複素数</li><li>複素数のベクトル・行列</li><li>複素数の加減乗除</li><li>ガウス平面</li><li>オイラーの公式</li><li>極座標表示</li><li>複素数に拡張された関数</li><li>応用：伝達関数</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch12/">« 第12回：関数の定義と呼び出し</a><a class="docs-footer-nextpage" href="../porting/">Julia 0.6 から 1.x への移植 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:27">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
