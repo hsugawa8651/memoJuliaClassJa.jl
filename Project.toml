@@ -1,7 +1,7 @@
 name = "memoJuliaClassJa"
 uuid = "13d03181-b015-4217-8264-c4cd2c741405"
 authors = ["Hiroharu Sugawara <hsugawa@gmail.com>"]
-version = "0.3.1"
+version = "0.3.2"
 
 [compat]
 julia = "1.5"
