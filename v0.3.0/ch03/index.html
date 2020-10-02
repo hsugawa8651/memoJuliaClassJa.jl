@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第3回：▼ 連続な曲線を描く · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch03/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li class="is-active"><a class="tocitem" href>第3回：▼ 連続な曲線を描く</a><ul class="internal"><li><a class="tocitem" href="#Jupyter-notebook-によるテキストの入力"><span>■ Jupyter notebook によるテキストの入力</span></a></li><li><a class="tocitem" href="#定義域・値域"><span>▼ 定義域・値域</span></a></li><li><a class="tocitem" href="#定数-pi"><span>▶ 定数 <code>pi</code></span></a></li><li><a class="tocitem" href="#正弦関数・余弦関数を描く"><span>▼ 正弦関数・余弦関数を描く</span></a></li><li><a class="tocitem" href="#楕円を描く"><span>▼ 楕円を描く</span></a></li><li><a class="tocitem" href="#アルキメデスの渦を描く"><span>▼ アルキメデスの渦を描く</span></a></li><li><a class="tocitem" href="#練習"><span>▲ 練習</span></a></li><li><a class="tocitem" href="#花曲線を描く"><span>▼ 花曲線を描く</span></a></li><li><a class="tocitem" href="#指数関数を描く"><span>▼ 指数関数を描く</span></a></li><li><a class="tocitem" href="#練習：指数関数：繰り返しで底を変える"><span>▲ 練習：指数関数：繰り返しで底を変える</span></a></li><li><a class="tocitem" href="#自然対数の底"><span>▶ 自然対数の底</span></a></li><li><a class="tocitem" href="#軸のスケールを変える"><span>▶ 軸のスケールを変える</span></a></li><li><a class="tocitem" href="#関数-exp,-exp2,-exp10"><span>▶ 関数 exp, exp2, exp10</span></a></li><li><a class="tocitem" href="#平方根を描く"><span>▼ 平方根を描く</span></a></li><li><a class="tocitem" href="#立方根を描く"><span>▼ 立方根を描く</span></a></li><li><a class="tocitem" href="#冪乗根を描く"><span>▼ 冪乗根を描く</span></a></li><li><a class="tocitem" href="#自然対数"><span>▼ 自然対数</span></a></li><li><a class="tocitem" href="#対数関数"><span>▼ 対数関数</span></a></li><li><a class="tocitem" href="#ダブルYグラフを描く"><span>▼ ダブルYグラフを描く</span></a></li><li><a class="tocitem" href="#鉛直上投げ自由落下運動を描く"><span>▼ 鉛直上投げ自由落下運動を描く</span></a></li><li><a class="tocitem" href="#練習：鉛直上投げ自由落下運動"><span>▲ 練習：鉛直上投げ自由落下運動</span></a></li><li><a class="tocitem" href="#ダブルYグラフに共通な凡例の作成"><span>●▼ ダブルYグラフに共通な凡例の作成</span></a></li><li><a class="tocitem" href="#練習：ダブルYグラフ：鉛直上投げ自由落下運動"><span>▲ 練習：ダブルYグラフ：鉛直上投げ自由落下運動</span></a></li><li><a class="tocitem" href="#描画領域を縦横に分割する"><span>▼ 描画領域を縦横に分割する</span></a></li><li><a class="tocitem" href="#練習：斜めに飛ばした球の軌跡"><span>▲ 練習：斜めに飛ばした球の軌跡</span></a></li><li><a class="tocitem" href="#練習：色々な連続曲線を描く"><span>▲ 練習：色々な連続曲線を描く</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第3回：▼ 連続な曲線を描く</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第3回：▼ 連続な曲線を描く</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch03.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch03"><a class="docs-heading-anchor" href="#ch03">第3回：▼ 連続な曲線を描く</a><a id="ch03-1"></a><a class="docs-heading-anchor-permalink" href="#ch03" title="Permalink"></a></h1><h2 id="Jupyter-notebook-によるテキストの入力"><a class="docs-heading-anchor" href="#Jupyter-notebook-によるテキストの入力">■ Jupyter notebook によるテキストの入力</a><a id="Jupyter-notebook-によるテキストの入力-1"></a><a class="docs-heading-anchor-permalink" href="#Jupyter-notebook-によるテキストの入力" title="Permalink"></a></h2><p>Jupyter notebook のセルには、複数の種類(Cell type)がある。</p><p>既定のセルの Cell type は、<code>Code</code> である。 プログラム片を入力して、<code>SHIFT</code>キーと<code>ENTER</code>キーを同時に押して実行すると、 出力セルに実行結果が表示される。</p><p>Cell type を Markdown に変更すると、 Markdown 記式によるテキストを入力できる。</p><p>Markdown 記式でテキストを入力し、 SHIFT+ENTERを押して実行すると、 Markdown記式で整形された文書が表示される。</p><p><a href="https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Working%20With%20Markdown%20Cells.html">Markdown Cells</a></p><p>Markdown記法では、空行が段落の区切りである。 空行をはさまない行替えは、前の行に続けて、同じ段落に配置される。</p><p>文字列の飾りは、たくさん使用しない方がよい。</p><p>URLリンクを書くには、次のように記述する。 <code>[</code> 表示名 <code>](</code> URL <code>)</code></p><p>例</p><p><code>[Julia 1.1 Documentation](https://docs.julialang.org/en/v1.1/)</code></p><p><a href="https://docs.julialang.org/en/v1.1/">Julia 1.1 Documentation</a></p><p>Markdown記法では、数式を挿入することができる。 ダラー記号 <code>$</code> 一つで囲まれた数式は行内数式 (inline math)、 ダラー記号 <code>$</code> 二つで囲まれた数式は別行立て数式 (display math)である。 数式そのものは LaTeX 記法で記述する。 いくつか例を示す。</p><ul><li>数式内の文字は変数とみなされ、斜体で表される。 <code>$x+1$</code> → <span>$x+1$</span></li><li>上付き <code>$x^{2}$</code> → <span>$x^{2}$</span></li><li>下付き <code>$x_{3}$</code> → <span>$x_{3}$</span></li><li>分数 <code>$\dfrac{a}{b}$</code> → <span>$\dfrac{a}{b}$</span></li><li>関数 <code>$f(x) = x^{2}+1$</code> → <span>$f(x) = x^{2}+1$</span></li><li>三角関数 <code>$\sin{x}, \tan{x}$</code> → <span>$\sin{x}, \tan{x}$</span></li><li>指数対数関数 <code>$\exp{x}, \log{x}$</code> → <span>$\exp{x}, \log{x}$</span></li><li>テキスト内の立体 (roman style) <code>$a\;\mathrm{over}\;b$</code> → <span>$a\;\mathrm{over}\;b$</span></li><li>総和 <code>$\sum_{i=0}^{m}i$</code> → <span>$\sum_{i=0}^{m}i$</span></li><li>総和を「行立て」する <code>$$\sum_{i=0}^{m}i$$</code> →</li></ul><div>\[\sum_{i=0}^{m}i\]</div><ul><li>積分 <code>$\int_{0}^{1}x dx$</code> → <span>$\int_{0}^{1}x dx$</span></li><li>積分を「行立て」する <code>$$\int_{0}^{1}x dx$$</code> →</li></ul><div>\[\int_{0}^{1}x dx\]</div><ul><li>カッコのペア <code>$\left[\left\{\left( \dfrac{1}{2} \right)\right\}\right]$</code> → <span>$\left[\left\{\left( \dfrac{1}{2} \right)\right\}\right]$</span></li></ul><h2 id="定義域・値域"><a class="docs-heading-anchor" href="#定義域・値域">▼ 定義域・値域</a><a id="定義域・値域-1"></a><a class="docs-heading-anchor-permalink" href="#定義域・値域" title="Permalink"></a></h2><p>関数 <span>$y=f(x)$</span> の定義域(domain)とは、 独立変数 (independent variable) <span>$x$</span> の取りうる値からなる集合である。ちなみに、従属変数 (dependent variable) <span>$y$</span> が取りうる値からなる集合を、値域 (range)という</p><p>本章では、 定義域が実数全体、あるいは、正の数の集合である関数について、 グラフを描いてみる。</p><h2 id="定数-pi"><a class="docs-heading-anchor" href="#定数-pi">▶ 定数 <code>pi</code></a><a id="定数-pi-1"></a><a class="docs-heading-anchor-permalink" href="#定数-pi" title="Permalink"></a></h2><p>定数 <code>pi</code> は円周率である。</p><pre><code class="language-julia-repl">julia&gt; pi
-π = 3.1415926535897...</code></pre><h2 id="正弦関数・余弦関数を描く"><a class="docs-heading-anchor" href="#正弦関数・余弦関数を描く">▼ 正弦関数・余弦関数を描く</a><a id="正弦関数・余弦関数を描く-1"></a><a class="docs-heading-anchor-permalink" href="#正弦関数・余弦関数を描く" title="Permalink"></a></h2><ul><li>正弦 <span>$y = \sin{x}$</span></li><li>余弦 <span>$y = \cos{x}$</span></li></ul><h3 id="ラジアン単位"><a class="docs-heading-anchor" href="#ラジアン単位">ラジアン単位</a><a id="ラジアン単位-1"></a><a class="docs-heading-anchor-permalink" href="#ラジアン単位" title="Permalink"></a></h3><ul><li><a href="hhttps://docs.julialang.org/en/v1.1/base/math/#Base.cos-Tuple{Number}"><code>Base.cos</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.sin-Tuple{Number}"><code>Base.sin</code> - Function</a></li></ul><p>引数がラジアン単位の正弦、余弦 <code>sin</code>, <code>cos</code></p><pre><code class="language-julia-repl">julia&gt; sin(pi/6)
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第3回：▼ 連続な曲線を描く · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch03/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li class="is-active"><a class="tocitem" href>第3回：▼ 連続な曲線を描く</a><ul class="internal"><li><a class="tocitem" href="#Jupyter-notebook-によるテキストの入力"><span>■ Jupyter notebook によるテキストの入力</span></a></li><li><a class="tocitem" href="#定義域・値域"><span>▼ 定義域・値域</span></a></li><li><a class="tocitem" href="#定数-pi"><span>▶ 定数 <code>pi</code></span></a></li><li><a class="tocitem" href="#正弦関数・余弦関数を描く"><span>▼ 正弦関数・余弦関数を描く</span></a></li><li><a class="tocitem" href="#楕円を描く"><span>▼ 楕円を描く</span></a></li><li><a class="tocitem" href="#アルキメデスの渦を描く"><span>▼ アルキメデスの渦を描く</span></a></li><li><a class="tocitem" href="#練習"><span>▲ 練習</span></a></li><li><a class="tocitem" href="#花曲線を描く"><span>▼ 花曲線を描く</span></a></li><li><a class="tocitem" href="#指数関数を描く"><span>▼ 指数関数を描く</span></a></li><li><a class="tocitem" href="#練習：指数関数：繰り返しで底を変える"><span>▲ 練習：指数関数：繰り返しで底を変える</span></a></li><li><a class="tocitem" href="#自然対数の底"><span>▶ 自然対数の底</span></a></li><li><a class="tocitem" href="#軸のスケールを変える"><span>▶ 軸のスケールを変える</span></a></li><li><a class="tocitem" href="#関数-exp,-exp2,-exp10"><span>▶ 関数 exp, exp2, exp10</span></a></li><li><a class="tocitem" href="#平方根を描く"><span>▼ 平方根を描く</span></a></li><li><a class="tocitem" href="#立方根を描く"><span>▼ 立方根を描く</span></a></li><li><a class="tocitem" href="#冪乗根を描く"><span>▼ 冪乗根を描く</span></a></li><li><a class="tocitem" href="#自然対数"><span>▼ 自然対数</span></a></li><li><a class="tocitem" href="#対数関数"><span>▼ 対数関数</span></a></li><li><a class="tocitem" href="#ダブルYグラフを描く"><span>▼ ダブルYグラフを描く</span></a></li><li><a class="tocitem" href="#鉛直上投げ自由落下運動を描く"><span>▼ 鉛直上投げ自由落下運動を描く</span></a></li><li><a class="tocitem" href="#練習：鉛直上投げ自由落下運動"><span>▲ 練習：鉛直上投げ自由落下運動</span></a></li><li><a class="tocitem" href="#ダブルYグラフに共通な凡例の作成"><span>●▼ ダブルYグラフに共通な凡例の作成</span></a></li><li><a class="tocitem" href="#練習：ダブルYグラフ：鉛直上投げ自由落下運動"><span>▲ 練習：ダブルYグラフ：鉛直上投げ自由落下運動</span></a></li><li><a class="tocitem" href="#描画領域を縦横に分割する"><span>▼ 描画領域を縦横に分割する</span></a></li><li><a class="tocitem" href="#練習：斜めに飛ばした球の軌跡"><span>▲ 練習：斜めに飛ばした球の軌跡</span></a></li><li><a class="tocitem" href="#練習：色々な連続曲線を描く"><span>▲ 練習：色々な連続曲線を描く</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第3回：▼ 連続な曲線を描く</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第3回：▼ 連続な曲線を描く</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch03.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch03"><a class="docs-heading-anchor" href="#ch03">第3回：▼ 連続な曲線を描く</a><a id="ch03-1"></a><a class="docs-heading-anchor-permalink" href="#ch03" title="Permalink"></a></h1><h2 id="Jupyter-notebook-によるテキストの入力"><a class="docs-heading-anchor" href="#Jupyter-notebook-によるテキストの入力">■ Jupyter notebook によるテキストの入力</a><a id="Jupyter-notebook-によるテキストの入力-1"></a><a class="docs-heading-anchor-permalink" href="#Jupyter-notebook-によるテキストの入力" title="Permalink"></a></h2><p>Jupyter notebook のセルには，複数の種類（Cell type）がある．</p><p>既定のセルの Cell type は，<code>Code</code> である． プログラム片を入力して，<code>SHIFT</code> キーと <code>ENTER</code> キーを同時に押して実行すると， 出力セルに実行結果が表示される．</p><p>Cell type を Markdown に変更すると， Markdown 記式によるテキストを入力できる．</p><p>Markdown 記式でテキストを入力し， SHIFT+ENTERを押して実行すると， Markdown記式で整形された文書が表示される．</p><p><a href="https://jupyter-notebook.readthedocs.io/en/stable/examples/Notebook/Working%20With%20Markdown%20Cells.html">Markdown Cells</a></p><p>Markdown記法では，空行が段落の区切りである． 空行をはさまない行替えは，前の行に続けて，同じ段落に配置される．</p><p>文字列の飾りは，たくさん使用しない方がよい．</p><p>URLリンクを書くには，次のように記述する． <code>[</code> 表示名 <code>](</code> URL <code>)</code></p><p>例</p><p><code>[Julia 1.1 Documentation](https://docs.julialang.org/en/v1.5/)</code></p><p><a href="https://docs.julialang.org/en/v1.5/">Julia 1.1 Documentation</a></p><p>Markdown記法では，数式を挿入することができる． ダラー記号 <code>$</code> 一つで囲まれた数式は行内数式（inline math）， ダラー記号 <code>$</code> 二つで囲まれた数式は別行立て数式（display math）である． 数式そのものは LaTeX 記法で記述する． いくつか例を示す．</p><ul><li>数式内の文字は変数とみなされ，斜体で表される． <code>$x+1$</code> → <span>$x+1$</span></li><li>上付き <code>$x^{2}$</code> → <span>$x^{2}$</span></li><li>下付き <code>$x_{3}$</code> → <span>$x_{3}$</span></li><li>分数 <code>$\dfrac{a}{b}$</code> → <span>$\dfrac{a}{b}$</span></li><li>関数 <code>$f(x) = x^{2}+1$</code> → <span>$f(x) = x^{2}+1$</span></li><li>三角関数 <code>$\sin{x}, \tan{x}$</code> → <span>$\sin{x}, \tan{x}$</span></li><li>指数対数関数 <code>$\exp{x}, \log{x}$</code> → <span>$\exp{x}, \log{x}$</span></li><li>テキスト内の直立体（roman style） <code>$a\;\mathrm{over}\;b$</code> → <span>$a\;\mathrm{over}\;b$</span></li><li>総和 <code>$\sum_{i=0}^{m}i$</code> → <span>$\sum_{i=0}^{m}i$</span></li><li>総和を「行立て」する <code>$$\sum_{i=0}^{m}i$$</code> →</li></ul><div>\[\sum_{i=0}^{m}i\]</div><ul><li>積分 <code>$\int_{0}^{1}x dx$</code> → <span>$\int_{0}^{1}x dx$</span></li><li>積分を「行立て」する <code>$$\int_{0}^{1}x dx$$</code> →</li></ul><div>\[\int_{0}^{1} x dx\]</div><ul><li>カッコのペア <code>$\left[\left\{\left( \dfrac{1}{2} \right)\right\}\right]$</code> → </li></ul><div>\[\left[\left\{\left( \dfrac{1}{2} \right)\right\}\right]\]</div><h2 id="定義域・値域"><a class="docs-heading-anchor" href="#定義域・値域">▼ 定義域・値域</a><a id="定義域・値域-1"></a><a class="docs-heading-anchor-permalink" href="#定義域・値域" title="Permalink"></a></h2><p>関数 <span>$y=f(x)$</span> の定義域（domain）とは， 独立変数（independent variable）<span>$x$</span> の取りうる値からなる集合である． ちなみに，従属変数（dependent variable） <span>$y$</span> が取りうる値からなる集合を，値域（range）という</p><p>本章では， 定義域が実数全体，あるいは，正の数の集合である関数について， グラフを描いてみる．</p><h2 id="定数-pi"><a class="docs-heading-anchor" href="#定数-pi">▶ 定数 <code>pi</code></a><a id="定数-pi-1"></a><a class="docs-heading-anchor-permalink" href="#定数-pi" title="Permalink"></a></h2><p>定数 <code>pi</code> は円周率である．</p><pre><code class="language-julia-repl">julia&gt; pi
+π = 3.1415926535897...</code></pre><h2 id="正弦関数・余弦関数を描く"><a class="docs-heading-anchor" href="#正弦関数・余弦関数を描く">▼ 正弦関数・余弦関数を描く</a><a id="正弦関数・余弦関数を描く-1"></a><a class="docs-heading-anchor-permalink" href="#正弦関数・余弦関数を描く" title="Permalink"></a></h2><ul><li>正弦 <span>$y = \sin{x}$</span></li><li>余弦 <span>$y = \cos{x}$</span></li></ul><h3 id="ラジアン単位"><a class="docs-heading-anchor" href="#ラジアン単位">ラジアン単位</a><a id="ラジアン単位-1"></a><a class="docs-heading-anchor-permalink" href="#ラジアン単位" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.cos-Tuple{Number}"><code>Base.cos</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.sin-Tuple{Number}"><code>Base.sin</code> - Function</a></li></ul><p>引数がラジアン単位の正弦，余弦 <code>sin</code> , <code>cos</code></p><pre><code class="language-julia-repl">julia&gt; sin(pi / 6)
 0.49999999999999994
 
-julia&gt; cos(pi/6)
-0.8660254037844387</code></pre><p><code>cos.()</code> や <code>sin.()</code> のように、関数名の直後にピリオド <code>.</code> を入れると、 ベクトルやRange型を引数にとり、計算結果をベクトルで返す。</p><pre><code class="language-julia-repl">julia&gt; xs = [ pi/4, pi/6, pi/2 ];
+julia&gt; cos(pi / 6)
+0.8660254037844387</code></pre><p><code>cos.()</code> や <code>sin.()</code> のように，関数名の直後にピリオド <code>.</code> を入れると， ベクトルやRange型を引数にとり，計算結果をベクトルで返す．</p><pre><code class="language-julia-repl">julia&gt; xs = [pi / 4, pi / 6, pi / 2];
 
 julia&gt; sin.(xs)
 3-element Array{Float64,1}:
@@ -16,32 +16,33 @@ julia&gt; cos.(xs)
 3-element Array{Float64,1}:
  0.7071067811865476
  0.8660254037844387
- 6.123233995736766e-17</code></pre><p>Range型の引数を与えて、グラフを描く。</p><pre><code class="language-julia">using PyPlot
-xs=-2pi:pi/360:2pi
-plt.plot(xs, cos.(xs), label=&quot;cos&quot;)
-plt.plot(xs, sin.(xs), label=&quot;sin&quot;)
+ 6.123233995736766e-17</code></pre><p>Range型の引数を与えて，グラフを描く．</p><pre><code class="language-julia">using PyPlot
+xs = -2pi:pi/360:2pi
+plt.plot(xs, cos.(xs), label = &quot;cos&quot;)
+plt.plot(xs, sin.(xs), label = &quot;sin&quot;)
 plt.xlabel(&quot;radian&quot;)
-plt.legend()</code></pre><p><img src="../ch03-sin1-plot.svg" alt/></p><h3 id="円周率単位"><a class="docs-heading-anchor" href="#円周率単位">円周率単位</a><a id="円周率単位-1"></a><a class="docs-heading-anchor-permalink" href="#円周率単位" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.Math.cospi"><code>Base.Math.cospi</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.Math.sinpi"><code>Base.Math.sinpi</code> - Function</a></li></ul><p>引数が円周率単位の正弦、余弦 <code>sinpi</code>, <code>cospi</code></p><pre><code class="language-julia">using PyPlot
-xs=-2:1/360:2
-plt.plot(xs, cospi.(xs), label=&quot;cospi&quot;)
-plt.plot(xs, sinpi.(xs), label=&quot;sinpi&quot;)
+plt.legend()</code></pre><p><img src="../ch03-sin1-plot.svg" alt/></p><h3 id="円周率単位"><a class="docs-heading-anchor" href="#円周率単位">円周率単位</a><a id="円周率単位-1"></a><a class="docs-heading-anchor-permalink" href="#円周率単位" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.Math.cospi"><code>Base.Math.cospi</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.Math.sinpi"><code>Base.Math.sinpi</code> - Function</a></li></ul><p>引数が円周率単位の正弦，余弦 <code>sinpi</code> , <code>cospi</code></p><pre><code class="language-julia">using PyPlot
+
+xs = -2:1/360:2
+plt.plot(xs, cospi.(xs), label = &quot;cospi&quot;)
+plt.plot(xs, sinpi.(xs), label = &quot;sinpi&quot;)
 plt.xlabel(&quot;pi&quot;)
-plt.legend()</code></pre><p><img src="../ch03-sin2-plot.svg" alt/></p><h3 id="角度単位"><a class="docs-heading-anchor" href="#角度単位">角度単位</a><a id="角度単位-1"></a><a class="docs-heading-anchor-permalink" href="#角度単位" title="Permalink"></a></h3><ul><li><a href="hhttps://docs.julialang.org/en/v1.1/base/math/#Base.Math.cosd"><code>Base.Math.cosd</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.Math.sind"><code>Base.Math.sind</code> - Function</a></li></ul><p>引数が角度単位の正弦、余弦 <code>sind</code>, <code>cosd</code></p><pre><code class="language-julia">using PyPlot
-xs=-360:1:360
-plt.plot(xs, cosd.(xs), label=&quot;cosd&quot;)
-plt.plot(xs, sind.(xs), label=&quot;sind&quot;)
+plt.legend()</code></pre><p><img src="../ch03-sin2-plot.svg" alt/></p><h3 id="角度単位"><a class="docs-heading-anchor" href="#角度単位">角度単位</a><a id="角度単位-1"></a><a class="docs-heading-anchor-permalink" href="#角度単位" title="Permalink"></a></h3><ul><li><a href="hhttps://docs.julialang.org/en/v1.5/base/math/#Base.Math.cosd"><code>Base.Math.cosd</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.Math.sind"><code>Base.Math.sind</code> - Function</a></li></ul><p>引数が角度単位の正弦，余弦 <code>sind</code> , <code>cosd</code></p><pre><code class="language-julia">using PyPlot
+xs = -360:1:360
+plt.plot(xs, cosd.(xs), label = &quot;cosd&quot;)
+plt.plot(xs, sind.(xs), label = &quot;sind&quot;)
 plt.xlabel(&quot;degree&quot;)
-plt.legend()</code></pre><p><img src="../ch03-sin3-plot.svg" alt/></p><h3 id="ラジアンと角度との相互変換"><a class="docs-heading-anchor" href="#ラジアンと角度との相互変換">ラジアンと角度との相互変換</a><a id="ラジアンと角度との相互変換-1"></a><a class="docs-heading-anchor-permalink" href="#ラジアンと角度との相互変換" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.Math.rad2deg"><code>Base.Math.rad2deg</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.Math.deg2rad"><code>Base.Math.deg2rad</code> - Function</a></li></ul><pre><code class="language-julia-repl">julia&gt; # rad2deg
-       rad2deg(pi/4)
+plt.legend()</code></pre><p><img src="../ch03-sin3-plot.svg" alt/></p><h3 id="ラジアンと角度との相互変換"><a class="docs-heading-anchor" href="#ラジアンと角度との相互変換">ラジアンと角度との相互変換</a><a id="ラジアンと角度との相互変換-1"></a><a class="docs-heading-anchor-permalink" href="#ラジアンと角度との相互変換" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.Math.rad2deg"><code>Base.Math.rad2deg</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.Math.deg2rad"><code>Base.Math.deg2rad</code> - Function</a></li></ul><pre><code class="language-julia-repl">julia&gt; # rad2deg
+       rad2deg(pi / 4)
 45.0
 
-julia&gt; rad2deg(pi/2)
+julia&gt; rad2deg(pi / 2)
 90.0
 
 julia&gt; rad2deg(pi)
 180.0
 
-julia&gt; rad2deg(-pi/4)
+julia&gt; rad2deg(-pi / 4)
 -45.0
 
 julia&gt; # deg2rad
@@ -55,260 +56,264 @@ julia&gt; deg2rad(180)
 3.141592653589793
 
 julia&gt; deg2rad(-45)
--0.7853981633974483</code></pre><h2 id="楕円を描く"><a class="docs-heading-anchor" href="#楕円を描く">▼ 楕円を描く</a><a id="楕円を描く-1"></a><a class="docs-heading-anchor-permalink" href="#楕円を描く" title="Permalink"></a></h2><p>楕円を陰関数で表示すると</p><div>\[\left(\dfrac{x}{a}\right)^2+\left(\dfrac{y}{b}\right)^2 = 1\]</div><p>楕円を媒介変数表示(パラメータ曲線)すると</p>\begin{align*}
-x & = a \cos \theta \\
-y & = b \sin \theta
-\end{align*}<p>媒介変数表示を用いて、楕円上の各点の座標を計算する。</p><p>アスペクト比を等しくして、正しい図形を表示しよう。</p><pre><code class="language-julia">using PyPlot
+-0.7853981633974483</code></pre><h2 id="楕円を描く"><a class="docs-heading-anchor" href="#楕円を描く">▼ 楕円を描く</a><a id="楕円を描く-1"></a><a class="docs-heading-anchor-permalink" href="#楕円を描く" title="Permalink"></a></h2><p>楕円を陰関数で表示すると</p><div>\[\left(\dfrac{x}{a}\right)^2+\left(\dfrac{y}{b}\right)^2 = 1\]</div><p>楕円を媒介変数表示（パラメータ曲線）すると</p><div>\[\begin{aligned}
+x &amp; = a \cos \theta \\
+y &amp; = b \sin \theta
+\end{aligned}\]</div><p>媒介変数表示を用いて，楕円上の各点の座標を計算する．</p><p>アスペクト比を等しくして，正しい図形を表示しよう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-ts=0:pi/18:2pi
-xs=2*cos.(ts)
-ys=sin.(ts)
-plt.plot(xs,ys)
-plt.xlim(-3,3)
-plt.ylim(-3,3)</code></pre><p><img src="../ch03-ell1-plot.svg" alt/></p><h2 id="アルキメデスの渦を描く"><a class="docs-heading-anchor" href="#アルキメデスの渦を描く">▼ アルキメデスの渦を描く</a><a id="アルキメデスの渦を描く-1"></a><a class="docs-heading-anchor-permalink" href="#アルキメデスの渦を描く" title="Permalink"></a></h2><p>平面座標上の点 <span>$(x,y)$</span>は、極座標 <span>$(r, \theta)$</span> でも表示できる。 平面座標 <span>$x,y$</span>と極座標 <span>$r, \theta$</span> との対応は</p>\begin{align*}
-x & = r \cos \theta, \\
-y & = r \sin \theta
-\end{align*}<p>である。</p><p>次の関係で結ばれた曲線を、アルキメデスの渦という。</p><div>\[r = \theta\]</div><p>これを描いてみよう。</p><pre><code class="language-julia">using PyPlot
+
+ts = 0:pi/18:2pi
+xs = 2 * cos.(ts)
+ys = sin.(ts)
+plt.plot(xs, ys)
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)</code></pre><p><img src="../ch03-ell1-plot.svg" alt/></p><h2 id="アルキメデスの渦を描く"><a class="docs-heading-anchor" href="#アルキメデスの渦を描く">▼ アルキメデスの渦を描く</a><a id="アルキメデスの渦を描く-1"></a><a class="docs-heading-anchor-permalink" href="#アルキメデスの渦を描く" title="Permalink"></a></h2><p>平面座標上の点 <span>$(x,y)$</span>は，極座標 <span>$(r, \theta)$</span> でも表示できる． 平面座標 <span>$(x, y)$</span>と極座標 <span>$(r, \theta)$</span> との対応は</p><div>\[\begin{aligned}
+x &amp; = r \cos \theta, \\
+y &amp; = r \sin \theta
+\end{aligned}\]</div><p>である．</p><p>次の関係で結ばれた曲線を，アルキメデスの渦という．</p><div>\[r = \theta\]</div><p>これを描いてみよう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-ts=0:pi/1800:2pi
-xs=ts .* cos.(ts)
-ys=ts .* sin.(ts)
-plt.plot(xs, ys)</code></pre><p><img src="../ch03-arch1-plot.svg" alt/></p><h2 id="練習"><a class="docs-heading-anchor" href="#練習">▲ 練習</a><a id="練習-1"></a><a class="docs-heading-anchor-permalink" href="#練習" title="Permalink"></a></h2><p>上では <span>$\theta \ge 0$</span> の範囲で、曲線を描いた。 パラメータ <span>$\theta &lt; 0$</span> の範囲まで含めたら、どのような曲線になるか？ 予想した上で、プログラムを書き実行し、確かめてみよ。 予想と一致していたか？</p><h2 id="花曲線を描く"><a class="docs-heading-anchor" href="#花曲線を描く">▼ 花曲線を描く</a><a id="花曲線を描く-1"></a><a class="docs-heading-anchor-permalink" href="#花曲線を描く" title="Permalink"></a></h2><p>整数 <span>$n$</span> に対して、以下の式で表される曲線を、花曲線 (flower curve) という。</p><div>\[r = \cos(n \theta)\]</div><p>次のプログラムは、<span>$n = 3$</span> の花曲線を描く。</p><pre><code class="language-julia">using PyPlot
+ts = 0:pi/1800:2pi
+xs = ts .* cos.(ts)
+ys = ts .* sin.(ts)
+plt.plot(xs, ys)</code></pre><p><img src="../ch03-arch1-plot.svg" alt/></p><h2 id="練習"><a class="docs-heading-anchor" href="#練習">▲ 練習</a><a id="練習-1"></a><a class="docs-heading-anchor-permalink" href="#練習" title="Permalink"></a></h2><p>上では <span>$\theta \ge 0$</span> の範囲で，曲線を描いた． パラメータ <span>$\theta &lt; 0$</span> の範囲まで含めたら，どのような曲線になるか？ 予想した上で，プログラムを書き実行し，確かめてみよ． 予想と一致していたか？</p><h2 id="花曲線を描く"><a class="docs-heading-anchor" href="#花曲線を描く">▼ 花曲線を描く</a><a id="花曲線を描く-1"></a><a class="docs-heading-anchor-permalink" href="#花曲線を描く" title="Permalink"></a></h2><p>整数 <span>$n$</span> に対して，以下の式で表される曲線を，花曲線（flower curve）という．</p><div>\[r = \cos(n \theta)\]</div><p>次のプログラムは，<span>$n = 3$</span> の花曲線を描く．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-n=3
-ts=0:pi/1800:2pi
-rs=cos.(n*ts)
-xs=rs .* cos.(ts)
-ys=rs .* sin.(ts)
-plt.plot(xs, ys)</code></pre><p><img src="../ch03-flo1-plot.svg" alt/></p><p>整数 <span>$n$</span> を変えると、色々な花曲線が得られる。参考 → <a href="#描画領域を縦横に分割する">▼ 描画領域を縦横に分割する</a></p><h2 id="指数関数を描く"><a class="docs-heading-anchor" href="#指数関数を描く">▼ 指数関数を描く</a><a id="指数関数を描く-1"></a><a class="docs-heading-anchor-permalink" href="#指数関数を描く" title="Permalink"></a></h2><p>正の数 <span>$a &gt; 0$</span>を底(exponent)とする指数関数(exponential function)</p><div>\[y=a^x\]</div><p>底 <span>$a=2$</span>の場合。</p><pre><code class="language-julia">using PyPlot
-xs=-10:0.01:10
-plt.plot(xs, 2.0.^xs)</code></pre><p><img src="../ch03-exp1-plot.svg" alt/></p><p>底を <span>$2,3,4.5$</span> と増やす。<span>$x &gt; 0$</span> の範囲のみ描く。</p><pre><code class="language-julia">plt.plot(xs, 2.0.^xs)
-plt.plot(xs, 3.0.^xs)
-plt.plot(xs, 4.0.^xs)
-plt.plot(xs, 5.0.^xs)
-plt.xlim(0,3)
-plt.ylim(0,100)</code></pre><p><img src="../ch03-exp2-plot.svg" alt/></p><p>凡例(legend）を加える。</p><pre><code class="language-julia">plt.plot(xs, 2.0.^xs, label=&quot;a=&quot;*string(2))
-plt.plot(xs, 3.0.^xs, label=&quot;a=&quot;*string(3))
-plt.plot(xs, 4.0.^xs, label=&quot;a=&quot;*string(4))
-plt.plot(xs, 5.0.^xs, label=&quot;a=&quot;*string(5))
-plt.plot(xs, 6.0.^xs, label=&quot;a=&quot;*string(6))
+n = 3
+ts = 0:pi/1800:2pi
+rs = cos.(n * ts)
+xs = rs .* cos.(ts)
+ys = rs .* sin.(ts)
+plt.plot(xs, ys)</code></pre><p><img src="../ch03-flo1-plot.svg" alt/></p><p>整数 <span>$n$</span> を変えると，色々な花曲線が得られる．参考 → <a href="#描画領域を縦横に分割する">▼ 描画領域を縦横に分割する</a></p><h2 id="指数関数を描く"><a class="docs-heading-anchor" href="#指数関数を描く">▼ 指数関数を描く</a><a id="指数関数を描く-1"></a><a class="docs-heading-anchor-permalink" href="#指数関数を描く" title="Permalink"></a></h2><p>正の数 <span>$a &gt; 0$</span> を底（exponent）とする指数関数（exponential function）</p><div>\[y = a^x\]</div><p>底 <span>$a = 2$</span> の場合．</p><pre><code class="language-julia">using PyPlot
+xs = -10:0.01:10
+plt.plot(xs, 2.0 .^ xs)</code></pre><p><img src="../ch03-exp1-plot.svg" alt/></p><p>底を <span>$2, 3, 4. 5$</span> と増やす．<span>$x &gt; 0$</span> の範囲のみ描く．</p><pre><code class="language-julia">plt.plot(xs, 2.0 .^ xs)
+plt.plot(xs, 3.0 .^ xs)
+plt.plot(xs, 4.0 .^ xs)
+plt.plot(xs, 5.0 .^ xs)
+plt.xlim(0, 3)
+plt.ylim(0, 100)</code></pre><p><img src="../ch03-exp2-plot.svg" alt/></p><p>凡例（legend）を加える．</p><pre><code class="language-julia">plt.plot(xs, 2.0 .^ xs, label = &quot;a=&quot; * string(2))
+plt.plot(xs, 3.0 .^ xs, label = &quot;a=&quot; * string(3))
+plt.plot(xs, 4.0 .^ xs, label = &quot;a=&quot; * string(4))
+plt.plot(xs, 5.0 .^ xs, label = &quot;a=&quot; * string(5))
+plt.plot(xs, 6.0 .^ xs, label = &quot;a=&quot; * string(6))
 plt.legend()
-plt.xlim(0,3)
-plt.ylim(0,100)</code></pre><p><img src="../ch03-exp3-plot.svg" alt/></p><h2 id="練習：指数関数：繰り返しで底を変える"><a class="docs-heading-anchor" href="#練習：指数関数：繰り返しで底を変える">▲ 練習：指数関数：繰り返しで底を変える</a><a id="練習：指数関数：繰り返しで底を変える-1"></a><a class="docs-heading-anchor-permalink" href="#練習：指数関数：繰り返しで底を変える" title="Permalink"></a></h2><p>上のプログラムを、for文を用いた繰り返しとして書き直してみよ。 すなわち、<code>plt.plot()</code> 文を一つにしてみよ。</p><p>参考→ <a href="../ch02/#for文">■ for文</a></p><h2 id="自然対数の底"><a class="docs-heading-anchor" href="#自然対数の底">▶ 自然対数の底</a><a id="自然対数の底-1"></a><a class="docs-heading-anchor-permalink" href="#自然対数の底" title="Permalink"></a></h2><p>定数 <code>ℯ</code> は、自然対数の底である。</p><pre><code class="language-julia-repl">julia&gt; ℯ
-ℯ = 2.7182818284590...</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p><code>ℯ</code> は <code>e</code> とは異なる文字である。 「ℯ」は、バックスラッシュ \ に続けて euler と入力してから、TABキーを押すことによって入力できる。</p></div></div><p>定数 <code>Base.MathConstants.e</code> も、自然対数の底である。</p><pre><code class="language-julia-repl">julia&gt; Base.MathConstants.e
-ℯ = 2.7182818284590...</code></pre><h2 id="軸のスケールを変える"><a class="docs-heading-anchor" href="#軸のスケールを変える">▶ 軸のスケールを変える</a><a id="軸のスケールを変える-1"></a><a class="docs-heading-anchor-permalink" href="#軸のスケールを変える" title="Permalink"></a></h2><p>x軸、y軸のスケールを指定するには、関数 <code>xscale</code>, <code>yscale</code> を用いる。 何も指定しない場合（既定値）は、線形 <code>linear</code> である。 引数に <code>log</code> を指定すると、10の対数で、その軸を描く。</p><p>y軸だけ対数スケール <code>yscale(&quot;log&quot;)</code> に指定したグラフが、よく見る片対数グラフである。</p><pre><code class="language-julia">using PyPlot
-for a in [2.0,ℯ,3.0,4.0,5.0,6.0]
-  plt.plot(xs, a.^xs, label=&quot;a=&quot;*string(a))
+plt.xlim(0, 3)
+plt.ylim(0, 100)</code></pre><p><img src="../ch03-exp3-plot.svg" alt/></p><h2 id="練習：指数関数：繰り返しで底を変える"><a class="docs-heading-anchor" href="#練習：指数関数：繰り返しで底を変える">▲ 練習：指数関数：繰り返しで底を変える</a><a id="練習：指数関数：繰り返しで底を変える-1"></a><a class="docs-heading-anchor-permalink" href="#練習：指数関数：繰り返しで底を変える" title="Permalink"></a></h2><p>上のプログラムを，<code>for</code> 文を用いた繰り返しとして書き直してみよ． すなわち，<code>plt.plot()</code> 文を一つにしてみよ．</p><p>参考→ <a href="../ch02/#for-文">■ <code>for</code> 文</a></p><h2 id="自然対数の底"><a class="docs-heading-anchor" href="#自然対数の底">▶ 自然対数の底</a><a id="自然対数の底-1"></a><a class="docs-heading-anchor-permalink" href="#自然対数の底" title="Permalink"></a></h2><p>定数  <code>ℯ</code> は，自然対数の底である．</p><pre><code class="language-julia-repl">julia&gt; ℯ
+ℯ = 2.7182818284590...</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p><code>ℯ</code> は <code>e</code> とは異なる文字である． 「ℯ」は，バックスラッシュ \ に続けて euler と入力してから，TABキーを押すことによって入力できる．</p></div></div><p>定数 <code>Base.MathConstants.e</code> も，自然対数の底である．</p><pre><code class="language-julia-repl">julia&gt; Base.MathConstants.e
+ℯ = 2.7182818284590...</code></pre><h2 id="軸のスケールを変える"><a class="docs-heading-anchor" href="#軸のスケールを変える">▶ 軸のスケールを変える</a><a id="軸のスケールを変える-1"></a><a class="docs-heading-anchor-permalink" href="#軸のスケールを変える" title="Permalink"></a></h2><p><span>$x$</span> 軸，<span>$y$</span> 軸のスケールを指定するには，関数 <code>xscale</code> , <code>yscale</code> を用いる． 何も指定しない場合（既定値）は，線形 <code>linear</code> である． 引数に <code>log</code> を指定すると，<span>$10$</span> の対数で，その軸を描く．</p><p><span>$y$</span> 軸だけ対数スケール <code>yscale(&quot;log&quot;)</code> に指定したグラフが，よく見る片対数グラフである．</p><pre><code class="language-julia">using PyPlot
+xs = -4:0.01:4
+for a in [2.0, ℯ, 3.0, 4.0, 5.0, 6.0]
+   plt.plot(xs, a .^ xs, label = &quot;a=&quot; * string(a))
 end
 plt.yscale(&quot;log&quot;)
-plt.xlim(-1,3)
-plt.ylim(1e-1,1e3)
-plt.legend()</code></pre><p><img src="../ch03-exp4-plot.svg" alt/></p><p>全ての底について、指数関数は <span>$a^0=1=10^0$</span> で交わることを観察するために補助線を引こう。</p><p>以下の文を追加する。</p><pre><code class="language-julia">plt.axvline(0, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-exp4b-plot.svg" alt/></p><h2 id="関数-exp,-exp2,-exp10"><a class="docs-heading-anchor" href="#関数-exp,-exp2,-exp10">▶ 関数 exp, exp2, exp10</a><a id="関数-exp,-exp2,-exp10-1"></a><a class="docs-heading-anchor-permalink" href="#関数-exp,-exp2,-exp10" title="Permalink"></a></h2><p>底 <span>$2, e, 10$</span> については、<code>exp</code>で始まる関数が定義されている。</p><ul><li><code>exp2</code> : 底が 2 の指数関数</li><li><code>exp</code> : 自然対数 (底は、自然対数の底)</li><li><code>exp10</code> : 底が 10 の指数関数</li></ul><pre><code class="language-julia">plt.plot(xs, exp2.(xs), label=&quot;exp2&quot;)
-plt.plot(xs, exp.(xs), label=&quot;exp&quot;)
-plt.plot(xs, exp10.(xs), label=&quot;exp10&quot;)
+plt.xlim(-1, 3)
+plt.ylim(1e-1, 1e3)
+plt.legend()</code></pre><p><img src="../ch03-exp4-plot.svg" alt/></p><p>全ての底について，指数関数は <span>$a^{0} = 1 = 10^{0}$</span> で交わることを観察するために補助線を引こう．</p><p>以下の文を追加する．</p><pre><code class="language-julia">plt.axvline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-exp4b-plot.svg" alt/></p><h2 id="関数-exp,-exp2,-exp10"><a class="docs-heading-anchor" href="#関数-exp,-exp2,-exp10">▶ 関数 exp, exp2, exp10</a><a id="関数-exp,-exp2,-exp10-1"></a><a class="docs-heading-anchor-permalink" href="#関数-exp,-exp2,-exp10" title="Permalink"></a></h2><p>底 <span>$2, e, 10$</span> については，<code>exp</code> で始まる関数が定義されている．</p><ul><li><code>exp2</code> : 底が <span>$2$</span> の指数関数</li><li><code>exp</code> : 自然対数（底は，自然対数の底 <span>$e$</span> ）</li><li><code>exp10</code> : 底が <span>$10$</span> の指数関数</li></ul><pre><code class="language-julia">using PyPlot
+xs = -4:0.01:4
+plt.plot(xs, exp2.(xs), label = &quot;exp2&quot;)
+plt.plot(xs, exp.(xs), label = &quot;exp&quot;)
+plt.plot(xs, exp10.(xs), label = &quot;exp10&quot;)
 plt.yscale(&quot;log&quot;)
-plt.xlim(-1,3)
-plt.ylim(1e-1,1e3)
+plt.xlim(-1, 3)
+plt.ylim(1e-1, 1e3)
 plt.legend()
-plt.axvline(0, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-exp7-plot.svg" alt/></p><p>関数も名前であり、名前をつけること(=変数に代入すること）ができる。 関数のリストを作って <code>for</code>文で繰り返してみよう。 関数名を <code>string</code>関数に与えると、関数名の文字列を返す。</p><pre><code class="language-julia">for f in [exp2,exp,exp10]
-  plt.plot(xs, f.(xs), label=string(f))
+plt.axvline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-exp7-plot.svg" alt/></p><p>関数も名前であり，名前をつけること（＝変数に代入すること）ができる． 関数のリストを作って <code>for</code> 文で繰り返してみよう． 関数名を <code>string</code> 関数に与えると，関数名の文字列を返す．</p><pre><code class="language-julia">using PyPlot
+xs = -4:0.01:4
+for f in [exp2, exp, exp10]
+   plt.plot(xs, f.(xs), label = string(f))
 end
 plt.yscale(&quot;log&quot;)
-plt.xlim(-1,3)
-plt.ylim(1e-1,1e3)
+plt.xlim(-1, 3)
+plt.ylim(1e-1, 1e3)
 plt.legend()
-plt.axvline(0, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-exp8-plot.svg" alt/></p><h2 id="平方根を描く"><a class="docs-heading-anchor" href="#平方根を描く">▼ 平方根を描く</a><a id="平方根を描く-1"></a><a class="docs-heading-anchor-permalink" href="#平方根を描く" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.sqrt-Tuple{Real}"><code>Base.sqrt</code> - Function</a></li></ul><p>二乗すると<span>$x$</span>になる数を、<span>$x$</span>の平方根 (square root of <span>$x$</span>)という。 関数 <code>sqrt(x)</code>は <code>x</code>の平方根を求める関数である。</p><pre><code class="language-julia-repl">julia&gt; sqrt(0)
+plt.axvline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-exp8-plot.svg" alt/></p><h2 id="平方根を描く"><a class="docs-heading-anchor" href="#平方根を描く">▼ 平方根を描く</a><a id="平方根を描く-1"></a><a class="docs-heading-anchor-permalink" href="#平方根を描く" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.sqrt-Tuple{Real}"><code>Base.sqrt</code> - Function</a></li></ul><p>二乗すると <span>$x$</span> になる数を，<span>$x$</span> の平方根（square root of <span>$x$</span> ）という． 関数 <code>sqrt(x)</code> は <code>x</code> の平方根を求める関数である．</p><pre><code class="language-julia-repl">julia&gt; sqrt(0)
 0.0
 
 julia&gt; sqrt(2)
 1.4142135623730951
 
 julia&gt; sqrt(3)
-1.7320508075688772</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>負の数 <span>$x &lt; 0$</span> を関数 <code>sqrt</code> の引数（ひきすう)に与えると、例外（exception)が発生する。が、複素数を引数として与えると、複素数として計算できる（複素数は、もっと後の回で説明する）。→ <a href="../ch13/#負の数に対する平方根">▶ 負の数に対する平方根</a></p></div></div><pre><code class="language-julia-repl">julia&gt; sqrt(-1) # DomainError
+1.7320508075688772</code></pre><p>平方と平方根を同じグラフに描いてみよう． 直線 <span>$y=x$</span> に対して，鏡の関係になっている．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+xs = 0:0.01:3
+plt.plot(xs, xs .^ 2, label = &quot;square&quot;)
+plt.plot(xs, sqrt.(xs), label = &quot;square root&quot;)
+plt.plot(xs, xs, &quot;k&quot;, lw = 0.5, label = &quot;y=x&quot;)
+plt.xlim(-0.2, 2.2)
+plt.ylim(-0.2, 2.2)
+plt.xlabel(&quot;x&quot;)
+plt.ylabel(&quot;y&quot;)
+plt.legend()
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-sr1-plot.svg" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>負の数 <span>$x &lt; 0$</span> を関数 <code>sqrt</code> の引数（ひきすう)に与えると，例外（exception）が発生する．が，複素数を引数として与えると，複素数として計算できる（複素数は，もっと後の回で説明する）．→ <a href="../ch13/#負の数に対する平方根">▶ 負の数に対する平方根</a></p></div></div><pre><code class="language-julia-repl">julia&gt; sqrt(-1) # DomainError
 ERROR: DomainError with -1.0:
 sqrt will only return a complex result if called with a complex argument. Try sqrt(Complex(x)).
 
-julia&gt; sqrt(complex(-1,0))  # 複素数を引数に与える
-0.0 + 1.0im</code></pre><p>平方と平方根を同じグラフに描いてみよう。 直線 <span>$y=x$</span> に対して、鏡の関係になっている。</p><pre><code class="language-julia">using PyPlot
+julia&gt; sqrt(complex(-1, 0))  # 複素数を引数に与える
+0.0 + 1.0im</code></pre><h2 id="立方根を描く"><a class="docs-heading-anchor" href="#立方根を描く">▼ 立方根を描く</a><a id="立方根を描く-1"></a><a class="docs-heading-anchor-permalink" href="#立方根を描く" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.Math.cbrt"><code>Base.Math.cbrt</code> - Function</a></li></ul><p>三乗すると <span>$x$</span> になる数を，<span>$x$</span> の立方根（cube root of <span>$x$</span> ）という． 関数 <code>cbrt(x)</code> は <code>x</code> の立方根を求める関数である．</p><p>立方と立方根を同じグラフに描いてみよう． 直線 <span>$y=x$</span> に対して，鏡の関係になっている．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-xs=0:0.01:3
-plt.plot(xs, xs.^2, label=&quot;square&quot;)
-plt.plot(xs, sqrt.(xs), label=&quot;square root&quot;)
-plt.plot(xs, xs, &quot;k&quot;, lw=0.5, label=&quot;y=x&quot;)
-plt.xlim(-0.2,2.2)
-plt.ylim(-0.2,2.2)
+xs = 0:0.01:3
+plt.plot(xs, xs .^ 3, label = &quot;cubic&quot;)
+plt.plot(xs, cbrt.(xs), label = &quot;cube root&quot;)
+plt.plot(xs, xs, &quot;k&quot;, lw = 0.5, label = &quot;y=x&quot;)
+plt.xlim(-0.2, 2.2)
+plt.ylim(-0.2, 2.2)
 plt.xlabel(&quot;x&quot;)
 plt.ylabel(&quot;y&quot;)
 plt.legend()
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-sr1-plot.svg" alt/></p><h2 id="立方根を描く"><a class="docs-heading-anchor" href="#立方根を描く">▼ 立方根を描く</a><a id="立方根を描く-1"></a><a class="docs-heading-anchor-permalink" href="#立方根を描く" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.Math.cbrt"><code>Base.Math.cbrt</code> - Function</a></li></ul><p>三乗すると<span>$x$</span>になる数を、<span>$x$</span>の立方根 (cube root of <span>$x$</span>)という。 関数 <code>cbrt(x)</code>は <code>x</code>の立方根を求める関数である。</p><p>立方と立方根を同じグラフに描いてみよう。 直線 <span>$y=x$</span> に対して、鏡の関係になっている。</p><pre><code class="language-julia">using PyPlot
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-cr1-plot.svg" alt/></p><p>平方と平方根，立方と立方根を，同じグラフに描こう． 点 <span>$(1,1)$</span> で，曲線が交差している．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-xs=0:0.01:3
-plt.plot(xs, xs.^3, label=&quot;cubic&quot;)
-plt.plot(xs, cbrt.(xs), label=&quot;cube root&quot;)
-plt.plot(xs, xs, &quot;k&quot;, lw=0.5, label=&quot;y=x&quot;)
-plt.xlim(-0.2,2.2)
-plt.ylim(-0.2,2.2)
+
+xs = 0:0.01:3
+plt.plot(xs, xs .^ 2, label = &quot;square&quot;)
+plt.plot(xs, sqrt.(xs), label = &quot;square root&quot;)
+plt.plot(xs, xs .^ 3, label = &quot;cube&quot;)
+plt.plot(xs, cbrt.(xs), label = &quot;cube root&quot;)
+plt.plot(xs, xs, &quot;k&quot;, lw = 0.5, label = &quot;y=x&quot;)
+plt.legend()
+plt.xlim(-0.2, 2.2)
+plt.ylim(-0.2, 2.2)
 plt.xlabel(&quot;x&quot;)
 plt.ylabel(&quot;y&quot;)
-plt.legend()
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-cr1-plot.svg" alt/></p><p>平方と平方根、立方と立方根を、同じグラフに描こう。 点<span>$(1,1)$</span>で、曲線が交差している。</p><pre><code class="language-julia">using PyPlot
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-pr1-plot.svg" alt/></p><p>平方根と立方根の関数のリストを作って <code>for</code> 文で繰り返してみよう． （結果のグラフは，上と同じなので省略する）</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-xs=0:0.01:3
-plt.plot(xs, xs.^2, label=&quot;square&quot;)
-plt.plot(xs, sqrt.(xs), label=&quot;square root&quot;)
-plt.plot(xs, xs.^3, label=&quot;cube&quot;)
-plt.plot(xs, cbrt.(xs), label=&quot;cube root&quot;)
-plt.plot(xs, xs, &quot;k&quot;, lw=0.5, label=&quot;y=x&quot;)
-plt.legend()
-plt.xlim(-0.2,2.2)
-plt.ylim(-0.2,2.2)
-plt.xlabel(&quot;x&quot;)
-plt.ylabel(&quot;y&quot;)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-pr1-plot.svg" alt/></p><p>平方根と立方根の関数のリストを作って <code>for</code>文で繰り返してみよう。 （結果のグラフは、上と同じなので省略する）</p><pre><code class="language-julia">using PyPlot
-plt.axes().set_aspect(&quot;equal&quot;)
-xs=0:0.01:3
-for f in [ sqrt, cbrt]
-  plt.plot(xs, f.(xs), label=string(f))
+xs = 0:0.01:3
+for f in [sqrt, cbrt]
+   plt.plot(xs, f.(xs), label = string(f))
 end
 plt.legend()
-plt.xlim(-0.2,2.2)
-plt.ylim(-0.2,2.2)
+plt.xlim(-0.2, 2.2)
+plt.ylim(-0.2, 2.2)
 plt.xlabel(&quot;x&quot;)
 plt.ylabel(&quot;y&quot;)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-pr2-plot.svg" alt/></p><h2 id="冪乗根を描く"><a class="docs-heading-anchor" href="#冪乗根を描く">▼ 冪乗根を描く</a><a id="冪乗根を描く-1"></a><a class="docs-heading-anchor-permalink" href="#冪乗根を描く" title="Permalink"></a></h2><p>一般に、正数 <span>$x &gt; 0$</span> と <span>$2$</span>以上の整数<span>$n$</span> に対して、<span>$y^n = x$</span> の解、 すなわち、<span>$y = \sqrt[n]{x} = x^{\dfrac{1}{n}}$</span>を、<span>$x$</span>の<span>$n$</span>乗根 (root of <span>$n$</span>-th power, <span>$n$</span>-th root)という。<span>$n$</span>を指定せずに、冪乗根（べきじょうこん）あるいは冪根（べきこん）と総称する。 「冪」の代わりに「巾」の略字を当てることもある。</p><p>PyPlotパッケージに用意された関数 <code>axvline()</code>で垂直線 (vertical line)を描く。引数は、前回説明した関数 <code>axhline</code> (水平線を描く)と同じである。</p><pre><code class="language-julia">using PyPlot
-plt.axes().set_aspect(&quot;equal&quot;)
-xs=0:0.01:3
-plt.plot(xs, xs.^(1/2), label=&quot;n=2&quot;)
-plt.plot(xs, xs.^(1/3), label=&quot;n=3&quot;)
-plt.plot(xs, xs.^(1/4), label=&quot;n=4&quot;)
-plt.plot(xs, xs.^(1/5), label=&quot;n=5&quot;)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><h2 id="冪乗根を描く"><a class="docs-heading-anchor" href="#冪乗根を描く">▼ 冪乗根を描く</a><a id="冪乗根を描く-1"></a><a class="docs-heading-anchor-permalink" href="#冪乗根を描く" title="Permalink"></a></h2><p>一般に，正数 <span>$x &gt; 0$</span> と <span>$2$</span> 以上の整数 <span>$n$</span> に対して，<span>$y^n = x$</span> の解， すなわち，<span>$y = \sqrt[n]{x} = x^{\dfrac{1}{n}}$</span> を，<span>$x$</span> の <span>$n$</span> 乗根（root of <span>$n$</span>-th power, <span>$n$</span>-th root）という．<span>$n$</span> を指定せずに，冪乗根（べきじょうこん）あるいは冪根（べきこん）と総称する． 「冪」の代わりに「巾」の略字を当てることもある．</p><p>PyPlotパッケージに用意された関数 <code>axvline()</code> で垂直線（vertical line）を描く． 引数は，前回説明した関数 <code>axhline</code> （水平線を描く）と同じである．</p><pre><code class="language-julia">using PyPlot
+xs = 0:0.01:3
+plt.plot(xs, xs .^ (1 / 2), label = &quot;n=2&quot;)
+plt.plot(xs, xs .^ (1 / 3), label = &quot;n=3&quot;)
+plt.plot(xs, xs .^ (1 / 4), label = &quot;n=4&quot;)
+plt.plot(xs, xs .^ (1 / 5), label = &quot;n=5&quot;)
 plt.legend()
-plt.xlim(-0.2,2.2)
-plt.ylim(-0.2,2.2)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-pr3-plot.svg" alt/></p><p>指数 <span>$n$</span> で繰り返してみる。</p><pre><code class="language-julia">using PyPlot
-xs=0:0.01:10
-for n in 2:5
-  plt.plot(xs, xs.^(1/n), label=&quot;y=x^(1/&quot; * string(n) *&quot;)&quot; )
+plt.xlim(-0.2, 2.2)
+plt.ylim(-0.2, 2.2)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-pr3-plot.svg" alt/></p><p>指数 <span>$n$</span> で繰り返してみる．</p><pre><code class="language-julia">using PyPlot
+xs = 0:0.01:10
+for n = 2:5
+   plt.plot(xs, xs .^ (1 / n), label = &quot;y=x^(1/&quot; * string(n) * &quot;)&quot;)
 end
 plt.legend()
 plt.xlabel(&quot;x&quot;)
 plt.ylabel(&quot;y&quot;)
-plt.xlim(0.1,10.)
-plt.ylim(0.1,10.)
+plt.xlim(0.1, 10.0)
+plt.ylim(0.1, 10.0)
 plt.xscale(&quot;log&quot;)
 plt.yscale(&quot;log&quot;)
-plt.axhline(1, color=&quot;k&quot;, lw=0.5)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-pr4-plot.svg" alt/></p><h2 id="自然対数"><a class="docs-heading-anchor" href="#自然対数">▼ 自然対数</a><a id="自然対数-1"></a><a class="docs-heading-anchor-permalink" href="#自然対数" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.log-Tuple{Number}"><code>Base.log</code> — Method</a></li></ul><p>正の数 <span>$x&gt;0$</span>に対して、<span>$x=e^y$</span> を満たす数 <span>$y$</span>を、<span>$x$</span>の自然対数 (natural logarithm of <span>$x$</span>、Napierian logarithm、あるいは単に、logarithm）といい、<span>$\log{x}$</span> と書く。</p><p>関数 <code>log(x)</code>は、自然対数を求める関数である。</p><pre><code class="language-julia-repl">julia&gt; log(1)
+plt.axhline(1, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-pr4-plot.svg" alt/></p><h2 id="自然対数"><a class="docs-heading-anchor" href="#自然対数">▼ 自然対数</a><a id="自然対数-1"></a><a class="docs-heading-anchor-permalink" href="#自然対数" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.log-Tuple{Number}"><code>Base.log</code> — Method</a></li></ul><p>正の数 <span>$x&gt;0$</span> に対して，<span>$x=e^y$</span> を満たす数 <span>$y$</span> を，<span>$x$</span> の自然対数（natural logarithm of <span>$x$</span>,Napierian logarithm,あるいは単に，logarithm）といい，<span>$\log{x}$</span> と書く．</p><p>関数 <code>log(x)</code>は，自然対数を求める関数である．</p><pre><code class="language-julia-repl">julia&gt; log(1)
 0.0
 
 julia&gt; log(ℯ)
 1
 
 julia&gt; log(ℯ^2)
-2.0</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>数学と同様、負の数に対する対数関数は定義されていない。引数に負数を与えると例外が起こる。</p><pre><code class="language-">julia&gt; log(-1) # DomainError
-ERROR: DomainError with -1.0:</code></pre></div></div><p>指数関数を、まず線形なグラフで描く。</p><pre><code class="language-julia">using PyPlot
-xs=0.1:0.01:100
-plt.plot(xs, log.(xs))</code></pre><p><img src="../ch03-log1-plot.svg" alt/></p><p>今度は、片対数グラフで描く。<span>$x$</span> 軸を対数で表示すると、直線で表示される。</p><pre><code class="language-julia">plt.plot(xs, log.(xs))
-plt.xscale(&quot;log&quot;)</code></pre><p><img src="../ch03-log2-plot.svg" alt/></p><h2 id="対数関数"><a class="docs-heading-anchor" href="#対数関数">▼ 対数関数</a><a id="対数関数-1"></a><a class="docs-heading-anchor-permalink" href="#対数関数" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.log-Tuple{Number,Number}">Base.log — Method</a></li></ul><p>正の数 <span>$a$</span>に対して、<span>$x=a^y$</span> を満たす数<span>$y$</span>を、底<span>$a$</span>に対する <span>$x$</span>の対数 ( logarithm of <span>$a$</span> to base b; base <span>$a$</span> logarithm of <span>$x$</span>）といい、<span>$\log_{a}{y}$</span>と書く。</p><p>関数 <code>log(a,y)</code>のように、引数（ひきすう）二つを与えると、 底 <span>$a$</span>に対する <span>$x$</span>の対数が得られる。</p><p>片対数グラフを描く。<span>$\log_{a}{1}=0$</span>で曲線が交差する。</p><pre><code class="language-julia">plt.plot(xs, log.(2,xs), label=string(2))
-plt.plot(xs, log.(xs), label=string(ℯ))
-plt.plot(xs, log.(3,xs), label=string(3))
-plt.plot(xs, log.(10,xs), label=string(10))
+2.0</code></pre><p>指数関数を，まず線形なグラフで描く．</p><pre><code class="language-julia">using PyPlot
+xs = 0.1:0.01:100
+plt.plot(xs, log.(xs))</code></pre><p><img src="../ch03-log1-plot.svg" alt/></p><p>今度は，片対数グラフで描く． <span>$x$</span> 軸を対数で表示すると，直線で表示される．</p><pre><code class="language-julia">plt.plot(xs, log.(xs))
+plt.xscale(&quot;log&quot;)</code></pre><p><img src="../ch03-log2-plot.svg" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>数学と同様，負の数に対する対数関数は定義されていない．引数に負数を与えると例外が起こる．</p><pre><code class="language-">julia&gt; log(-1) # DomainError
+ERROR: DomainError with -1.0:</code></pre></div></div><h2 id="対数関数"><a class="docs-heading-anchor" href="#対数関数">▼ 対数関数</a><a id="対数関数-1"></a><a class="docs-heading-anchor-permalink" href="#対数関数" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.log-Tuple{Number,Number}">Base.log — Method</a></li></ul><p>正の数 <span>$a &gt; 0$</span> に対して，<span>$x=a^y$</span> を満たす数 <span>$y$</span> を， 底 <span>$a$</span> に対する <span>$x$</span> の対数（logarithm of <span>$a$</span> to base b; base <span>$a$</span> logarithm of <span>$x$</span> ）といい，<span>$\log_{a}{y}$</span> と書く．</p><p>関数 <code>log(a,y)</code> のように，引数（ひきすう）二つを与えると， 底 <span>$a$</span> に対する <span>$x$</span> の対数が得られる．</p><p>片対数グラフを描く．<span>$\log_{a}{1}=0$</span> で曲線が交差する．</p><pre><code class="language-julia">using PyPlot
+xs = 0.1:0.01:100
+plt.plot(xs, log.(2, xs), label = string(2))
+plt.plot(xs, log.(xs), label = string(ℯ))
+plt.plot(xs, log.(3, xs), label = string(3))
+plt.plot(xs, log.(10, xs), label = string(10))
 plt.xscale(&quot;log&quot;)
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)
-plt.legend()</code></pre><p><img src="../ch03-log3-plot.svg" alt/></p><p>底を<code>for</code> 文で変えてみる。</p><pre><code class="language-julia">for a in [2, ℯ, 3, 10]
-  plt.plot(xs, log.(a,xs), label=string(a))
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)
+plt.legend()</code></pre><p><img src="../ch03-log3-plot.svg" alt/></p><p>底を <code>for</code> 文で変えてみる．</p><pre><code class="language-julia">using PyPlot
+xs = 0.1:0.01:100
+for a in [2, ℯ, 3, 10]
+   plt.plot(xs, log.(a, xs), label = string(a))
 end
 plt.xscale(&quot;log&quot;)
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)
-plt.legend()</code></pre><p><img src="../ch03-log4-plot.svg" alt/></p><ul><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.log2"><code>Base.log2</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.1/base/math/#Base.log10"><code>Base.log10</code> - Function</a></li></ul><p>底 <span>$2$</span> と <span>$10$</span> に対しては、それぞれ関数 <code>log2</code>と <code>log10</code> が用意されている。</p><pre><code class="language-julia">plt.plot(xs, log2.(xs),  label=&quot;log2&quot;)
-plt.plot(xs, log.(xs),   label=&quot;log&quot;)
-plt.plot(xs, log10.(xs), label=&quot;log10&quot;)
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)
+plt.legend()</code></pre><p><img src="../ch03-log4-plot.svg" alt/></p><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.log2"><code>Base.log2</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.log10"><code>Base.log10</code> - Function</a></li></ul><p>底 <span>$2$</span> と <span>$10$</span> に対しては，それぞれ関数 <code>log2</code> と <code>log10</code> が用意されている．</p><pre><code class="language-julia">plt.plot(xs, log2.(xs), label = &quot;log2&quot;)
+plt.plot(xs, log.(xs), label = &quot;log&quot;)
+plt.plot(xs, log10.(xs), label = &quot;log10&quot;)
 plt.xscale(&quot;log&quot;)
 plt.legend()
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-log5-plot.svg" alt/></p><p>関数名で繰り返してみる。</p><pre><code class="language-julia">for f in [log2, log, log10]
-  plt.plot(xs, f.(xs), label=string(f))
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-log5-plot.svg" alt/></p><p>関数名で繰り返してみる．</p><pre><code class="language-julia">for f in [log2, log, log10]
+   plt.plot(xs, f.(xs), label = string(f))
 end
 plt.xscale(&quot;log&quot;)
 plt.legend()
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(1, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-log6-plot.svg" alt/></p><h2 id="ダブルYグラフを描く"><a class="docs-heading-anchor" href="#ダブルYグラフを描く">▼ ダブルYグラフを描く</a><a id="ダブルYグラフを描く-1"></a><a class="docs-heading-anchor-permalink" href="#ダブルYグラフを描く" title="Permalink"></a></h2><p>ダブルYグラフは、 <span>$x$</span>軸を共通として、左と右に、二つの <span>$y$</span>軸を配置するグラフである。</p><p><img src="../ch03-tw1-plot.svg" alt/></p><p>これを描くには、次の手順をとる。 まず、以下のように、 元となる座標系(左<span>$y$</span>軸)のデータ（オブジェクト）<code>ax1</code>を取得する。</p><pre><code class="language-none"># fig=plt.figure()
-# ax1=fig.add_subplt.plot(111)
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(1, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-log6-plot.svg" alt/></p><h2 id="ダブルYグラフを描く"><a class="docs-heading-anchor" href="#ダブルYグラフを描く">▼ ダブルYグラフを描く</a><a id="ダブルYグラフを描く-1"></a><a class="docs-heading-anchor-permalink" href="#ダブルYグラフを描く" title="Permalink"></a></h2><p>ダブルYグラフは， <span>$x$</span>軸を共通として，左と右に，二つの <span>$y$</span>軸を配置するグラフである．</p><p><img src="../ch03-tw1-plot.svg" alt/></p><p>これを描くには，次の手順をとる． まず，以下のように， 元となる座標系（左 <span>$y$</span> 軸）のデータ（オブジェクト） <code>ax1</code> を取得する．</p><pre><code class="language-none">using PyPlot
 fig, ax1 = plt.subplots()
-# plt.axes().set_aspect(&quot;equal&quot;) #hide
-ax1.set_aspect(&quot;equal&quot;) #hide</code></pre><p>次に、以下のように、 <span>$x$</span>軸が共通な、新しい座標系(右<span>$y$</span>軸)のデータ（オブジェクト）<code>ax2</code>を作成する。</p><pre><code class="language-none">ax2=ax1.twinx()</code></pre><p>座標系 <code>ax</code>に対して描画するには、<code>ax.plot(&lt;&lt;plot引数&gt;&gt;)</code> の形式を用いる。</p><pre><code class="language-julia">using PyPlot
-xs=-2:0.1:2
-# fig=plt.figure()
-# ax1=fig.add_subplt.plot()
+ax1.set_aspect(&quot;equal&quot;)</code></pre><p>次に，以下のように，<span>$x$</span> 軸が共通な， 新しい座標系（右 <span>$y$</span> 軸）のデータ（オブジェクト） <code>ax2</code> を作成する．</p><pre><code class="language-none">ax2=ax1.twinx()</code></pre><p>座標系 <code>ax</code> に対して描画するには，<code>ax.plot(&lt;&lt;plot引数&gt;&gt;)</code> の形式を用いる．</p><pre><code class="language-julia">using PyPlot
 fig, ax1 = plt.subplots()
 ax1.set_aspect(&quot;equal&quot;)
-# fig,ax1=plt.axes().set_aspect(&quot;equal&quot;)
-ax1.plot(xs, -xs, &quot;r&quot;)
-ax2=ax1.twinx()
-ax2.plot(xs, xs.^2, &quot;b&quot;)</code></pre><h2 id="鉛直上投げ自由落下運動を描く"><a class="docs-heading-anchor" href="#鉛直上投げ自由落下運動を描く">▼ 鉛直上投げ自由落下運動を描く</a><a id="鉛直上投げ自由落下運動を描く-1"></a><a class="docs-heading-anchor-permalink" href="#鉛直上投げ自由落下運動を描く" title="Permalink"></a></h2><p>(力学の問題)</p><p>鉛直上向きに投げられた球が、重力のみを感じて自由落下するとする。 時刻 <span>$t=0$</span>において、高さ <span>$y=0$</span>, 鉛直上向きの速度 <span>$v_0$</span> とすると、 時刻 <span>$t$</span>における、高さ <span>$y$</span>と 鉛直上向きの速度 <span>$v$</span> は、以下のように表される。</p>\begin{align*}
-v & = v_0 - gt, \\
-y & = v_0 t - \dfrac{1}{2}gt^2
-\end{align*}<p>各時刻の速度を描く。 長さの単位としてメートル <code>m</code>、 時間の単位として秒 <code>s</code> を、(組立て単位を含めて)一貫して用いる。</p><p>重力加速度 <span>$g = 9.8\;\mathrm{m/s^2}$</span></p><p>初速度を <span>$v_0 = 10\;\mathrm{m/s}$</span> としよう。</p><p>各時刻の速度を描く。</p><pre><code class="language-julia">using PyPlot
-v0=10 # m/s
-g=9.8 # m/s^2
 
-ts=0:0.1:3 # s
-vs=v0 .- g*ts
-plt.plot(ts,vs)</code></pre><p><img src="../ch03-gy1-plot.svg" alt/></p><p>各時刻の高さを描く。</p><pre><code class="language-julia">ys=v0*ts .- g*ts.^2/2
-plt.plot(ts,ys)</code></pre><p><img src="../ch03-gy2-plot.svg" alt/></p><p>この二つのグラフを、時刻を、共通の横軸にとって描こう。</p><pre><code class="language-julia"># ax1=plt.subplots()
-fig, ax1 = plt.subplots()
-ax1.plot(ts,vs)
-ax2=ax1.twinx()
-ax2.plot(ts,ys)</code></pre><p><img src="../ch03-gy3-plot.svg" alt/></p><p>各軸に対して、描画範囲を指定する。 各軸オブジェクトに対して関数 <code>set_xlim(</code> または <code>set_ylim(</code> を用いる (関数 <code>plt.xlim(</code> または <code>plt.ylim(</code> は、軸オブジェクトに対して用いない)。</p><p>共通な下軸に対しては、元の軸オブジェクト <code>ax1</code> に対して指定する。 左軸、右軸は、各軸のオブジェクトに対して指定する。</p><p>各軸にラベルをつけるには、 各軸オブジェクトに対して関数 <code>set_xlabel(</code> または <code>set_ylabel(</code> を用いる。 (関数 <code>plt.xlabel(</code> または <code>plt.ylabel(</code> は、軸オブジェクトに対して用いない)</p><pre><code class="language-julia">ax1.set_xlabel(&quot;time / s&quot;)
-ax1.set_xlim(-0.3,2.3)
-ax1.set_ylim(-12,12)
-ax2.set_ylim(-6,6)
+xs = -2:0.1:2
+ax1.plot(xs, -xs, &quot;r&quot;)
+ax2 = ax1.twinx()
+ax2.plot(xs, xs .^ 2, &quot;b&quot;)</code></pre><h2 id="鉛直上投げ自由落下運動を描く"><a class="docs-heading-anchor" href="#鉛直上投げ自由落下運動を描く">▼ 鉛直上投げ自由落下運動を描く</a><a id="鉛直上投げ自由落下運動を描く-1"></a><a class="docs-heading-anchor-permalink" href="#鉛直上投げ自由落下運動を描く" title="Permalink"></a></h2><p>(力学の問題)</p><p>鉛直上向きに投げられた球が，重力のみを感じて自由落下するとする． 時刻 <span>$t=0$</span>において，高さ <span>$y=0$</span>, 鉛直上向きの速度 <span>$v_0$</span> とすると， 時刻 <span>$t$</span>における，高さ <span>$y$</span>と 鉛直上向きの速度 <span>$v$</span> は，以下のように表される．</p><div>\[\begin{aligned}
+v &amp; = v_0 - gt, \\
+y &amp; = v_0 t - \dfrac{1}{2}gt^2
+\end{aligned}\]</div><p>各時刻の速度を描く． 長さの単位としてメートル <code>m</code> , 時間の単位として秒 <code>s</code> を（組立て単位を含めて）一貫して用いる．</p><p>重力加速度 <span>$g = 9.8\;\mathrm{m/s^2}$</span></p><p>初速度を <span>$v_0 = 10\;\mathrm{m/s}$</span> としよう．</p><p>各時刻の速度を描く．</p><pre><code class="language-julia">using PyPlot
+v0 = 10 # m/s
+g = 9.8 # m/s^2
+
+ts = 0:0.1:3 # s
+vs = v0 .- g * ts
+plt.plot(ts, vs)</code></pre><p><img src="../ch03-gy1-plot.svg" alt/></p><p>各時刻の高さを描く．</p><pre><code class="language-julia">ys = v0 * ts .- g * ts .^ 2 / 2
+plt.plot(ts, ys)</code></pre><p><img src="../ch03-gy2-plot.svg" alt/></p><p>この二つのグラフを，時刻を，共通の横軸にとって描こう．</p><pre><code class="language-julia">fig, ax1 = plt.subplots()
+ax1.plot(ts, vs)
+ax2 = ax1.twinx()
+ax2.plot(ts, ys)</code></pre><p><img src="../ch03-gy3-plot.svg" alt/></p><p>各軸に対して，描画範囲を指定する． 各軸オブジェクトに対して関数 <code>set_xlim(</code> または <code>set_ylim(</code> を用いる (関数 <code>plt.xlim(</code> または <code>plt.ylim(</code> は，軸オブジェクトに対して用いない)．</p><p>共通な下軸に対しては，元の軸オブジェクト <code>ax1</code> に対して指定する． 左軸，右軸は，各軸のオブジェクトに対して指定する．</p><p>各軸にラベルをつけるには， 各軸オブジェクトに対して関数 <code>set_xlabel(</code> または <code>set_ylabel(</code> を用いる． (関数 <code>plt.xlabel(</code> または <code>plt.ylabel(</code> は，軸オブジェクトに対して用いない)</p><pre><code class="language-julia">ax1.set_xlabel(&quot;time / s&quot;)
+ax1.set_xlim(-0.3, 2.3)
+ax1.set_ylim(-12, 12)
+ax2.set_ylim(-6, 6)
 ax1.set_ylabel(&quot;velocity / m s^-1&quot;)
-ax2.set_ylabel(&quot;height / m&quot;)</code></pre><p><img src="../ch03-gy4-plot.svg" alt/></p><p>各軸に対して、水平線 <code>axvline</code> や垂直線 <code>axvline</code> を描く。</p><p>時刻 <span>$\dfrac{v_0}{g}$</span> で、速度が <span>$0$</span> となり、最大の高さを取る様子が見える。</p><pre><code class="language-julia">ax1.axvline(v0/g, color=&quot;k&quot;, lw=0.5)
-ax1.axvline(0, color=&quot;k&quot;, lw=0.5)
-ax1.axhline(0, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch03-gy5-plot.svg" alt/></p><h2 id="練習：鉛直上投げ自由落下運動"><a class="docs-heading-anchor" href="#練習：鉛直上投げ自由落下運動">▲ 練習：鉛直上投げ自由落下運動</a><a id="練習：鉛直上投げ自由落下運動-1"></a><a class="docs-heading-anchor-permalink" href="#練習：鉛直上投げ自由落下運動" title="Permalink"></a></h2><p>初速度 <code>v0</code> を増減して描いてみよ。</p><h2 id="ダブルYグラフに共通な凡例の作成"><a class="docs-heading-anchor" href="#ダブルYグラフに共通な凡例の作成">●▼ ダブルYグラフに共通な凡例の作成</a><a id="ダブルYグラフに共通な凡例の作成-1"></a><a class="docs-heading-anchor-permalink" href="#ダブルYグラフに共通な凡例の作成" title="Permalink"></a></h2><p>複数軸に共通な凡例を描くには、技巧が少々必要である。</p><p>まず、前節のプログラムをまとめて書こう。 二つの曲線に、色を指定しよう。</p><pre><code class="language-julia">using PyPlot
+ax2.set_ylabel(&quot;height / m&quot;)</code></pre><p><img src="../ch03-gy4-plot.svg" alt/></p><p>各軸に対して，水平線 <code>axvline</code> や垂直線 <code>axvline</code> を描く．</p><p>時刻 <span>$\dfrac{v_0}{g}$</span> で，速度が <span>$0$</span> となり，最大の高さを取る様子が見える．</p><pre><code class="language-julia">ax1.axvline(v0 / g, color = &quot;k&quot;, lw = 0.5)
+ax1.axvline(0, color = &quot;k&quot;, lw = 0.5)
+ax1.axhline(0, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch03-gy5-plot.svg" alt/></p><h2 id="練習：鉛直上投げ自由落下運動"><a class="docs-heading-anchor" href="#練習：鉛直上投げ自由落下運動">▲ 練習：鉛直上投げ自由落下運動</a><a id="練習：鉛直上投げ自由落下運動-1"></a><a class="docs-heading-anchor-permalink" href="#練習：鉛直上投げ自由落下運動" title="Permalink"></a></h2><p>初速度 <code>v0</code> を増減して描いてみよ．</p><h2 id="ダブルYグラフに共通な凡例の作成"><a class="docs-heading-anchor" href="#ダブルYグラフに共通な凡例の作成">●▼ ダブルYグラフに共通な凡例の作成</a><a id="ダブルYグラフに共通な凡例の作成-1"></a><a class="docs-heading-anchor-permalink" href="#ダブルYグラフに共通な凡例の作成" title="Permalink"></a></h2><p>複数軸に共通な凡例を描くには，技巧が少々必要である．</p><p>まず，前節のプログラムをまとめて書こう． 二つの曲線に，色を指定しよう．</p><pre><code class="language-julia">using PyPlot
 # ax1=plt.subplots()
 fig, ax1 = plt.subplots()
-ax2=ax1.twinx()
-ax1.plot(ts,vs, &quot;b&quot;, label=&quot;velocity&quot;)
-ax2.plot(ts,ys, &quot;r&quot;, label=&quot;height&quot;)
+ax2 = ax1.twinx()
+ax1.plot(ts, vs, &quot;b&quot;, label = &quot;velocity&quot;)
+ax2.plot(ts, ys, &quot;r&quot;, label = &quot;height&quot;)
 ax1.set_xlabel(&quot;time / s&quot;)
-ax1.set_xlim(-0.3,2.3)
-ax1.set_ylim(-12,12)
-ax2.set_ylim(-6,6)
+ax1.set_xlim(-0.3, 2.3)
+ax1.set_ylim(-12, 12)
+ax2.set_ylim(-6, 6)
 ax1.set_ylabel(&quot;velocity / m s^-1&quot;)
 ax2.set_ylabel(&quot;height / m&quot;)
-ax1.axvline(10/9.8, color=&quot;k&quot;, lw=0.5)
-ax1.axvline(0, color=&quot;k&quot;, lw=0.5)
-ax1.axhline(0, color=&quot;k&quot;, lw=0.5)</code></pre><p>各軸に含まれる曲線の形状と凡例を、 <code>get_legend_handles_labels</code> 関数を用いて、取り出す。</p><p>二つの軸に含まれる形状と凡例を、それぞれ結合する。 片方の軸に対して、結合した形状と凡例を追加する。</p><pre><code class="language-julia">lns1, lbl1 = ax1.get_legend_handles_labels()
+ax1.axvline(10 / 9.8, color = &quot;k&quot;, lw = 0.5)
+ax1.axvline(0, color = &quot;k&quot;, lw = 0.5)
+ax1.axhline(0, color = &quot;k&quot;, lw = 0.5)</code></pre><p>各軸に含まれる曲線の形状と凡例を， <code>get_legend_handles_labels</code> 関数を用いて，取り出す．</p><p>二つの軸に含まれる形状と凡例を，それぞれ結合する． 片方の軸に対して，結合した形状と凡例を追加する．</p><pre><code class="language-julia">lns1, lbl1 = ax1.get_legend_handles_labels()
 lns2, lbl2 = ax2.get_legend_handles_labels()
-lns  = [ lns1; lns2 ]
-lbls = [ lbl1; lbl2 ]
+lns = [lns1; lns2]
+lbls = [lbl1; lbl2]
 
-ax2.legend( lns, lbls, loc=0)</code></pre><p><img src="../ch03-gy6-plot.svg" alt/></p><h2 id="練習：ダブルYグラフ：鉛直上投げ自由落下運動"><a class="docs-heading-anchor" href="#練習：ダブルYグラフ：鉛直上投げ自由落下運動">▲ 練習：ダブルYグラフ：鉛直上投げ自由落下運動</a><a id="練習：ダブルYグラフ：鉛直上投げ自由落下運動-1"></a><a class="docs-heading-anchor-permalink" href="#練習：ダブルYグラフ：鉛直上投げ自由落下運動" title="Permalink"></a></h2><p>初速度 <code>v0</code> を、色々変えて描け。</p><h2 id="描画領域を縦横に分割する"><a class="docs-heading-anchor" href="#描画領域を縦横に分割する">▼ 描画領域を縦横に分割する</a><a id="描画領域を縦横に分割する-1"></a><a class="docs-heading-anchor-permalink" href="#描画領域を縦横に分割する" title="Permalink"></a></h2><p>グラフの描画領域を縦横に分割するには、以下の命令を用いる。</p><p><code>ax=plt.subplots(ijk)</code></p><p><code>ijk</code> は３桁の整数である。 百の位 <code>i</code>は、縦方向の分割数、 十の位 <code>j</code>は、横報告の分割数である。 一の位は、取得する描画の番号であり、 左から右、上から下に、1から順に振られる。</p><p><a href="#花曲線を描く">▼ 花曲線を描く</a>の例で <span>$n &gt; 0$</span> を増減して、各描画範囲に描画する。</p><pre><code class="language-julia">using PyPlot
-fig,axes=plt.subplots(2,3,figsize=(6.4,4.8))
-# ax=plt.subplots(330+i)
-ts=0:pi/1800:2pi
-for i=1:6
-  ax=axes[i]
-  ax.set_aspect(&quot;equal&quot;)
-  n=i+2
-  rs=cos.(n*ts)
-  xs=rs .* cos.(ts)
-  ys=rs .* sin.(ts)
-  ax.plot(xs,ys)
-  ax.set_xlim(-1.1,1.1)
-  ax.set_ylim(-1.1,1.1)
+ax2.legend(lns, lbls, loc = 0)</code></pre><p><img src="../ch03-gy6-plot.svg" alt/></p><h2 id="練習：ダブルYグラフ：鉛直上投げ自由落下運動"><a class="docs-heading-anchor" href="#練習：ダブルYグラフ：鉛直上投げ自由落下運動">▲ 練習：ダブルYグラフ：鉛直上投げ自由落下運動</a><a id="練習：ダブルYグラフ：鉛直上投げ自由落下運動-1"></a><a class="docs-heading-anchor-permalink" href="#練習：ダブルYグラフ：鉛直上投げ自由落下運動" title="Permalink"></a></h2><p>初速度 <code>v0</code> を，色々変えて描け．</p><h2 id="描画領域を縦横に分割する"><a class="docs-heading-anchor" href="#描画領域を縦横に分割する">▼ 描画領域を縦横に分割する</a><a id="描画領域を縦横に分割する-1"></a><a class="docs-heading-anchor-permalink" href="#描画領域を縦横に分割する" title="Permalink"></a></h2><p>グラフの描画領域を縦横に分割するには，以下の命令を用いる．</p><p><code>ax=plt.subplots(ijk)</code></p><p><code>ijk</code> は３桁の整数である． 百の位 <code>i</code> は，縦方向の分割数， 十の位 <code>j</code> は，横報告の分割数である． 一の位は，取得する描画の番号であり， 左から右，上から下に，1 から順に振られる．</p><p><a href="#花曲線を描く">▼ 花曲線を描く</a>の例で <span>$n &gt; 0$</span> を増減して，各描画範囲に描画する．</p><pre><code class="language-julia">using PyPlot
+fig, axs = plt.subplots(2, 3)
+ts = 0:pi/1800:2pi
+for i = 1:6
+   ax = axs[i]
+   ax.set_aspect(&quot;equal&quot;)
+   n = i + 2
+   rs = cos.(n * ts)
+   xs = rs .* cos.(ts)
+   ys = rs .* sin.(ts)
+   ax.plot(xs, ys)
+   ax.set_xlim(-1.1, 1.1)
+   ax.set_ylim(-1.1, 1.1)
 end</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
 └ @ none:4
 ┌ Warning: Assignment to `rs` in soft scope is ambiguous because a global variable by the same name exists: `rs` will be treated as a new local. Disambiguate by using `local rs` to suppress this warning or `global rs` to assign to the existing global variable.
@@ -316,4 +321,4 @@ end</code></pre><pre class="documenter-example-output">┌ Warning: Assignment t
 ┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
 └ @ none:6
 ┌ Warning: Assignment to `ys` in soft scope is ambiguous because a global variable by the same name exists: `ys` will be treated as a new local. Disambiguate by using `local ys` to suppress this warning or `global ys` to assign to the existing global variable.
-└ @ none:7</pre><p><img src="../ch03-flo2-plot.svg" alt/></p><h2 id="練習：斜めに飛ばした球の軌跡"><a class="docs-heading-anchor" href="#練習：斜めに飛ばした球の軌跡">▲ 練習：斜めに飛ばした球の軌跡</a><a id="練習：斜めに飛ばした球の軌跡-1"></a><a class="docs-heading-anchor-permalink" href="#練習：斜めに飛ばした球の軌跡" title="Permalink"></a></h2><p>(力学の問題)</p><p>鉛直上向きに対して 角度 <span>$b$</span>をつけて投げた球が、重力のみを感じて運動するとき、その球の軌跡を描け。</p><p>最初は <span>$b = 15^{\circ}$</span>として描け。</p><p>次に、角度<span>$b$</span>を変えた場合を、一つのグラフに示せ。</p><p>余裕があれば、Jupyter NotebookのMarkdownセルを用いて、解き方や式などの文飾を加えよ。</p><h2 id="練習：色々な連続曲線を描く"><a class="docs-heading-anchor" href="#練習：色々な連続曲線を描く">▲ 練習：色々な連続曲線を描く</a><a id="練習：色々な連続曲線を描く-1"></a><a class="docs-heading-anchor-permalink" href="#練習：色々な連続曲線を描く" title="Permalink"></a></h2><p>ここまで紹介した関数を使って、色々な連続曲線を描いてみよ。 Jupyter notebookの Markdownセルを用いて、説明文も加えよ。</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>Jupyter Notebookを用いたテキスト入力 (Markdownセル)</li><li>実数全域で定義された関数<ul><li>正弦・余弦関数</li><li>楕円</li><li>極座標で著された曲線<ul><li>アルキメデスの渦</li><li>花曲線</li></ul></li><li>指数関数</li></ul></li><li>正数を定義域とする関数<ul><li>平方根・立方根・冪乗根</li><li>対数関数</li></ul></li><li>複数のグラフを描く方法<ul><li>ダブルYグラフ</li><li>ダブルYグラフに共通な凡例の作成</li><li>描画領域の分割</li></ul></li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch02/">« 第2回：▼ 複数のグラフを描く</a><a class="docs-footer-nextpage" href="../ch04/">第4回：▼ 不連続な曲線を描く »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:33">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+└ @ none:7</pre><p><img src="../ch03-flo2-plot.svg" alt/></p><h2 id="練習：斜めに飛ばした球の軌跡"><a class="docs-heading-anchor" href="#練習：斜めに飛ばした球の軌跡">▲ 練習：斜めに飛ばした球の軌跡</a><a id="練習：斜めに飛ばした球の軌跡-1"></a><a class="docs-heading-anchor-permalink" href="#練習：斜めに飛ばした球の軌跡" title="Permalink"></a></h2><p>(力学の問題)</p><p>鉛直上向きに対して 角度 <span>$b$</span>をつけて投げた球が，重力のみを感じて運動するとき，その球の軌跡を描け．</p><p>最初は <span>$b = 15^{\circ}$</span>として描け．</p><p>次に，角度<span>$b$</span>を変えた場合を，一つのグラフに示せ．</p><p>余裕があれば，Jupyter NotebookのMarkdownセルを用いて，解き方や式などの文飾を加えよ．</p><h2 id="練習：色々な連続曲線を描く"><a class="docs-heading-anchor" href="#練習：色々な連続曲線を描く">▲ 練習：色々な連続曲線を描く</a><a id="練習：色々な連続曲線を描く-1"></a><a class="docs-heading-anchor-permalink" href="#練習：色々な連続曲線を描く" title="Permalink"></a></h2><p>ここまで紹介した関数を使って，色々な連続曲線を描いてみよ． Jupyter notebookの Markdown セルを用いて，説明文も加えよ．</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>Jupyter Notebookを用いたテキスト入力（Markdownセル）</li><li>実数全域で定義された関数<ul><li>正弦・余弦関数</li><li>楕円</li><li>極座標で著された曲線<ul><li>アルキメデスの渦</li><li>花曲線</li></ul></li><li>指数関数</li></ul></li><li>正数を定義域とする関数<ul><li>平方根・立方根・冪乗根</li><li>対数関数</li></ul></li><li>複数のグラフを描く方法<ul><li>ダブルYグラフ</li><li>ダブルYグラフに共通な凡例の作成</li><li>描画領域の分割</li></ul></li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch02/">« 第2回：▼ 複数のグラフを描く</a><a class="docs-footer-nextpage" href="../ch04/">第4回：▼ 不連続な曲線を描く »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:45">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

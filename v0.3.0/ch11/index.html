@@ -1,116 +1,125 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第11回：ファイル入出力 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch11/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li class="is-active"><a class="tocitem" href>第11回：ファイル入出力</a><ul class="internal"><li><a class="tocitem" href="#画像と画像ファイル"><span>▶ 画像と画像ファイル</span></a></li><li><a class="tocitem" href="#テキストファイルの作成・書き込み"><span>▶ テキストファイルの作成・書き込み</span></a></li><li><a class="tocitem" href="#テキストファイルからの読み込み"><span>▶ テキストファイルからの読み込み</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第11回：ファイル入出力</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第11回：ファイル入出力</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch11.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch11"><a class="docs-heading-anchor" href="#ch11">第11回：ファイル入出力</a><a id="ch11-1"></a><a class="docs-heading-anchor-permalink" href="#ch11" title="Permalink"></a></h1><h2 id="画像と画像ファイル"><a class="docs-heading-anchor" href="#画像と画像ファイル">▶ 画像と画像ファイル</a><a id="画像と画像ファイル-1"></a><a class="docs-heading-anchor-permalink" href="#画像と画像ファイル" title="Permalink"></a></h2><h3 id="描画寸法の調整"><a class="docs-heading-anchor" href="#描画寸法の調整">▶ 描画寸法の調整</a><a id="描画寸法の調整-1"></a><a class="docs-heading-anchor-permalink" href="#描画寸法の調整" title="Permalink"></a></h3><p><code>PyPlot</code>パッケージで描くグラフの寸法を調整する方法を紹介する。</p><p>描画範囲を指定するには、命令 <code>plt.figure(figsize=(x,y))</code> を用いる。 <code>x</code> と <code>y</code> には、横 <code>x</code> と 縦 <code>y</code> の寸法を、インチ単位で指定する。 <code>1 inch = 25.4 mm</code> である。</p><p>以下の例では、描画範囲を、横と縦をどちらも 80 mm に変更する。</p><pre><code class="language-julia">using PyPlot
-plt.figure(figsize=(80.0/25.4, 80.0/25.4))
-plt.plot([0,1,2])
-plt.plot([2,1,0])</code></pre><p><img src="../ch11-plot1.svg" alt/></p><p>軸の位置、あるいは、軸の周囲の余白(margin)の割合を指定するのは少し手間がいる。 まず、関数 <code>plt.figure()</code> を用いて <code>fig</code> オブジェクトを得てから、 <code>fig</code> オブジェクトに対して <code>fig[:subplots_adjust]()</code> を適用する。</p><p><code>fig[:subplots_adjust]()</code> では、キーワード引数 <code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code> を用いる。</p><p>横方向では、<code>left=</code> で左軸の位置(割合)を、<code>right=</code>で、右軸の位置(割合)を指定する。 この指定では、描画範囲の左端を <code>0</code>、右端を <code>1</code> とする。</p><p>縦方向では、<code>bottom=</code> で下軸の位置(割合)を、<code>top=</code>で、上軸の位置(割合)を指定する。 この指定では、描画範囲の下端を <code>0</code>、上端を <code>1</code> とする。</p><p>下の例では <code>left=0.2, right=0.9, bottom=0.2, top=0.9</code> としたので、 左と下の軸を各々の端から <code>20 %</code> に、右と上の軸を各々の端から <code>10 %</code> に配置する。</p><pre><code class="language-julia">using PyPlot
-# fig=plt.figure(figsize=(6.4,4.8))
-plt.subplots_adjust(left=0.2, right=0.9, bottom=0.2, top=0.9)
-# ax=fig.add_subplt.plot(111)
-fig,ax=plt.subplots()
-ax.plot([0,1,2])
-ax.plot([2,1,0])</code></pre><p><img src="../ch11-plot2.svg" alt/></p><p>描画寸法の指定と、余白の指定を組み合わせると、左右または上下の軸の間隔を寸法で指定できる。</p><p>下の例では、左右および上下の軸の間隔を <code>80 mm</code> と指定する。</p><pre><code class="language-julia">using PyPlot
-m_left=0.2; m_right=0.9; m_bottom=0.2; m_top=0.9
-fx=80.0/(m_right-m_left)
-fy=80.0/(m_top-m_bottom)
-plt.figure(figsize=(fx/25.4, fy/25.4))
-plt.subplots_adjust(left=m_left, right=m_right, bottom=m_bottom, top=m_top)
-# ax=fig.add_subplt.plot(111)
-fig,ax=plt.subplots()
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第11回：ファイル入出力 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch11/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li class="is-active"><a class="tocitem" href>第11回：ファイル入出力</a><ul class="internal"><li><a class="tocitem" href="#画像と画像ファイル"><span>▶ 画像と画像ファイル</span></a></li><li><a class="tocitem" href="#テキストファイルの作成・書き込み"><span>▶ テキストファイルの作成・書き込み</span></a></li><li><a class="tocitem" href="#テキストファイルからの読み込み"><span>▶ テキストファイルからの読み込み</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第11回：ファイル入出力</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第11回：ファイル入出力</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch11.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch11"><a class="docs-heading-anchor" href="#ch11">第11回：ファイル入出力</a><a id="ch11-1"></a><a class="docs-heading-anchor-permalink" href="#ch11" title="Permalink"></a></h1><h2 id="画像と画像ファイル"><a class="docs-heading-anchor" href="#画像と画像ファイル">▶ 画像と画像ファイル</a><a id="画像と画像ファイル-1"></a><a class="docs-heading-anchor-permalink" href="#画像と画像ファイル" title="Permalink"></a></h2><h3 id="描画寸法の調整"><a class="docs-heading-anchor" href="#描画寸法の調整">▶ 描画寸法の調整</a><a id="描画寸法の調整-1"></a><a class="docs-heading-anchor-permalink" href="#描画寸法の調整" title="Permalink"></a></h3><p><code>PyPlot</code> パッケージで描くグラフの寸法を調整する方法を紹介する．</p><p>描画範囲を指定するには，命令 <code>plt.figure(figsize=(x,y))</code> を用いる． <code>x</code> と <code>y</code> には，横 <code>x</code> と 縦 <code>y</code> の寸法を，インチ単位で指定する． <code>1 inch = 25.4 mm</code> である．</p><p>以下の例では，描画範囲を，横と縦をどちらも 80 mm に変更する．</p><pre><code class="language-julia">using PyPlot
+plt.figure(figsize = (80.0 / 25.4, 80.0 / 25.4))
 
-ax.plot([0,1,2])
-ax.plot([2,1,0])
-ax.set_xlim(0,2)
-ax.set_ylim(0,2)</code></pre><p><img src="../ch11-plot3.svg" alt/></p><h3 id="ファイル名・パス名・拡張子"><a class="docs-heading-anchor" href="#ファイル名・パス名・拡張子">▶ ファイル名・パス名・拡張子</a><a id="ファイル名・パス名・拡張子-1"></a><a class="docs-heading-anchor-permalink" href="#ファイル名・パス名・拡張子" title="Permalink"></a></h3><p>Windows, MacOS, Linux など、多くのオペレーティング・システム (OS; Operating System) では、 フォルダ(folder)あるいはディレクトリ(directory)と呼ばれる階層構造の中に、ファイルを格納する。</p><p>ファイルが格納されたフォルダーは、「ファイルの属性」で調べることができる。</p><p>Windows10 のデスクトップ・アプリケーション「ペイント」で適当な絵を描いて、PNG形式で <code>image1.png</code> という名前でデスクトップに保存しよう。</p><p>ファイル <code>image1.png</code> をデスクトップ上で選んで右クリック、「プロパティ」メニューを選ぶと、そのファイルの属性（プロパティ, property）が表示される。</p><p>「場所」という属性に、このファイルが格納されたフォルダが表示される。 Windows 10では <code>c:¥Users¥hs¥Desktop</code> というフォルダ名は、ユーザ名 <code>hs</code> のデスクトップである。 このファイルの完全な名前 (絶対パス absolute path; あるいはフルパス full path)は  <code>c:¥Users¥hs¥Desktop¥image1.png</code> である。</p><p>このファイルの名前は、<code>.png</code> で終わっている。この部分は、ファイルの種類を示しており、拡張子と呼ばれる。</p><p><img src="../sse-2018-12-30-17-17-17.png" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>デスクトップやエクスプローラでは、いくつかの拡張子が表示されない設定になっている場合がある。 拡張子を表示するには、次のようにする。</p><ul><li>「コントローラ・パネル」から「エクスプローラ・オプション」を開く</li><li>「表示」タブを選択</li><li>「登録されている拡張子は表示しない」のチェックを外す</li><li>下の「OK」ボタンを押すと、この設定が適用される</li></ul><p><img src="../sse-2018-12-30-17-25-38.png" alt/></p></div></div><h3 id="画像ファイルの保存"><a class="docs-heading-anchor" href="#画像ファイルの保存">▶ 画像ファイルの保存</a><a id="画像ファイルの保存-1"></a><a class="docs-heading-anchor-permalink" href="#画像ファイルの保存" title="Permalink"></a></h3><p>関数 <code>plt.savefig(fn)</code> は、<code>PyPlot</code>パッケージで描いた直近のグラフをファイル名 <code>fn</code> として保存する命令である。</p><p>以下では、<code>ch11-image1.png</code> という名前でファイルが作成・保存する。 拡張子 <code>.png</code> の指定で、 PNG画像ファイルが作成される。</p><p>同じ名前のファイル名が存在しても警告されず、上書きされる。</p><pre><code class="language-julia">using PyPlot
-plt.figure(figsize=(80.0/25.4, 80.0/25.4))
-plt.plot([0,1,2])
-plt.plot([2,1,0])
-plt.savefig(&quot;ch11-image1.png&quot;)</code></pre><p><img src="../ch11-image1.png" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>「相対パスと絶対パス」</p><p>フォルダあるいはディレクトリの区切りに使われる文字は OS毎に異なるが、 Julia言語では、OSに依らずスラッシュ文字 <code>/</code> で区切ることになっている。</p><p>上の例のように、フォルダを指定せずに、ファイル名のみ指定する場合を相対パス (relative path)による指定という。</p><p>相対パスでは、現在の作業フォルダ（working folder、あるいは、カレント・フォルダ, current folder)の下に、ファイルが保存される。</p><p>現在の作業フォルダは、関数 <code>Base.pwd()</code> で得られる。(print working directory)</p><pre><code class="language-">Base.pwd()  # 各自異なる場合がある</code></pre><p>カレント・フォルダを変更するには、関数 <code>Base.cd()</code> を用いる。(change working directory)</p><p>ユーザ名 <code>hs</code> のデスクトップは、Windows 10 や MacOS のどちらでも <code>/Users/hs/Desktop</code> というフォルダ名であるので、 ユーザ名 <code>hs</code>のユーザが、作業フォルダーをデスクトップに変更するには、</p><pre><code class="language-">Base.cd(&quot;/Users/hs/Desktop&quot;)  # 各自の環境に応じて書き換えること</code></pre><p>とする。</p><p>これに対して、<code>plt.savefig( &quot;/Users/hs/Desktop/ch11-image1.png&quot; )</code> のように、 絶対パス (absolute path)でファイル名を指定してもよい。</p></div></div><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>「保守的なファイル名を使おう」</p><p>ファイル名やフォルダー名（ディレクトリ名）に用いられる文字の種類は、 OS やネットワーク・システムにより異なる。 ファイル名の「文字化け」を避けるために、ファイル名は、以下のように選んでおくことを勧める。</p><ul><li>ファイル名を、半角の英数字およびマイナス記号 <code>-</code> のみで構成する。拡張子の直前の文字として ピリオド <code>.</code> を用いる。</li><li>拡張子の前に半角のピリオド <code>.</code> を用いてもよい。</li><li>半角の英大文字と英小文字は区別されないとする。</li></ul></div></div><h3 id="画像ファイルの種類"><a class="docs-heading-anchor" href="#画像ファイルの種類">▶ 画像ファイルの種類</a><a id="画像ファイルの種類-1"></a><a class="docs-heading-anchor-permalink" href="#画像ファイルの種類" title="Permalink"></a></h3><p>画像ファイルの形式は、大きく分けてビットマップ画像とベクトル(またはベクタ)画像に大別できる。</p><p>ビットマップ画像 (bitmap image) は、画素 (pixel) の集合として画像を格納するファイル形式である。</p><ul><li>JPEGファイル (拡張子 JPG) は、写真画像によく用いられる。圧縮率は高いが、元の画像を復元しない場合がある。</li><li>GIFファイル。256色までの画像を表現できる。複数の画像を格納でき、アニメーションを表示できる。</li><li>PNGファイル。より多数の色を表現できる。元の画像に劣化がなく復元できる。</li></ul><p>ベクトル画像 (vector image) は、直線や円などの図形の組合せとして画像を格納するファイル形式である。</p><ul><li>EPS (Encapsulated PostScript)</li><li>PDF (Portable Document Format)</li><li>SVG (Scalable Vector Graphics)</li><li>WMF (Windows Metafile)</li></ul><h3 id="画像ファイルの保存オプション"><a class="docs-heading-anchor" href="#画像ファイルの保存オプション">▶ 画像ファイルの保存オプション</a><a id="画像ファイルの保存オプション-1"></a><a class="docs-heading-anchor-permalink" href="#画像ファイルの保存オプション" title="Permalink"></a></h3><p>関数 <code>plt.savefig(fn)</code> には、いくつかのキーワード引数がある。</p><ul><li><code>format=&quot;...&quot;</code> : 画像ファイル形式を指定する (ファイル拡張子よりも、こちらの引数が優先される)</li><li><code>dpi=数字</code> : 画像の解像度を、数字で指定する</li><li><code>transparent=true</code> : 白背景を透明にする</li></ul><pre><code class="language-julia">using PyPlot
-plt.figure(figsize=(80.0/25.4, 80.0/25.4))
-plt.plot([0,1,2])
-plt.plot([2,1,0])
-plt.savefig(&quot;ch11-image2.png&quot;, format=&quot;png&quot;, dpi=300, transparent=true)</code></pre><p><img src="../ch11-image2.png" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>上の画像ファイル <code>ch11-image2.png</code> は、一つ上の画像ファイル <code>ch11-image2.png</code>  と同じ内容であるが、Webブラウザ上では、前者の方が大きく見える。これは、Webブラウザ上では、画素 (ピクセル, pixel)の単位でしか、画像の寸法を指定できないためである。</p></div></div><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>dpi (dots per inch) は、画像の解像度であり、1インチ内の画素数を示す。</p><ul><li>粗い Webページの画像は 100 dpi 程度である。</li><li>低品位・中品位の印刷物の画像は 150 dpi 程度である。</li><li>オフィス向けプリンタの解像度は 300 から 600 dpi 程度である。</li><li>高品位な出版物では、最低 600 dpi を求められる。</li></ul></div></div><h2 id="テキストファイルの作成・書き込み"><a class="docs-heading-anchor" href="#テキストファイルの作成・書き込み">▶ テキストファイルの作成・書き込み</a><a id="テキストファイルの作成・書き込み-1"></a><a class="docs-heading-anchor-permalink" href="#テキストファイルの作成・書き込み" title="Permalink"></a></h2><p>この節では、テキストファイルを作成し、テキストを書き込む方法を説明する。 一般のテキストファイルの拡張子は、<code>txt</code> である。</p><p>テキストファイルを作成するには、関数 <code>open</code> と <code>close</code> を組で用いる。</p><p>関数 <code>open( fn, &quot;w&quot;)</code> は、ファイル名 <code>fn</code> のファイルを作成し、 テキストを書き込む準備を行う。ファイル <code>fn</code> は、既に存在していてもよい。その場合は、既に書き込まれた内容は廃棄される。ファイルが作成できない場合には例外が発生する。</p><p>関数 <code>open</code> は、ファイル記述子 <code>f</code> を返す。 関数 <code>print(f, s)</code> は、ファイル記述子 <code>f</code> で指定されたファイルに文字列 <code>s</code> を書き込む。 関数 <code>println(f, s)</code> は、ファイル記述子 <code>f</code> で指定されたファイルに文字列 <code>s</code> を書き込んだ後に開業する。</p><p>書き込みが終わったら、関数 <code>close(f)</code> を呼び出し、書き込みを終了する。</p><pre><code class="language-julia">f = open( &quot;hello1.txt&quot;, &quot;w&quot;)
-print(f,&quot;Hello&quot;)
-println(f,&quot; again.&quot;)
-close(f)</code></pre><p>上のプログラムを実行したら、Windows10のエクスプローラを用いて、 ファイル <code>hello1.txt</code>が作成されたことを確かめよ。 更に、「メモ帳」アプリを起動し、テキストが正しく書き込まれていることを確認せよ。 (※ MacOSの場合は、「ファインダー」アプリと、「テキスト・エディット」アプリに読み替えよ)</p><p>上と同じ処理は、<code>do...end</code> 構文を用いて書くこともできる。<code>end</code>が終わると関数 <code>close(f)</code> が暗黙的に呼ばれる。</p><pre><code class="language-julia">open( &quot;hello1.txt&quot;, &quot;w&quot;) do f
-  print(f,&quot;Hello&quot;)
-  println(f,&quot; again.&quot;)
-end</code></pre><h3 id="書式付き出力"><a class="docs-heading-anchor" href="#書式付き出力">▶ 書式付き出力</a><a id="書式付き出力-1"></a><a class="docs-heading-anchor-permalink" href="#書式付き出力" title="Permalink"></a></h3><p>書式を指定して、値を印字するには、<code>Printf</code> パッケージ内の関数 <code>@printf</code> を用いる。 関数 <code>@printf</code> を使う前に、<code>using Printf</code> で、このパッケージを読み込む。</p><p>関数 <code>@printf(fmt, x)</code> は、<code>x</code> を 書式 <code>fmt</code> に従って印字する。 書式文字列 <code>fmt</code> は、C言語の <code>printf</code>関数で用いられる書式と、ほぼ同じである。</p><p>なお、Jupyter notebookでは、結果が右寄せされて表示されない場合がある。</p><p>書式文字列 <code>%i</code> は、整数を印字する。</p><ul><li><code>i</code> の前に整数(フィールドサイズ)を付けると、その整数の幅で右寄せされて印字される。指定されたフィールドサイズで収まらない場合には、幅を増やして印字される。</li><li>フィールドサイズを <code>0</code> で始めると、空白が <code>0</code> で埋められる。</li><li>フィールドサイズの前に <code>+</code> を付けると、非負の数の前に <code>+</code> 符号がつく。</li></ul><pre><code class="language-julia-repl">julia&gt; using Printf
+plt.plot([0, 1, 2])
+plt.plot([2, 1, 0])</code></pre><p><img src="../ch11-plot1.svg" alt/></p><p>軸の位置，あるいは，軸の周囲の余白（margin）の割合を指定するのは少し手間がいる． まず，関数 <code>plt.figure()</code> を用いて <code>fig</code> オブジェクトを得てから， <code>fig</code> オブジェクトに対して <code>fig[:subplots_adjust]()</code> を適用する．</p><p><code>fig[:subplots_adjust]()</code> では， キーワード引数 <code>left</code> , <code>right</code> , <code>top</code> , <code>bottom</code> を用いる．</p><p>横方向では，<code>left=</code> で左軸の位置（割合）を，<code>right=</code>で，右軸の位置（割合）を指定する． この指定では，描画範囲の左端を <code>0</code> ,右端を <code>1</code> とする．</p><p>縦方向では，<code>bottom=</code> で下軸の位置（割合）を，<code>top=</code> で，上軸の位置（割合）を指定する． この指定では，描画範囲の下端を <code>0</code> ,上端を <code>1</code> とする．</p><p>下の例では <code>left=0.2, right=0.9, bottom=0.2, top=0.9</code> としたので， 左と下の軸を各々の端から <code>20 %</code> に，右と上の軸を各々の端から <code>10 %</code> に配置する．</p><pre><code class="language-julia">using PyPlot
+plt.subplots_adjust(left = 0.2, right = 0.9, bottom = 0.2, top = 0.9)
+# ax=fig.add_subplt.plot(111)
+fig, ax = plt.subplots()
+ax.plot([0, 1, 2])
+ax.plot([2, 1, 0])</code></pre><p><img src="../ch11-plot2.svg" alt/></p><p>描画寸法の指定と，余白の指定を組み合わせると，左右または上下の軸の間隔を寸法で指定できる．</p><p>下の例では，左右および上下の軸の間隔を <code>80 mm</code> と指定する．</p><pre><code class="language-julia">m_left = 0.2;
+m_right = 0.9;
+m_bottom = 0.2;
+m_top = 0.9;
+fx = 80.0 / (m_right - m_left)
+fy = 80.0 / (m_top - m_bottom)
+using PyPlot
+plt.figure(figsize = (fx / 25.4, fy / 25.4))
+plt.subplots_adjust(
+   left = m_left,
+   right = m_right,
+   bottom = m_bottom,
+   top = m_top,
+)
+fig, ax = plt.subplots()
 
-julia&gt; @printf( &quot;%5i\n&quot;, -41 )
+ax.plot([0, 1, 2])
+ax.plot([2, 1, 0])
+ax.set_xlim(0, 2)
+ax.set_ylim(0, 2)</code></pre><p><img src="../ch11-plot3.svg" alt/></p><h3 id="ファイル名・パス名・拡張子"><a class="docs-heading-anchor" href="#ファイル名・パス名・拡張子">▶ ファイル名・パス名・拡張子</a><a id="ファイル名・パス名・拡張子-1"></a><a class="docs-heading-anchor-permalink" href="#ファイル名・パス名・拡張子" title="Permalink"></a></h3><p>Windows, MacOS, Linux など，多くの「オペレーティング・システム（OS; Operating System） 」では， 「フォルダ（folder）」あるいは「ディレクトリ（directory）」と呼ばれる階層構造の中に，ファイルを格納する．</p><p>ファイルが格納されたフォルダーは，「ファイルの属性」で調べることができる．</p><p>Windows10 のデスクトップ・アプリケーション「ペイント」で適当な絵を描いて，PNG形式で <code>image1.png</code> という名前でデスクトップに保存しよう．</p><p>ファイル <code>image1.png</code> をデスクトップ上で選んで右クリック，「プロパティ」メニューを選ぶと，そのファイルの属性（プロパティ，property）が表示される．</p><p>「場所」という属性に，このファイルが格納されたフォルダが表示される． Windows 10 では <code>c:¥Users¥hs¥Desktop</code> というフォルダ名は，ユーザ名 <code>hs</code> のデスクトップである． このファイルの完全な名前（「絶対パス absolute path」; あるいは「フルパス full path」）は  <code>c:¥Users¥hs¥Desktop¥image1.png</code> である．</p><p>このファイルの名前は，<code>.png</code> で終わっている．この部分は，ファイルの種類を示しており，拡張子と呼ばれる．</p><p><img src="../sse-2018-12-30-17-17-17.png" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>デスクトップやエクスプローラでは，いくつかの拡張子が表示されない設定になっている場合がある． 拡張子を表示するには，次のようにする．</p><ul><li>「コントローラ・パネル」から「エクスプローラ・オプション」を開く</li><li>「表示」タブを選択</li><li>「登録されている拡張子は表示しない」のチェックを外す</li><li>下の「OK」ボタンを押すと，この設定が適用される</li></ul><p><img src="../sse-2018-12-30-17-25-38.png" alt/></p></div></div><h3 id="画像ファイルの保存"><a class="docs-heading-anchor" href="#画像ファイルの保存">▶ 画像ファイルの保存</a><a id="画像ファイルの保存-1"></a><a class="docs-heading-anchor-permalink" href="#画像ファイルの保存" title="Permalink"></a></h3><p>関数 <code>plt.savefig(fn)</code> は，<code>PyPlot</code> パッケージで描いた直近のグラフをファイル名 <code>fn</code> として保存する命令である．</p><p>以下では，<code>ch11-image1.png</code> という名前でファイルが作成・保存する． 拡張子 <code>.png</code> の指定で，PNG画像ファイルが作成される．</p><p>同じ名前のファイル名が存在しても警告されず，上書きされる．</p><pre><code class="language-julia">using PyPlot
+plt.figure(figsize = (80.0 / 25.4, 80.0 / 25.4))
+
+plt.plot([0, 1, 2])
+plt.plot([2, 1, 0])
+plt.savefig(&quot;ch11-image1.png&quot;)</code></pre><p><img src="../ch11-image1.png" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>「相対パスと絶対パス」</p><p>フォルダあるいはディレクトリの区切りに使われる文字は OS毎に異なるが， Julia言語では，OSに依らずスラッシュ文字 <code>/</code> で区切ることになっている．</p><p>上の例のように，フォルダを指定せずに，ファイル名のみ指定する場合を「相対パス（relative path）」による指定という．</p><p>相対パスでは，現在の作業フォルダ（working folder,あるいは，カレント・フォルダ，current folder）の下に，ファイルが保存される．</p><p>現在の作業フォルダは，関数 <code>Base.pwd()</code> で得られる（print working directory）．</p><pre><code class="language-">Base.pwd()  # 各自異なる場合がある</code></pre><p>カレント・フォルダを変更するには，関数 <code>Base.cd()</code> を用いる（change working directory）．</p><p>ユーザ名 <code>hs</code> のデスクトップは，Windows 10 や MacOS のどちらでも <code>/Users/hs/Desktop</code> というフォルダ名であるので， ユーザ名 <code>hs</code> のユーザが，作業フォルダーをデスクトップに変更するには，</p><pre><code class="language-">Base.cd(&quot;/Users/hs/Desktop&quot;)  # 各自の環境に応じて書き換えること</code></pre><p>とする．</p><p>これに対して，<code>plt.savefig( &quot;/Users/hs/Desktop/ch11-image1.png&quot; )</code> のように， 「絶対パス（absolute path）」でファイル名を指定してもよい．</p></div></div><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>「保守的なファイル名を使おう」</p><p>ファイル名やフォルダー名（ディレクトリ名）に用いられる文字の種類は， OS やネットワーク・システムにより異なる． ファイル名の「文字化け」を避けるために，ファイル名は，以下のように選んでおくことを勧める．</p><ul><li>ファイル名を，半角の英数字およびマイナス記号 <code>-</code> のみで構成する．拡張子の直前の文字として ピリオド <code>.</code> を用いる．</li><li>拡張子の前に半角のピリオド <code>.</code> を用いてもよい．</li><li>半角の英大文字と英小文字は区別されないとする．</li></ul></div></div><h3 id="画像ファイルの種類"><a class="docs-heading-anchor" href="#画像ファイルの種類">▶ 画像ファイルの種類</a><a id="画像ファイルの種類-1"></a><a class="docs-heading-anchor-permalink" href="#画像ファイルの種類" title="Permalink"></a></h3><p>画像ファイルの形式は，大きく分けてビットマップ画像とベクトル（またはベクタ）画像に大別できる．</p><p>ビットマップ画像（bitmap image）は，画素（pixel）の集合として画像を格納するファイル形式である．</p><ul><li>JPEGファイル（拡張子 JPG）は，写真画像によく用いられる．圧縮率は高いが，元の画像を復元しない場合がある．</li><li>GIFファイル．256 色までの画像を表現できる．複数の画像を格納でき，アニメーションを表示できる．</li><li>PNGファイル．より多数の色を表現できる．元の画像に劣化がなく復元できる．</li></ul><p>「ベクトル画像（vector image）」は，直線や円などの図形の組合せとして画像を格納するファイル形式である．</p><ul><li>EPS（Encapsulated PostScript）</li><li>PDF（Portable Document Format）</li><li>SVG（Scalable Vector Graphics）</li><li>WMF（Windows Metafile）</li></ul><h3 id="画像ファイルの保存オプション"><a class="docs-heading-anchor" href="#画像ファイルの保存オプション">▶ 画像ファイルの保存オプション</a><a id="画像ファイルの保存オプション-1"></a><a class="docs-heading-anchor-permalink" href="#画像ファイルの保存オプション" title="Permalink"></a></h3><p>関数 <code>plt.savefig(fn)</code> には，いくつかのキーワード引数がある．</p><ul><li><code>format=&quot;...&quot;</code> : 画像ファイル形式を指定する（ファイル拡張子よりも，こちらの引数が優先される）</li><li><code>dpi=数字</code> : 画像の解像度を，数字で指定する</li><li><code>transparent=true</code> : 白背景を透明にする</li></ul><pre><code class="language-julia">using PyPlot
+plt.figure(figsize = (80.0 / 25.4, 80.0 / 25.4))
+
+plt.plot([0, 1, 2])
+plt.plot([2, 1, 0])
+plt.savefig(&quot;ch11-image2.png&quot;, format = &quot;png&quot;, dpi = 300, transparent = true)</code></pre><p><img src="../ch11-image2.png" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>上の画像ファイル <code>ch11-image2.png</code> は，一つ上の画像ファイル <code>ch11-image2.png</code>  と同じ内容であるが，Webブラウザ上では，前者の方が大きく見える．これは，Webブラウザ上では，「画素（ピクセル，pixel）」の単位でしか，画像の寸法を指定できないためである．</p></div></div><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>dpi（dots per inch）は，画像の解像度であり，1インチ内の画素数を示す．</p><ul><li>粗い Webページの画像は 100 dpi 程度である．</li><li>低品位・中品位の印刷物の画像は 150 dpi 程度である．</li><li>オフィス向けプリンタの解像度は 300 から 600 dpi 程度である．</li><li>高品位な出版物では，最低 600 dpi を求められる．</li></ul></div></div><h2 id="テキストファイルの作成・書き込み"><a class="docs-heading-anchor" href="#テキストファイルの作成・書き込み">▶ テキストファイルの作成・書き込み</a><a id="テキストファイルの作成・書き込み-1"></a><a class="docs-heading-anchor-permalink" href="#テキストファイルの作成・書き込み" title="Permalink"></a></h2><p>この節では，テキストファイルを作成し，テキストを書き込む方法を説明する． 一般のテキストファイルの拡張子は，<code>txt</code> である．</p><p>テキストファイルを作成するには，関数 <code>open</code> と <code>close</code> を組で用いる．</p><p>関数 <code>open( fn, &quot;w&quot;)</code> は，ファイル名 <code>fn</code> のファイルを作成し， テキストを書き込む準備を行う．ファイル <code>fn</code> は，既に存在していてもよい．その場合は，既に書き込まれた内容は廃棄される．ファイルが作成できない場合には例外が発生する．</p><p>関数 <code>open</code> は，ファイル記述子 <code>f</code> を返す． 関数 <code>print(f, s)</code> は，ファイル記述子 <code>f</code> で指定されたファイルに文字列 <code>s</code> を書き込む． 関数 <code>println(f, s)</code> は，ファイル記述子 <code>f</code> で指定されたファイルに文字列 <code>s</code> を書き込んだ後に開業する．</p><p>書き込みが終わったら，関数 <code>close(f)</code> を呼び出し，書き込みを終了する．</p><pre><code class="language-julia">f = open(&quot;hello1.txt&quot;, &quot;w&quot;)
+print(f, &quot;Hello&quot;)
+println(f, &quot; again.&quot;)
+close(f)</code></pre><p>上のプログラムを実行したら，Windows10 のエクスプローラを用いて， ファイル <code>hello1.txt</code> が作成されたことを確かめよ． 更に，「メモ帳」アプリを起動し，テキストが正しく書き込まれていることを確認せよ． (※ MacOSの場合は，「ファインダー」アプリと，「テキスト・エディット」アプリに読み替えよ)</p><p>上と同じ処理は，<code>do...end</code> 構文を用いて書くこともできる． <code>end</code> が終わると関数 <code>close(f)</code> が暗黙的に呼ばれる．</p><pre><code class="language-julia">open(&quot;hello1.txt&quot;, &quot;w&quot;) do f
+   print(f, &quot;Hello&quot;)
+   println(f, &quot; again.&quot;)
+end</code></pre><h3 id="書式付き出力"><a class="docs-heading-anchor" href="#書式付き出力">▶ 書式付き出力</a><a id="書式付き出力-1"></a><a class="docs-heading-anchor-permalink" href="#書式付き出力" title="Permalink"></a></h3><p>書式を指定して，値を印字するには，<code>Printf</code> パッケージ内の関数 <code>@printf</code> を用いる． 関数 <code>@printf</code> を使う前に，<code>using Printf</code> で，このパッケージを読み込む．</p><p>関数 <code>@printf(fmt, x)</code> は，<code>x</code> を 書式 <code>fmt</code> に従って印字する． 書式文字列 <code>fmt</code> は，C言語の <code>printf</code> 関数で用いられる書式と，ほぼ同じである．</p><p>なお，Jupyter notebookでは，結果が右寄せされて表示されない場合がある．</p><p>書式文字列 <code>%i</code> は，整数を印字する．</p><ul><li><code>i</code> の前に整数（フィールドサイズ）を付けると，その整数の幅で右寄せされて印字される．指定されたフィールドサイズで収まらない場合には，幅を増やして印字される．</li><li>フィールドサイズを <code>0</code> で始めると，空白が <code>0</code> で埋められる．</li><li>フィールドサイズの前に <code>+</code> を付けると，非負の数の前に <code>+</code> 符号がつく．</li></ul><pre><code class="language-julia-repl">julia&gt; using Printf
+
+julia&gt; @printf(&quot;%5i\n&quot;, -41)
   -41
 
-julia&gt; @printf( &quot;%05i\n&quot;, 413 )
+julia&gt; @printf(&quot;%05i\n&quot;, 413)
 00413
 
-julia&gt; @printf( &quot;%+5i\n&quot;, 413 )
+julia&gt; @printf(&quot;%+5i\n&quot;, 413)
  +413
 
-julia&gt; @printf( &quot;%+5i\n&quot;, -413 )
+julia&gt; @printf(&quot;%+5i\n&quot;, -413)
  -413
 
-julia&gt; @printf( &quot;%+05i\n&quot;, -413 )
+julia&gt; @printf(&quot;%+05i\n&quot;, -413)
 -0413
 
-julia&gt; @printf( &quot;%+5i\n&quot;, -41131 )
--41131</code></pre><p>書式文字列 <code>%f</code> は、小数を印字する。</p><ul><li><code>f</code> の前に整数(フィールドサイズ)を付けると、その整数の幅で右寄せされて印字される。指定されたフィールドサイズで収まらない場合には、幅を増やして印字される。</li><li>フォールドサイズに続けて、ピリオド <code>.</code> と整数を付けると、小数点以下の桁数を指定する。指定された小数点以下桁数で表されない場合には、丸められる。</li><li>フィールドサイズを <code>0</code> で始めると、頭の空白が <code>0</code> で埋められる。</li><li>フィールドサイズの前に <code>+</code> を付けると、非負の数の前に <code>+</code> 符号がつく。</li><li><code>Inf</code> と <code>NaN</code> は、その通り印字される。</li></ul><pre><code class="language-julia-repl">julia&gt; @printf( &quot;%8.3f\n&quot;, -2e-2 )
+julia&gt; @printf(&quot;%+5i\n&quot;, -41131)
+-41131</code></pre><p>書式文字列 <code>%f</code> は，小数を印字する．</p><ul><li><code>f</code> の前に整数（フィールドサイズ）を付けると，その整数の幅で右寄せされて印字される．指定されたフィールドサイズで収まらない場合には，幅を増やして印字される．</li><li>フォールドサイズに続けて，ピリオド <code>.</code> と整数を付けると，小数点以下の桁数を指定する．指定された小数点以下桁数で表されない場合には，丸められる．</li><li>フィールドサイズを <code>0</code> で始めると，頭の空白が <code>0</code> で埋められる．</li><li>フィールドサイズの前に <code>+</code> を付けると，非負の数の前に <code>+</code> 符号がつく．</li><li><code>Inf</code> と <code>NaN</code> は，その通り印字される．</li></ul><pre><code class="language-julia-repl">julia&gt; @printf(&quot;%8.3f\n&quot;, -2e-2)
   -0.020
 
-julia&gt; @printf( &quot;%08.0f\n&quot;, -0.252 )
+julia&gt; @printf(&quot;%08.0f\n&quot;, -0.252)
 -0000000
 
-julia&gt; @printf( &quot;%8.1f\n&quot;, -0.252 )
+julia&gt; @printf(&quot;%8.1f\n&quot;, -0.252)
     -0.3
 
-julia&gt; @printf( &quot;%08.2f\n&quot;, -0.252 )
+julia&gt; @printf(&quot;%08.2f\n&quot;, -0.252)
 -0000.25
 
-julia&gt; @printf( &quot;%8.3f\n&quot;, -0.252 )
-  -0.252</code></pre><p>書式文字列 <code>%e</code> は、指数形式で印字する。</p><ul><li><code>e</code> の前に整数(フィールドサイズ)を付けると、その整数の幅で右寄せされて印字される。フィールドサイズで収まらない場合には、幅を増やして印字される。</li><li>フォールドサイズに続けて、ピリオド <code>.</code> と整数を付けると、小数点以下の桁数を指定する。指定された小数点以下桁数で表されない場合には、丸められる。</li><li>フィールドサイズを <code>0</code> で始めると、頭の空白が <code>0</code> で埋められる。</li><li>フィールドサイズの前に <code>+</code> を付けると、非負の数の前に <code>+</code> 符号がつく。</li><li><code>Inf</code> と <code>NaN</code> は、その通り印字される。</li></ul><pre><code class="language-julia-repl">julia&gt; @printf( &quot;%11.5e\n&quot;, -0.0078125 )
+julia&gt; @printf(&quot;%8.3f\n&quot;, -0.252)
+  -0.252</code></pre><p>書式文字列 <code>%e</code> は，指数形式で印字する．</p><ul><li><code>e</code> の前に整数（フィールドサイズ）を付けると，その整数の幅で右寄せされて印字される．フィールドサイズで収まらない場合には，幅を増やして印字される．</li><li>フォールドサイズに続けて，ピリオド <code>.</code> と整数を付けると，小数点以下の桁数を指定する．指定された小数点以下桁数で表されない場合には，丸められる．</li><li>フィールドサイズを <code>0</code> で始めると，頭の空白が <code>0</code> で埋められる．</li><li>フィールドサイズの前に <code>+</code> を付けると，非負の数の前に <code>+</code> 符号がつく．</li><li><code>Inf</code> と <code>NaN</code> は，その通り印字される．</li></ul><pre><code class="language-julia-repl">julia&gt; @printf(&quot;%11.5e\n&quot;, -0.0078125)
 -7.81250e-03
 
-julia&gt; @printf( &quot;%12.4e\n&quot;, -0.0078125 )
+julia&gt; @printf(&quot;%12.4e\n&quot;, -0.0078125)
  -7.8125e-03
 
-julia&gt; @printf( &quot;%13.3e\n&quot;, -0.0078125 )
+julia&gt; @printf(&quot;%13.3e\n&quot;, -0.0078125)
    -7.813e-03
 
-julia&gt; @printf( &quot;%13.2e\n&quot;, -0.0078125 )
+julia&gt; @printf(&quot;%13.2e\n&quot;, -0.0078125)
     -7.81e-03
 
-julia&gt; @printf( &quot;%13.1e\n&quot;, -0.0078125 )
-     -7.8e-03</code></pre><p>書式文字列 <code>%s</code> は、文字列形式で印字する。</p><ul><li><code>s</code> の前に整数(フィールドサイズ)を付けると、その整数の幅で右寄せされて印字される。フィールドサイズで収まらない場合には、幅を増やして印字される。</li></ul><pre><code class="language-julia-repl">julia&gt; @printf(&quot;%8s\n&quot;, &quot;Hello&quot;)
+julia&gt; @printf(&quot;%13.1e\n&quot;, -0.0078125)
+     -7.8e-03</code></pre><p>書式文字列 <code>%s</code> は，文字列形式で印字する．</p><ul><li><code>s</code> の前に整数（フィールドサイズ）を付けると，その整数の幅で右寄せされて印字される．フィールドサイズで収まらない場合には，幅を増やして印字される．</li></ul><pre><code class="language-julia-repl">julia&gt; @printf(&quot;%8s\n&quot;, &quot;Hello&quot;)
    Hello
 
 julia&gt; @printf(&quot;%8s\n&quot;, &quot;Hello world&quot;)
-Hello world</code></pre><ul><li>書式は復数使用してもよい。書式があるのに、印字すべき値がないと例外が発生する。</li><li>書式を指定しない文字は、そのまま印字される。</li><li><code>\n</code> は改行文字を表す。</li><li><code>\t</code> はタブ(TAB)文字を表す。</li></ul><pre><code class="language-julia-repl">julia&gt; @printf( &quot;%.1f %15.7e\n&quot;, 0.025,-0.0078125 )
+Hello world</code></pre><ul><li>書式は復数使用してもよい．書式があるのに，印字すべき値がないと例外が発生する．</li><li>書式を指定しない文字は，そのまま印字される．</li><li><code>\n</code> は改行文字を表す．</li><li><code>\t</code> はタブ（TAB）文字を表す．</li></ul><pre><code class="language-julia-repl">julia&gt; @printf(&quot;%.1f %15.7e\n&quot;, 0.025, -0.0078125)
 0.0  -7.8125000e-03
 
-julia&gt; @printf( &quot;x=%.1f        y=%15.7e\n&quot;, 0.025,-0.0078125 )
+julia&gt; @printf(&quot;x=%.1f        y=%15.7e\n&quot;, 0.025, -0.0078125)
 x=0.0        y= -7.8125000e-03
 
 julia&gt; # 引数が足りない例
-       @printf( &quot;%.1f %15.7e\n&quot;, 0.025 )
+       @printf(&quot;%.1f %15.7e\n&quot;, 0.025)
 ERROR: LoadError: ArgumentError: @printf: wrong number of arguments (1) should be (2)
-in expression starting at none:2</code></pre><h3 id="書式を指定して、テキストファイルに書き込む。"><a class="docs-heading-anchor" href="#書式を指定して、テキストファイルに書き込む。">▶ 書式を指定して、テキストファイルに書き込む。</a><a id="書式を指定して、テキストファイルに書き込む。-1"></a><a class="docs-heading-anchor-permalink" href="#書式を指定して、テキストファイルに書き込む。" title="Permalink"></a></h3><p>正規乱数 10 個からなるCSVファイルを書き出そう。 関数 <code>@printf</code> の第一引数に、ファイル記述子 <code>f</code> を入れると、<code>f</code> で示されたファイルに印字される。</p><pre><code class="language-julia">using Printf
-open( &quot;test1.txt&quot;, &quot;w&quot;) do f
-  for i in 1:10
-    @printf(f, &quot;%15.7f\n&quot;, randn())
-  end
-end</code></pre><p>上のプログラムを実行したら、「メモ帳」アプリを起動し、数字が指定された書式で正しく書き込まれたことを確認せよ。 更に、「Excel」アプリを起動し、このファイルを1列のデータとして読み込んでみよ。</p><h3 id="CSVファイルへの書き込み"><a class="docs-heading-anchor" href="#CSVファイルへの書き込み">▶ CSVファイルへの書き込み</a><a id="CSVファイルへの書き込み-1"></a><a class="docs-heading-anchor-permalink" href="#CSVファイルへの書き込み" title="Permalink"></a></h3><p>カンマ <code>,</code> で区切られた値が並ぶ行から構成されるテキストファイルを CSV (Comma Separated Value) ファイルという。 表計算ソフトウエアとのデータの輸入輸出によく用いられる。 拡張子は <code>csv</code> である。</p><p>関数 <code>@printf</code> を用いて、整数と浮動小数点数をカンマで区切った行を書き出そう。</p><p>なお、CSVファイルの1行目に、カンマ <code>,</code> で区切られた文字列を、各列の表題として書くことが多い。</p><pre><code class="language-julia">using Printf
-open( &quot;test2.csv&quot;, &quot;w&quot;) do f
-  println(f, &quot;i,x&quot;)
-  for i in 1:10
-    @printf(f, &quot;%i,%15.7f\n&quot;, i, randn())
-  end
-end</code></pre><p>上のプログラムを実行したら、「メモ帳」アプリを起動し、CSVファイルが正しく書き込まれていることを確認せよ。 更に、「Excel」アプリを起動し、2列のデータとして読み込んでみよ。</p><h2 id="テキストファイルからの読み込み"><a class="docs-heading-anchor" href="#テキストファイルからの読み込み">▶ テキストファイルからの読み込み</a><a id="テキストファイルからの読み込み-1"></a><a class="docs-heading-anchor-permalink" href="#テキストファイルからの読み込み" title="Permalink"></a></h2><h3 id="テキストファイルからの行単位の読み込み"><a class="docs-heading-anchor" href="#テキストファイルからの行単位の読み込み">▶ テキストファイルからの行単位の読み込み</a><a id="テキストファイルからの行単位の読み込み-1"></a><a class="docs-heading-anchor-permalink" href="#テキストファイルからの行単位の読み込み" title="Permalink"></a></h3><p>関数 <code>open( fn )</code> は、ファイル名 <code>fn</code> のファイルをテキストとして、読み込む準備を行う。 ファイル <code>fn</code> が読み込めない場合には例外が発生する。</p><p>テキストファイルを読み込むためにも、関数 <code>open</code> と <code>close</code> を組で用いる。</p><p>以下のプログラムは、テキストファイルから、１行ずつ読み込み、それを印字する。</p><p>関数 <code>eachline(f)</code> は、ファイル記述子 <code>f</code> からテキストを読み込み、行に分割する。このとき、行末の改行文字は取り除かれる。</p><pre><code class="language-julia">f=open(&quot;hello1.txt&quot;)
+in expression starting at none:2</code></pre><h3 id="書式を指定して，テキストファイルに書き込む．"><a class="docs-heading-anchor" href="#書式を指定して，テキストファイルに書き込む．">▶ 書式を指定して，テキストファイルに書き込む．</a><a id="書式を指定して，テキストファイルに書き込む．-1"></a><a class="docs-heading-anchor-permalink" href="#書式を指定して，テキストファイルに書き込む．" title="Permalink"></a></h3><p>正規乱数 10 個からなるCSVファイルを書き出そう． 関数 <code>@printf</code> の第一引数に，ファイル記述子 <code>f</code> を入れると，<code>f</code> で示されたファイルに印字される．</p><pre><code class="language-julia">using Printf
+open(&quot;test1.txt&quot;, &quot;w&quot;) do f
+   for i = 1:10
+      @printf(f, &quot;%15.7f\n&quot;, randn())
+   end
+end</code></pre><p>上のプログラムを実行したら，「メモ帳」アプリを起動し，数字が指定された書式で正しく書き込まれたことを確認せよ． 更に，「Excel」アプリを起動し，このファイルを1列のデータとして読み込んでみよ．</p><h3 id="CSVファイルへの書き込み"><a class="docs-heading-anchor" href="#CSVファイルへの書き込み">▶ CSVファイルへの書き込み</a><a id="CSVファイルへの書き込み-1"></a><a class="docs-heading-anchor-permalink" href="#CSVファイルへの書き込み" title="Permalink"></a></h3><p>カンマ <code>,</code> で区切られた値が並ぶ行から構成されるテキストファイルを CSV（Comma Separated Value） ファイルという． 表計算ソフトウエアとのデータの輸入輸出によく用いられる． 拡張子は <code>csv</code> である．</p><p>関数 <code>@printf</code> を用いて，整数と浮動小数点数をカンマで区切った行を書き出そう．</p><p>なお，CSVファイルの1行目に，カンマ <code>,</code> で区切られた文字列を，各列の表題として書くことが多い．</p><pre><code class="language-julia">using Printf
+open(&quot;test2.csv&quot;, &quot;w&quot;) do f
+   println(f, &quot;i,x&quot;)
+   for i = 1:10
+      @printf(f, &quot;%i,%15.7f\n&quot;, i, randn())
+   end
+end</code></pre><p>上のプログラムを実行したら，「メモ帳」アプリを起動し，CSVファイルが正しく書き込まれていることを確認せよ． 更に，「Excel」アプリを起動し，2列のデータとして読み込んでみよ．</p><h2 id="テキストファイルからの読み込み"><a class="docs-heading-anchor" href="#テキストファイルからの読み込み">▶ テキストファイルからの読み込み</a><a id="テキストファイルからの読み込み-1"></a><a class="docs-heading-anchor-permalink" href="#テキストファイルからの読み込み" title="Permalink"></a></h2><h3 id="テキストファイルからの行単位の読み込み"><a class="docs-heading-anchor" href="#テキストファイルからの行単位の読み込み">▶ テキストファイルからの行単位の読み込み</a><a id="テキストファイルからの行単位の読み込み-1"></a><a class="docs-heading-anchor-permalink" href="#テキストファイルからの行単位の読み込み" title="Permalink"></a></h3><p>関数 <code>open( fn )</code> は，ファイル名 <code>fn</code> のファイルをテキストとして，読み込む準備を行う． ファイル <code>fn</code> が読み込めない場合には例外が発生する．</p><p>テキストファイルを読み込むためにも，関数 <code>open</code> と <code>close</code> を組で用いる．</p><p>以下のプログラムは，テキストファイルから，１行ずつ読み込み，それを印字する．</p><p>関数 <code>eachline(f)</code> は，ファイル記述子 <code>f</code> からテキストを読み込み，行に分割する．このとき，行末の改行文字は取り除かれる．</p><pre><code class="language-julia">f = open(&quot;hello1.txt&quot;)
 for line in eachline(f)
-  print(line)
+   print(line)
 end
-close(f)</code></pre><pre class="documenter-example-output">Hello again.</pre><p>書き込みの場合と同様、<code>do...end</code> 構文を用いて書くこともできる。<code>end</code>が終わると関数 <code>close(f)</code> が暗黙的に呼ばれる。</p><pre><code class="language-julia">open( &quot;hello1.txt&quot; ) do f
-  for line in eachline(f)
-    print(line)
-  end
-end</code></pre><pre class="documenter-example-output">Hello again.</pre><h3 id="文字列から数に変換する"><a class="docs-heading-anchor" href="#文字列から数に変換する">▶ 文字列から数に変換する</a><a id="文字列から数に変換する-1"></a><a class="docs-heading-anchor-permalink" href="#文字列から数に変換する" title="Permalink"></a></h3><p>文字列を数に変換するには、関数 <code>parse(t, s)</code>を用いる。 第一引数には変換先の型を、第二引数には、変換したい文字列を書く。文字列の前後の空白は無視される。</p><pre><code class="language-julia-repl">julia&gt; parse(Float64, &quot; 12.3&quot;)
+close(f)</code></pre><pre class="documenter-example-output">Hello again.</pre><p>書き込みの場合と同様に，<code>do...end</code> 構文を用いて書くこともできる． <code>end</code> が終わると関数 <code>close(f)</code> が暗黙的に呼ばれる．</p><pre><code class="language-julia">open(&quot;hello1.txt&quot;) do f
+   for line in eachline(f)
+      print(line)
+   end
+end</code></pre><pre class="documenter-example-output">Hello again.</pre><h3 id="文字列から数に変換する"><a class="docs-heading-anchor" href="#文字列から数に変換する">▶ 文字列から数に変換する</a><a id="文字列から数に変換する-1"></a><a class="docs-heading-anchor-permalink" href="#文字列から数に変換する" title="Permalink"></a></h3><p>文字列を数に変換するには，関数 <code>parse(t, s)</code>を用いる． 第一引数には変換先の型を，第二引数には，変換したい文字列を書く．文字列の前後の空白は無視される．</p><pre><code class="language-julia-repl">julia&gt; parse(Float64, &quot; 12.3&quot;)
 12.3
 
 julia&gt; parse(Float64, &quot; 12.3e-2 &quot;)
@@ -121,11 +130,11 @@ julia&gt; parse(Int64, &quot; 123 &quot;)
 
 julia&gt; # 変換できない例
        parse(Int64, &quot; 12.3 &quot;)
-ERROR: ArgumentError: invalid base 10 digit &#39;.&#39; in &quot; 12.3 &quot;</code></pre><p>上のプログラムで作成したファイル <code>test1.txt</code> から 1行ずつ読み込み、浮動小数点数に変換して印字してみよう。</p><pre><code class="language-julia">open( &quot;test1.txt&quot; ) do f
-  for line in eachline(f)
-    x=parse(Float64, line)
-    @printf(&quot;%15.7f\n&quot;, x)
-  end
+ERROR: ArgumentError: invalid base 10 digit &#39;.&#39; in &quot; 12.3 &quot;</code></pre><p>上のプログラムで作成したファイル <code>test1.txt</code> から1行ずつ読み込み，浮動小数点数に変換して印字してみよう．</p><pre><code class="language-julia">open(&quot;test1.txt&quot;) do f
+   for line in eachline(f)
+      x = parse(Float64, line)
+      @printf(&quot;%15.7f\n&quot;, x)
+   end
 end</code></pre><pre class="documenter-example-output">     -0.9575408
      -0.5251076
       0.4929768
@@ -135,35 +144,35 @@ end</code></pre><pre class="documenter-example-output">     -0.9575408
       1.2051685
       0.5078403
      -1.3195850
-      1.6526171</pre><h3 id="文字列を分割する"><a class="docs-heading-anchor" href="#文字列を分割する">▶ 文字列を分割する</a><a id="文字列を分割する-1"></a><a class="docs-heading-anchor-permalink" href="#文字列を分割する" title="Permalink"></a></h3><p>関数 <code>split(s, c)</code> は、文字列を分割する。 第一引数の文字列 <code>s</code> を、第二引数の文字列のどれか一つの文字が出現したら分割する。結果として、文字列を要素とする配列が返される。</p><p>英文テキストを、空白で区切る。</p><pre><code class="language-julia-repl">julia&gt; split(&quot;one cup of brown suger&quot;, &quot; &quot;)
+      1.6526171</pre><h3 id="文字列を分割する"><a class="docs-heading-anchor" href="#文字列を分割する">▶ 文字列を分割する</a><a id="文字列を分割する-1"></a><a class="docs-heading-anchor-permalink" href="#文字列を分割する" title="Permalink"></a></h3><p>関数 <code>split(s, c)</code> は，文字列を分割する． 第一引数の文字列 <code>s</code> を，第二引数の文字列のどれか一つの文字が出現したら分割する．結果として，文字列を要素とする配列が返される．</p><p>英文テキストを，空白で区切る．</p><pre><code class="language-julia-repl">julia&gt; split(&quot;one cup of brown suger&quot;, &quot; &quot;)
 5-element Array{SubString{String},1}:
  &quot;one&quot;
  &quot;cup&quot;
  &quot;of&quot;
  &quot;brown&quot;
- &quot;suger&quot;</code></pre><p>行をカンマで区切って、それぞれ整数と浮動小数点数に変換する。</p><pre><code class="language-julia-repl">julia&gt; line=&quot;   15  , 0.2401863&quot;
+ &quot;suger&quot;</code></pre><p>行をカンマで区切って，それぞれ整数と浮動小数点数に変換する．</p><pre><code class="language-julia-repl">julia&gt; line = &quot;   15  , 0.2401863&quot;
 &quot;   15  , 0.2401863&quot;
 
-julia&gt; s=split( line, &quot;,&quot; )
+julia&gt; s = split(line, &quot;,&quot;)
 2-element Array{SubString{String},1}:
  &quot;   15  &quot;
  &quot; 0.2401863&quot;
 
-julia&gt; parse( Int64, s[1])
+julia&gt; parse(Int64, s[1])
 15
 
-julia&gt; parse( Float64, s[2])
-0.2401863</code></pre><p>上のプログラムで作成した <code>test2.csv</code> を読み込み、各行を整数と浮動小数点数に変換し、印字する。 ただし、1行目は読み飛ばす。</p><pre><code class="language-julia">using Printf
-open( &quot;test2.csv&quot; ) do f
-  i=0
-  for line in eachline(f)
-    i += 1
-    i == 1 &amp;&amp; continue
-    s=split(line, &quot;,&quot;)
-    x=parse(Int64, s[1])
-    y=parse(Float64, s[2])
-    @printf(&quot;%5i %15.7f\n&quot;, x, y)
-  end
+julia&gt; parse(Float64, s[2])
+0.2401863</code></pre><p>上のプログラムで作成した <code>test2.csv</code> を読み込み，各行を整数と浮動小数点数に変換し，印字する． ただし，1行目は読み飛ばす．</p><pre><code class="language-julia">using Printf
+open(&quot;test2.csv&quot;) do f
+   i = 0
+   for line in eachline(f)
+      i += 1
+      i == 1 &amp;&amp; continue
+      s = split(line, &quot;,&quot;)
+      x = parse(Int64, s[1])
+      y = parse(Float64, s[2])
+      @printf(&quot;%5i %15.7f\n&quot;, x, y)
+   end
 end</code></pre><pre class="documenter-example-output">    1      -0.5922707
     2       0.6789724
     3      -1.9410514
@@ -173,8 +182,8 @@ end</code></pre><pre class="documenter-example-output">    1      -0.5922707
     7      -1.2481969
     8       2.0553445
     9       1.6527349
-   10      -0.9476740</pre><h3 id="配列に要素を加える"><a class="docs-heading-anchor" href="#配列に要素を加える">▶ 配列に要素を加える</a><a id="配列に要素を加える-1"></a><a class="docs-heading-anchor-permalink" href="#配列に要素を加える" title="Permalink"></a></h3><p>関数 <code>push!(a,x)</code> は、配列 <code>a</code> に、値 <code>x</code> を付け加える。配列 <code>a</code> は書き換えられる。</p><pre><code class="language-julia-repl">julia&gt; # Int64 を要素とする配列
-       xs=[1,2]
+   10      -0.9476740</pre><h3 id="配列に要素を加える"><a class="docs-heading-anchor" href="#配列に要素を加える">▶ 配列に要素を加える</a><a id="配列に要素を加える-1"></a><a class="docs-heading-anchor-permalink" href="#配列に要素を加える" title="Permalink"></a></h3><p>関数 <code>push!(a,x)</code> は，配列 <code>a</code> に，値 <code>x</code> を付け加える．配列 <code>a</code> は書き換えられる．</p><pre><code class="language-julia-repl">julia&gt; # Int64 を要素とする配列
+       xs = [1, 2]
 2-element Array{Int64,1}:
  1
  2
@@ -203,7 +212,7 @@ julia&gt; xs
  1
  2
  3
- 4</code></pre><p>要素がない配列を作るには 関数 <code>zeros(t, 0)</code> を使えばよい。 第一引数 <code>t</code> は、作成する配列の要素である。</p><p>以下では、<code>Float64</code>型の配列 (要素数 0)を最初に作成した。</p><pre><code class="language-julia-repl">julia&gt; xs=zeros(Float64,0)
+ 4</code></pre><p>要素がない配列を作るには 関数 <code>zeros(t, 0)</code> を使えばよい． 第一引数 <code>t</code> は，作成する配列の要素である．</p><p>以下では，<code>Float64</code> 型の配列（要素数 <span>$0$</span>）を最初に作成した．</p><pre><code class="language-julia-repl">julia&gt; xs = zeros(Float64, 0)
 Float64[]
 
 julia&gt; push!(xs, 1.0)
@@ -222,21 +231,21 @@ julia&gt; push!(xs, 2.0)
 julia&gt; xs
 2-element Array{Float64,1}:
  1.0
- 2.0</code></pre><h3 id="CSVファイルから配列を作る"><a class="docs-heading-anchor" href="#CSVファイルから配列を作る">▶ CSVファイルから配列を作る</a><a id="CSVファイルから配列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#CSVファイルから配列を作る" title="Permalink"></a></h3><p>以上を組合せて、CSVファイルを読み込み、値を配列としてまとめることができる。</p><pre><code class="language-julia">using Printf
-xs=zeros(Int64,0)
-ys=zeros(Float64,0)
+ 2.0</code></pre><h3 id="CSVファイルから配列を作る"><a class="docs-heading-anchor" href="#CSVファイルから配列を作る">▶ CSVファイルから配列を作る</a><a id="CSVファイルから配列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#CSVファイルから配列を作る" title="Permalink"></a></h3><p>以上を組合せて，CSVファイルを読み込み，値を配列としてまとめることができる．</p><pre><code class="language-julia">using Printf
+xs = zeros(Int64, 0)
+ys = zeros(Float64, 0)
 
-open( &quot;test2.csv&quot; ) do f
-  i=0
-  for line in eachline(f)
-    i += 1
-    i == 1 &amp;&amp; continue
-    s=split(line, &quot;,&quot;)
-    x=parse(Int64, s[1])
-    push!(xs, x)
-    y=parse(Float64, s[2])
-    push!(ys, y)
-  end
+open(&quot;test2.csv&quot;) do f
+   i = 0
+   for line in eachline(f)
+      i += 1
+      i == 1 &amp;&amp; continue
+      s = split(line, &quot;,&quot;)
+      x = parse(Int64, s[1])
+      push!(xs, x)
+      y = parse(Float64, s[2])
+      push!(ys, y)
+   end
 end
 @show xs
 @show ys</code></pre><pre class="documenter-example-output">10-element Array{Float64,1}:
@@ -249,16 +258,15 @@ end
  -1.2481969
   2.0553445
   1.6527349
- -0.947674</pre><p>続けて、データを描くと、</p><pre><code class="language-julia">using PyPlot
-plt.plot(ys, &quot;.&quot;)</code></pre><p><img src="../ch11-csv1.svg" alt/></p><h3 id="CSVパッケージ"><a class="docs-heading-anchor" href="#CSVパッケージ">▶ CSVパッケージ</a><a id="CSVパッケージ-1"></a><a class="docs-heading-anchor-permalink" href="#CSVパッケージ" title="Permalink"></a></h3><p><code>CSV</code>パッケージを用いると、CSVファイルを容易に扱うことができる。</p><p><code>CSV</code>パッケージを設置（インストール）していない場合は、次のように設置する。</p><pre><code class="language-none">import Pkg;
-Pkg.add(&quot;CSV&quot;)</code></pre><p><code>CSV</code>パッケージに定義されている関数 <code>CSV.read(fn)</code> を用いると、CSVファイル <code>fn</code> を読み込むことができる。 結果として、拡張された配列 (<code>DataFrame</code>型)が返される。</p><pre><code class="language-julia"># CSV
+ -0.947674</pre><p>続けて，データを描くと，</p><pre><code class="language-julia">plt.plot(ys, &quot;.&quot;)</code></pre><p><img src="../ch11-csv1.svg" alt/></p><h3 id="CSVパッケージ"><a class="docs-heading-anchor" href="#CSVパッケージ">▶ CSVパッケージ</a><a id="CSVパッケージ-1"></a><a class="docs-heading-anchor-permalink" href="#CSVパッケージ" title="Permalink"></a></h3><p><code>CSV</code> パッケージを用いると，CSVファイルを容易に扱うことができる．</p><p><code>CSV</code> パッケージを設置（インストール）していない場合は，次のように設置する．</p><pre><code class="language-none">import Pkg;
+Pkg.add(&quot;CSV&quot;)</code></pre><p><code>CSV</code> パッケージに定義されている関数 <code>CSV.read(fn)</code> を用いると，CSVファイル <code>fn</code> を読み込むことができる． 結果として，拡張された配列（ <code>DataFrame</code> 型）が返される．</p><pre><code class="language-julia"># CSV
 using CSV
-df=CSV.read(&quot;test2.csv&quot;)
+df = CSV.read(&quot;test2.csv&quot;)
 # 1番目のデータ配列
 @show df[1]
 # 2番目のデータ配列
 @show df[2]
 #
 using PyPlot
-plt.plot( df[2], &quot;.&quot;)</code></pre><pre class="documenter-example-output">1-element Array{PyCall.PyObject,1}:
- PyObject &lt;matplotlib.lines.Line2D object at 0x7f6eb69614f0&gt;</pre><p>データを描いた結果は、上と同じである。</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>PyPlotパッケージで描いた画像<ul><li>画像寸法の調整</li><li>画像のファイルへの保存</li></ul></li><li>文字列の扱い<ul><li>書式付き出力</li><li>文字列の分割</li><li>文字列から数への変換</li></ul></li><li>配列に要素を加える</li><li>テキストファイル<ul><li>書き込み</li><li>読み込み</li><li>CSVファイル</li></ul></li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch10/">« 第10回：行列・線形代数</a><a class="docs-footer-nextpage" href="../ch12/">第12回：関数の定義と呼び出し »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:33">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plt.plot(df[2], &quot;.&quot;)</code></pre><pre class="documenter-example-output">1-element Array{PyCall.PyObject,1}:
+ PyObject &lt;matplotlib.lines.Line2D object at 0x7f1f7bd4b850&gt;</pre><p>データを描いた結果は，上と同じである．</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>PyPlotパッケージで描いた画像<ul><li>画像寸法の調整</li><li>画像のファイルへの保存</li></ul></li><li>文字列の扱い<ul><li>書式付き出力</li><li>文字列の分割</li><li>文字列から数への変換</li></ul></li><li>配列に要素を加える</li><li>テキストファイル<ul><li>書き込み</li><li>読み込み</li><li>CSVファイル</li></ul></li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch10/">« 第10回：行列・線形代数</a><a class="docs-footer-nextpage" href="../ch12/">第12回：関数の定義と呼び出し »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:45">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

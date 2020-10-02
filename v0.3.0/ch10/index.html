@@ -1,47 +1,48 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第10回：行列・線形代数 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch10/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li class="is-active"><a class="tocitem" href>第10回：行列・線形代数</a><ul class="internal"><li><a class="tocitem" href="#ベクトルの線形結合からなる格子点"><span>▶ ベクトルの線形結合からなる格子点</span></a></li><li><a class="tocitem" href="#平面ベクトルの内積"><span>■ 平面ベクトルの内積</span></a></li><li><a class="tocitem" href="#タプル"><span>■ タプル</span></a></li><li><a class="tocitem" href="#行列"><span>■ 行列</span></a></li><li><a class="tocitem" href="#部分行列"><span>■ 部分行列</span></a></li><li><a class="tocitem" href="#行列とベクトルの積"><span>■ 行列とベクトルの積</span></a></li><li><a class="tocitem" href="#行列と行列の積"><span>■ 行列と行列の積</span></a></li><li><a class="tocitem" href="#座標を行列に格納した図形を回転する"><span>▶ 座標を行列に格納した図形を回転する</span></a></li><li><a class="tocitem" href="#いろいろな行列の生成"><span>■ いろいろな行列の生成</span></a></li><li><a class="tocitem" href="#楕円を描く・回転する"><span>▶ 楕円を描く・回転する</span></a></li><li><a class="tocitem" href="#行列式と逆行列"><span>■ 行列式と逆行列</span></a></li><li><a class="tocitem" href="#行列の商（2x2行列）"><span>■ 行列の商（2x2行列）</span></a></li><li><a class="tocitem" href="#楕円を、逆に回転する"><span>▶ 楕円を、逆に回転する</span></a></li><li><a class="tocitem" href="#空間ベクトル：なす角を求める"><span>▶ 空間ベクトル：なす角を求める</span></a></li><li><a class="tocitem" href="#行列の商（3x3行列）"><span>▶ 行列の商（3x3行列）</span></a></li><li><a class="tocitem" href="#行列の階数-(ランク)"><span>▶ 行列の階数 (ランク)</span></a></li><li><a class="tocitem" href="#行列の固有値・固有ベクトル"><span>▼ 行列の固有値・固有ベクトル</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第10回：行列・線形代数</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第10回：行列・線形代数</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch10.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch10"><a class="docs-heading-anchor" href="#ch10">第10回：行列・線形代数</a><a id="ch10-1"></a><a class="docs-heading-anchor-permalink" href="#ch10" title="Permalink"></a></h1><h2 id="ベクトルの線形結合からなる格子点"><a class="docs-heading-anchor" href="#ベクトルの線形結合からなる格子点">▶ ベクトルの線形結合からなる格子点</a><a id="ベクトルの線形結合からなる格子点-1"></a><a class="docs-heading-anchor-permalink" href="#ベクトルの線形結合からなる格子点" title="Permalink"></a></h2><p>複数のベクトルの線形結合とは、 それらのベクトルのスカラー倍を加え合わせたものを、それらのベクトルの線形結合という。</p><p>二つのベクトル <span>$a_1=\begin{bmatrix} 1 \\\\ 0 \end{bmatrix}, a_2=\begin{bmatrix} 0 \\\\ 1 \end{bmatrix}$</span> の「整数」係数の線形結合による格子点を描く。</p><p>さらに、 <span>$b_1=\begin{bmatrix} \dfrac{1}{2} \\\\ \dfrac{1}{2} \end{bmatrix}, b_2=\begin{bmatrix} \dfrac{1}{2} \\\\ -\dfrac{1}{2} \end{bmatrix}$</span> の「整数」係数の線形結合からなる格子点を重ねる。</p><pre><code class="language-julia">using PyPlot
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第10回：行列・線形代数 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/ch10/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li><a class="tocitem" href="../ch06/">第6回：■ 整数</a></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li class="is-active"><a class="tocitem" href>第10回：行列・線形代数</a><ul class="internal"><li><a class="tocitem" href="#ベクトルの線形結合からなる格子点"><span>▶ ベクトルの線形結合からなる格子点</span></a></li><li><a class="tocitem" href="#平面ベクトルの内積"><span>■ 平面ベクトルの内積</span></a></li><li><a class="tocitem" href="#タプル"><span>■ タプル</span></a></li><li><a class="tocitem" href="#行列"><span>■ 行列</span></a></li><li><a class="tocitem" href="#部分行列"><span>■ 部分行列</span></a></li><li><a class="tocitem" href="#行列とベクトルの積"><span>■ 行列とベクトルの積</span></a></li><li><a class="tocitem" href="#行列と行列の積"><span>■ 行列と行列の積</span></a></li><li><a class="tocitem" href="#座標を行列に格納した図形を回転する"><span>▶ 座標を行列に格納した図形を回転する</span></a></li><li><a class="tocitem" href="#いろいろな行列の生成"><span>■ いろいろな行列の生成</span></a></li><li><a class="tocitem" href="#楕円を描く・回転する"><span>▶ 楕円を描く・回転する</span></a></li><li><a class="tocitem" href="#行列式と逆行列"><span>■ 行列式と逆行列</span></a></li><li><a class="tocitem" href="#行列の商（2x2-行列）"><span>■ 行列の商（2x2 行列）</span></a></li><li><a class="tocitem" href="#楕円を，逆に回転する"><span>▶ 楕円を，逆に回転する</span></a></li><li><a class="tocitem" href="#空間ベクトル：なす角を求める"><span>▶ 空間ベクトル：なす角を求める</span></a></li><li><a class="tocitem" href="#行列の商（3x3-行列）"><span>▶ 行列の商（3x3 行列）</span></a></li><li><a class="tocitem" href="#行列の階数（ランク）"><span>▶ 行列の階数（ランク）</span></a></li><li><a class="tocitem" href="#行列の固有値・固有ベクトル"><span>▼ 行列の固有値・固有ベクトル</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第10回：行列・線形代数</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第10回：行列・線形代数</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch10.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch10"><a class="docs-heading-anchor" href="#ch10">第10回：行列・線形代数</a><a id="ch10-1"></a><a class="docs-heading-anchor-permalink" href="#ch10" title="Permalink"></a></h1><h2 id="ベクトルの線形結合からなる格子点"><a class="docs-heading-anchor" href="#ベクトルの線形結合からなる格子点">▶ ベクトルの線形結合からなる格子点</a><a id="ベクトルの線形結合からなる格子点-1"></a><a class="docs-heading-anchor-permalink" href="#ベクトルの線形結合からなる格子点" title="Permalink"></a></h2><p>複数のベクトルの線形結合とは， それらのベクトルのスカラー倍を加え合わせたものを，それらのベクトルの線形結合という．</p><p>二つのベクトル <span>$a_1=\begin{bmatrix} 1 \\\\ 0 \end{bmatrix}, a_2=\begin{bmatrix} 0 \\\\ 1 \end{bmatrix}$</span> の「整数」係数の線形結合による格子点を描く．</p><p>さらに， <span>$b_1=\begin{bmatrix} \dfrac{1}{2} \\\\ \dfrac{1}{2} \end{bmatrix}, b_2=\begin{bmatrix} \dfrac{1}{2} \\\\ -\dfrac{1}{2} \end{bmatrix}$</span> の「整数」係数の線形結合からなる格子点を重ねる．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-a1=[1,0]; a2=[0,1]
-for m in -3:3, n in -3:3
-  r=m*a1+n*a2
-  plt.plot(r[1], r[2], &quot;bo&quot;)
+a1 = [1, 0];
+a2 = [0, 1];
+for m = -3:3, n = -3:3
+   r = m * a1 + n * a2
+   plt.plot(r[1], r[2], &quot;bo&quot;)
 end
 
-b1=[ 1/2, 1/2]; b2=[ 1/2,-1/2]
-for m in -3:3, n in -3:3
-  r=m*b1+n*b2
-  plt.plot(r[1], r[2], &quot;r.&quot;)
+b1 = [1 / 2, 1 / 2];
+b2 = [1 / 2, -1 / 2];
+for m = -3:3, n = -3:3
+   r = m * b1 + n * b2
+   plt.plot(r[1], r[2], &quot;r.&quot;)
 end
 
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(0, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch10-lat1-plot.svg" alt/></p><p>どちらも正方格子 (cubic lattice) であるが、座標系の取り方が異なる。 基底 <span>$b_1, b_2$</span> で張られる格子点は、 基底 <span>$a_1, a_2$</span> で張られる格子点の中央の点も含んでいることが観察できる。</p><p>今度は、 <span>$c_1=\begin{bmatrix} 1 \\ 0 \end{bmatrix}, c_2=\begin{bmatrix} -\dfrac{1}{2} \\ \dfrac{\sqrt{3}}{2} \end{bmatrix}$</span> で張られる格子点を描いてみる。 これは、六方格子 (hexagonal lattice) と呼ばれる。</p><pre><code class="language-julia">using PyPlot
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(0, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch10-lat1-plot.svg" alt/></p><p>どちらも正方格子（cubic lattice）であるが，座標系の取り方が異なる． 基底 <span>$b_1, b_2$</span> で張られる格子点は， 基底 <span>$a_1, a_2$</span> で張られる格子点の中央の点も含んでいることが観察できる．</p><p>今度は， <span>$c_1=\begin{bmatrix} 1 \\ 0 \end{bmatrix}, c_2=\begin{bmatrix} -\dfrac{1}{2} \\ \dfrac{\sqrt{3}}{2} \end{bmatrix}$</span> で張られる格子点を描いてみる． これは，六方格子（hexagonal lattice）と呼ばれる．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-c1=[ 1,0]; c2=[ -1/2, sqrt(3)/2]
-for m in -3:3, n in -3:3
-  r=m*c1+n*c2
-  plt.plot(r[1], r[2], &quot;g.&quot;)
+
+c1 = [1, 0];
+c2 = [-1 / 2, sqrt(3) / 2];
+for m = -3:3, n = -3:3
+   r = m * c1 + n * c2
+   plt.plot(r[1], r[2], &quot;g.&quot;)
 end
 
-plt.xlim(-3,3)
-plt.ylim(-3,3)
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(0, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch10-lat2-plot.svg" alt/></p><h2 id="平面ベクトルの内積"><a class="docs-heading-anchor" href="#平面ベクトルの内積">■ 平面ベクトルの内積</a><a id="平面ベクトルの内積-1"></a><a class="docs-heading-anchor-permalink" href="#平面ベクトルの内積" title="Permalink"></a></h2><p>関数 <code>dot(a,b)</code> は、ベクトル <code>a</code> と <code>b</code> との内積 (inner product)を返す。</p><p>中置き演算子 <code>⋅</code> を用いて <code>a⋅b</code> と書くこともできる。 「<code>⋅</code>」は、バックスラッシュ <code>\</code> に続けて cdots と入力してから、TABキーを押すことによって入力できる。 かな漢字変換システムで入力できる「・」(中黒=なかぐろ) とは、別の文字である。</p><h3 id="平面ベクトル同士のなす角を求める"><a class="docs-heading-anchor" href="#平面ベクトル同士のなす角を求める">▶ 平面ベクトル同士のなす角を求める</a><a id="平面ベクトル同士のなす角を求める-1"></a><a class="docs-heading-anchor-permalink" href="#平面ベクトル同士のなす角を求める" title="Permalink"></a></h3><p>ベクトル <span>$a$</span> と <span>$b$</span>の内積は、<span>$a$</span> と <span>$b$</span> のなす角<span>$\theta$</span> を用いて、以下のように定義される。</p><div>\[a\cdot b = \left\vert{a}\right\vert \left\vert{b}\right\vert \cos\theta\]</div><p>これから、<span>$\theta$</span> を求めるには、次の式を用いればよい。</p><div>\[\cos\theta = \dfrac{a\cdot b}{ \left\vert{a}\right\vert \left\vert{b}\right\vert }\]</div><p>また、内積の定義から、自分自身の内積は、ノルムの二乗であることも分かる。 <span>$a\cdot a = \left\vert{a}\right\vert^2$</span></p><h3 id="例：ベクトル同士のなす角度を求める"><a class="docs-heading-anchor" href="#例：ベクトル同士のなす角度を求める">▶ 例：ベクトル同士のなす角度を求める</a><a id="例：ベクトル同士のなす角度を求める-1"></a><a class="docs-heading-anchor-permalink" href="#例：ベクトル同士のなす角度を求める" title="Permalink"></a></h3><p>上で出てきたベクトルのうち、<code>a1, a2, c1, c2</code> のノルムは <span>$1$</span> である。</p><pre><code class="language-julia-repl">julia&gt; using LinearAlgebra
+plt.xlim(-3, 3)
+plt.ylim(-3, 3)
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(0, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch10-lat2-plot.svg" alt/></p><h2 id="平面ベクトルの内積"><a class="docs-heading-anchor" href="#平面ベクトルの内積">■ 平面ベクトルの内積</a><a id="平面ベクトルの内積-1"></a><a class="docs-heading-anchor-permalink" href="#平面ベクトルの内積" title="Permalink"></a></h2><p>関数 <code>dot(a,b)</code> は，ベクトル <code>a</code> と <code>b</code> との「内積（inner product）」を返す．</p><p>中置き演算子 <code>⋅</code> を用いて <code>a⋅b</code> と書くこともできる． 「 <code>⋅</code> 」 は，バックスラッシュ <code>\</code> に続けて cdots と入力してから，TABキーを押すことによって入力できる． かな漢字変換システムで入力できる「・」（中黒=なかぐろ）とは，別の文字である．</p><h3 id="平面ベクトル同士のなす角を求める"><a class="docs-heading-anchor" href="#平面ベクトル同士のなす角を求める">▶ 平面ベクトル同士のなす角を求める</a><a id="平面ベクトル同士のなす角を求める-1"></a><a class="docs-heading-anchor-permalink" href="#平面ベクトル同士のなす角を求める" title="Permalink"></a></h3><p>ベクトル <span>$a$</span> と <span>$b$</span>の内積は，<span>$a$</span> と <span>$b$</span> のなす角<span>$\theta$</span> を用いて，以下のように定義される．</p><div>\[a\cdot b = \left\vert{a}\right\vert \left\vert{b}\right\vert \cos\theta\]</div><p>これから，<span>$\theta$</span> を求めるには，次の式を用いればよい．</p><div>\[\cos\theta = \dfrac{a\cdot b}{ \left\vert{a}\right\vert \left\vert{b}\right\vert }\]</div><p>また，内積の定義から，自分自身の内積は，ノルムの二乗であることも分かる．</p><div>\[a\cdot a = \left\vert{a}\right\vert^2\]</div><h3 id="例：ベクトル同士のなす角度を求める"><a class="docs-heading-anchor" href="#例：ベクトル同士のなす角度を求める">▶ 例：ベクトル同士のなす角度を求める</a><a id="例：ベクトル同士のなす角度を求める-1"></a><a class="docs-heading-anchor-permalink" href="#例：ベクトル同士のなす角度を求める" title="Permalink"></a></h3><p>上で出てきたベクトルのうち，<code>a1, a2, c1, c2</code> のノルムは <span>$1$</span> である．</p><pre><code class="language-julia-repl">julia&gt; using LinearAlgebra
 
 julia&gt; #
-       a1=[1,0]; a2=[0,1]
-2-element Array{Int64,1}:
- 0
- 1
+       a1 = [1, 0];
 
-julia&gt; b1=[ 1/2, 1/2]; b2=[ 1/2,-1/2]
-2-element Array{Float64,1}:
-  0.5
- -0.5
+julia&gt; a2 = [0, 1];
 
-julia&gt; c1=[ 1,0]; c2=[ -1/2, sqrt(3)/2]
-2-element Array{Float64,1}:
- -0.5
-  0.8660254037844386
+julia&gt; b1 = [1 / 2, 1 / 2];
+
+julia&gt; b2 = [1 / 2, -1 / 2];
+
+julia&gt; c1 = [1, 0];
+
+julia&gt; c2 = [-1 / 2, sqrt(3) / 2];
 
 julia&gt; norm(a1)
 1.0
@@ -53,7 +54,7 @@ julia&gt; norm(c1)
 1.0
 
 julia&gt; norm(c2)
-0.9999999999999999</code></pre><p><code>b1</code> と <code>b2</code> のノルムは <span>$\dfrac{1}{\sqrt{2}}$</span> である。 自分自身の内積の値と比較しよう</p><pre><code class="language-julia-repl">julia&gt; b1⋅b1
+0.9999999999999999</code></pre><p><code>b1</code> と <code>b2</code> のノルムは <span>$\dfrac{1}{\sqrt{2}}$</span> である． 自分自身の内積の値と比較しよう</p><pre><code class="language-julia-repl">julia&gt; b1 ⋅ b1
 0.5
 
 julia&gt; norm(b1)
@@ -62,33 +63,33 @@ julia&gt; norm(b1)
 julia&gt; norm(b1)^2
 0.5000000000000001
 
-julia&gt; b1⋅b1
+julia&gt; b1 ⋅ b1
 0.5
 
 julia&gt; norm(b2)
 0.7071067811865476
 
 julia&gt; norm(b2)^2
-0.5000000000000001</code></pre><p>内積から算出した <span>$\cos\theta$</span>から角度 <span>$\theta$</span> を得るには、関数 <code>acos()</code> を用いる。 関数 <code>acos(r)</code> は <span>$\cos \theta = r$</span> となる<span>$\theta$</span> をラジアンで返す。 関数 <code>acosd(r)</code> は、<span>$\theta$</span> をラジアンで返す。</p><p>これらのベクトルのなす角度を算出しよう。 a1とa2、および、b1とb2は直交している。 a1とb1は、45° をなしている。 c1とc2は、120° をなしている、ことが計算できた。</p><pre><code class="language-julia-repl">julia&gt; acosd(a1⋅a2)
+0.5000000000000001</code></pre><p>内積から算出した <span>$\cos\theta$</span>から角度 <span>$\theta$</span> を得るには，関数 <code>acos()</code> を用いる． 関数 <code>acos(r)</code> は <span>$\cos \theta = r$</span> となる <span>$\theta$</span> をラジアンで返す． 関数 <code>acosd(r)</code> は，<span>$\theta$</span> をラジアンで返す．</p><p>これらのベクトルのなす角度を算出しよう． <code>a1</code> と <code>a2</code>,および，<code>b1</code> と <code>b2</code> は直交している． <code>a1</code> と <code>b1</code> は，45° をなしている． <code>c1</code> と <code>c2</code> は，<code>120°</code> をなしている，ことが計算できた．</p><pre><code class="language-julia-repl">julia&gt; acosd(a1 ⋅ a2)
 90.0
 
-julia&gt; acosd(b1⋅b2 / norm(b1) / norm(b2) )
+julia&gt; acosd(b1 ⋅ b2 / norm(b1) / norm(b2))
 90.0
 
-julia&gt; acosd(a1⋅b1 / norm(a1) / norm(b1) )
+julia&gt; acosd(a1 ⋅ b1 / norm(a1) / norm(b1))
 45.00000000000001
 
-julia&gt; acosd(c1⋅c2)
-120.00000000000001</code></pre><h2 id="タプル"><a class="docs-heading-anchor" href="#タプル">■ タプル</a><a id="タプル-1"></a><a class="docs-heading-anchor-permalink" href="#タプル" title="Permalink"></a></h2><p>タプル (tuple)は、複数の値をカンマ <code>,</code> で区切って並べ、括弧 <code>()</code> で囲んだものである。 ベクトルと似たように使えるが、要素を更新することはできない。</p><pre><code class="language-julia-repl">julia&gt; # 要素 1つのタプル
+julia&gt; acosd(c1 ⋅ c2)
+120.00000000000001</code></pre><h2 id="タプル"><a class="docs-heading-anchor" href="#タプル">■ タプル</a><a id="タプル-1"></a><a class="docs-heading-anchor-permalink" href="#タプル" title="Permalink"></a></h2><p>タプル（tuple）は，複数の値をカンマ <code>,</code> で区切って並べ，括弧 <code>()</code> で囲んだものである． ベクトルと似たように使えるが，要素を更新することはできない．</p><pre><code class="language-julia-repl">julia&gt; # 要素 1つのタプル
        (1,)
 (1,)
 
 julia&gt; # 要素 2つのタプル
-       (1,2)
+       (1, 2)
 (1, 2)
 
 julia&gt; # 要素 3つのタプル
-       a=(1,2,3)
+       a = (1, 2, 3)
 (1, 2, 3)
 
 julia&gt; # タプルの長さ
@@ -100,34 +101,34 @@ julia&gt; # タプルの要素
 2
 
 julia&gt; # 更新はできない
-       a[2]=3 # =&gt; MethodError
-ERROR: MethodError: no method matching setindex!(::Tuple{Int64,Int64,Int64}, ::Int64, ::Int64)</code></pre><p>関数には、複数の値を返すものがある。このとき、タプルが用いられる。</p><p>例えば、<code>divrem(x,d)</code> は、<code>div(x,d)</code> と <code>rem(x,d)</code> の二つの値を返す。</p><pre><code class="language-julia-repl">julia&gt; divrem(5,3)
-(1, 2)</code></pre><p>タプルを右辺において、複数の変数に同時に代入できる。</p><pre><code class="language-julia-repl">julia&gt; x,y=(1,2,3)
+       a[2] = 3 # =&gt; MethodError
+ERROR: MethodError: no method matching setindex!(::Tuple{Int64,Int64,Int64}, ::Int64, ::Int64)</code></pre><p>関数には，複数の値を返すものがある．このとき，タプルが用いられる．</p><p>例えば，<code>divrem(x,d)</code> は，<code>div(x,d)</code> と <code>rem(x,d)</code> の二つの値を返す．</p><pre><code class="language-julia-repl">julia&gt; divrem(5, 3)
+(1, 2)</code></pre><p>タプルを右辺において，複数の変数に同時に代入できる．</p><pre><code class="language-julia-repl">julia&gt; x, y = (1, 2, 3)
 (1, 2, 3)
 
 julia&gt; x
 1
 
 julia&gt; y
-2</code></pre><h2 id="行列"><a class="docs-heading-anchor" href="#行列">■ 行列</a><a id="行列-1"></a><a class="docs-heading-anchor-permalink" href="#行列" title="Permalink"></a></h2><p>要素を <code>;</code> で区切って列挙したものを、 大かっこ <code>[]</code> で囲むと、行列を作ることができる。</p><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+2</code></pre><h2 id="行列"><a class="docs-heading-anchor" href="#行列">■ 行列</a><a id="行列-1"></a><a class="docs-heading-anchor-permalink" href="#行列" title="Permalink"></a></h2><p>要素を <code>;</code> で区切って列挙したものを， 大かっこ <code>[]</code> で囲むと，行列を作ることができる．</p><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
- 31  32  33  34</code></pre><p>3行 4列の行列</p><p><a href="../ch01/#ベクトル">■ ベクトル</a>も、<a href="#行列">■ 行列</a>も、配列 (array)として表されている。 ベクトルと同じ関数が用いられる。</p><pre><code class="language-julia-repl">julia&gt; # 寸法 =&gt; タプル
+ 31  32  33  34</code></pre><p>3行 4列の行列</p><p><a href="../ch01/#ベクトル">■ ベクトル</a>も，<a href="#行列">■ 行列</a>も，「配列（array）」として表されている． ベクトルと同じ関数が用いられる．</p><pre><code class="language-julia-repl">julia&gt; # 寸法 =&gt; タプル
        size(a)
 (3, 4)
 
 julia&gt; # 第1軸 = 列の寸法
-       size(a,1)
+       size(a, 1)
 3
 
 julia&gt; # 第2軸 = 行の寸法
-       size(a,2)
+       size(a, 2)
 4
 
 julia&gt; # 全要素数
        length(a)
-12</code></pre><h3 id="行列の転置"><a class="docs-heading-anchor" href="#行列の転置">■ 行列の転置</a><a id="行列の転置-1"></a><a class="docs-heading-anchor-permalink" href="#行列の転置" title="Permalink"></a></h3><p><code>transpose(a)</code> は、行列 <code>a</code> を転置する。すなわち、行と列を入れ替える。</p><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+12</code></pre><h3 id="行列の転置"><a class="docs-heading-anchor" href="#行列の転置">■ 行列の転置</a><a id="行列の転置-1"></a><a class="docs-heading-anchor-permalink" href="#行列の転置" title="Permalink"></a></h3><p><code>transpose(a)</code> は，行列 <code>a</code> を転置する．すなわち，行と列を入れ替える．</p><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
@@ -136,7 +137,7 @@ julia&gt; # 全要素数
 julia&gt; size(a)
 (3, 4)
 
-julia&gt; b=transpose(a)
+julia&gt; b = transpose(a)
 4×3 LinearAlgebra.Transpose{Int64,Array{Int64,2}}:
  11  21  31
  12  22  32
@@ -144,7 +145,7 @@ julia&gt; b=transpose(a)
  14  24  34
 
 julia&gt; size(b)
-(4, 3)</code></pre><h3 id="行列のスカラー倍・スカラーの和差"><a class="docs-heading-anchor" href="#行列のスカラー倍・スカラーの和差">▶ 行列のスカラー倍・スカラーの和差</a><a id="行列のスカラー倍・スカラーの和差-1"></a><a class="docs-heading-anchor-permalink" href="#行列のスカラー倍・スカラーの和差" title="Permalink"></a></h3><p>以下、しばらく、2x2 の正方行列を例に説明する。</p><pre><code class="language-julia-repl">julia&gt; a = [ 11 12; 21 22]
+(4, 3)</code></pre><h3 id="行列のスカラー倍・スカラーの和差"><a class="docs-heading-anchor" href="#行列のスカラー倍・スカラーの和差">▶ 行列のスカラー倍・スカラーの和差</a><a id="行列のスカラー倍・スカラーの和差-1"></a><a class="docs-heading-anchor-permalink" href="#行列のスカラー倍・スカラーの和差" title="Permalink"></a></h3><p>以下，しばらく，2x2 の正方行列を例に説明する．</p><pre><code class="language-julia-repl">julia&gt; a = [11 12; 21 22]
 2×2 Array{Int64,2}:
  11  12
  21  22
@@ -162,12 +163,12 @@ julia&gt; a .+ 2
 julia&gt; a .- 2
 2×2 Array{Int64,2}:
   9  10
- 19  20</code></pre><h3 id="行列に列ベクトルを加減"><a class="docs-heading-anchor" href="#行列に列ベクトルを加減">▶ 行列に列ベクトルを加減</a><a id="行列に列ベクトルを加減-1"></a><a class="docs-heading-anchor-permalink" href="#行列に列ベクトルを加減" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a = [ 11 12; 21 22]
+ 19  20</code></pre><h3 id="行列に列ベクトルを加減"><a class="docs-heading-anchor" href="#行列に列ベクトルを加減">▶ 行列に列ベクトルを加減</a><a id="行列に列ベクトルを加減-1"></a><a class="docs-heading-anchor-permalink" href="#行列に列ベクトルを加減" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a = [11 12; 21 22]
 2×2 Array{Int64,2}:
  11  12
  21  22
 
-julia&gt; v = [ 1, -1]
+julia&gt; v = [1, -1]
 2-element Array{Int64,1}:
   1
  -1
@@ -180,7 +181,7 @@ julia&gt; a .+ v
 julia&gt; a .- v
 2×2 Array{Int64,2}:
  10  11
- 22  23</code></pre><h3 id="行列同士の加減"><a class="docs-heading-anchor" href="#行列同士の加減">▶ 行列同士の加減</a><a id="行列同士の加減-1"></a><a class="docs-heading-anchor-permalink" href="#行列同士の加減" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a = [ 11 12; 21 22]
+ 22  23</code></pre><h3 id="行列同士の加減"><a class="docs-heading-anchor" href="#行列同士の加減">▶ 行列同士の加減</a><a id="行列同士の加減-1"></a><a class="docs-heading-anchor-permalink" href="#行列同士の加減" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a = [11 12; 21 22]
 2×2 Array{Int64,2}:
  11  12
  21  22
@@ -198,32 +199,32 @@ julia&gt; a + b
 julia&gt; a - b
 2×2 Array{Int64,2}:
  -11  -12
- -21  -22</code></pre><h3 id="添字を用いた行列の要素の読み書き"><a class="docs-heading-anchor" href="#添字を用いた行列の要素の読み書き">■ 添字を用いた行列の要素の読み書き</a><a id="添字を用いた行列の要素の読み書き-1"></a><a class="docs-heading-anchor-permalink" href="#添字を用いた行列の要素の読み書き" title="Permalink"></a></h3><p>行列の添字は、 第1軸(列)と第2軸(行)の番号を、カンマ <code>,</code> で区切って並べ、大かっこ <code>[]</code> で囲んだものである。</p><p>ベクトルと同じように、添字で示された要素の読み出し、 添字で示された要素の書き換えができる。</p><pre><code class="language-julia-repl">julia&gt; # 添字による要素の読み出し
-       a[2,2]
+ -21  -22</code></pre><h3 id="添字を用いた行列の要素の読み書き"><a class="docs-heading-anchor" href="#添字を用いた行列の要素の読み書き">■ 添字を用いた行列の要素の読み書き</a><a id="添字を用いた行列の要素の読み書き-1"></a><a class="docs-heading-anchor-permalink" href="#添字を用いた行列の要素の読み書き" title="Permalink"></a></h3><p>行列の添字は， 第1軸（列）と第2軸（行）の番号を，カンマ <code>,</code> で区切って並べ，大かっこ <code>[]</code> で囲んだものである．</p><p>ベクトルと同じように，添字で示された要素の読み出し， 添字で示された要素の書き換えができる．</p><pre><code class="language-julia-repl">julia&gt; # 添字による要素の読み出し
+       a[2, 2]
 22
 
 julia&gt; # 行列の要素の更新
-       a[1,2]=30
+       a[1, 2] = 30
 30
 
 julia&gt; a
 2×2 Array{Int64,2}:
  11  30
- 21  22</code></pre><h2 id="部分行列"><a class="docs-heading-anchor" href="#部分行列">■ 部分行列</a><a id="部分行列-1"></a><a class="docs-heading-anchor-permalink" href="#部分行列" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+ 21  22</code></pre><h2 id="部分行列"><a class="docs-heading-anchor" href="#部分行列">■ 部分行列</a><a id="部分行列-1"></a><a class="docs-heading-anchor-permalink" href="#部分行列" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
  31  32  33  34
 
 julia&gt; # 列を取り出す
-       a[:,2]
+       a[:, 2]
 3-element Array{Int64,1}:
  12
  22
  32
 
 julia&gt; # 行を取り出す
-       a[2,:]
+       a[2, :]
 4-element Array{Int64,1}:
  21
  22
@@ -231,28 +232,29 @@ julia&gt; # 行を取り出す
  24
 
 julia&gt; # 部分行列
-       a[1:2,1:2]
+       a[1:2, 1:2]
 2×2 Array{Int64,2}:
  11  12
  21  22
 
-julia&gt; a[2:3,2:3]
+julia&gt; a[2:3, 2:3]
 2×2 Array{Int64,2}:
  22  23
  32  33</code></pre><h3 id="行列に入れた点座標で図形を描画する"><a class="docs-heading-anchor" href="#行列に入れた点座標で図形を描画する">▶ 行列に入れた点座標で図形を描画する</a><a id="行列に入れた点座標で図形を描画する-1"></a><a class="docs-heading-anchor-permalink" href="#行列に入れた点座標で図形を描画する" title="Permalink"></a></h3><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-xy = [ 1 2 2 1 ; 1 1 3 1 ]
+
+xy = [1 2 2 1; 1 1 3 1]
 @show xy
-plt.plot(xy[1,:], xy[2,:])
-xy = xy .+ [ 1/2, 1/2]
-plt.plot(xy[1,:], xy[2,:])
-plt.xlim(0,4)
-plt.ylim(0,4)</code></pre><pre class="documenter-example-output">xy = [1 2 2 1; 1 1 3 1]</pre><p><img src="../ch10-fig1-plot.svg" alt/></p><h2 id="行列とベクトルの積"><a class="docs-heading-anchor" href="#行列とベクトルの積">■ 行列とベクトルの積</a><a id="行列とベクトルの積-1"></a><a class="docs-heading-anchor-permalink" href="#行列とベクトルの積" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a = [ 11 12; 21 22]
+plt.plot(xy[1, :], xy[2, :])
+xy = xy .+ [1 / 2, 1 / 2]
+plt.plot(xy[1, :], xy[2, :])
+plt.xlim(0, 4)
+plt.ylim(0, 4)</code></pre><pre class="documenter-example-output">xy = [1 2 2 1; 1 1 3 1]</pre><p><img src="../ch10-fig1-plot.svg" alt/></p><h2 id="行列とベクトルの積"><a class="docs-heading-anchor" href="#行列とベクトルの積">■ 行列とベクトルの積</a><a id="行列とベクトルの積-1"></a><a class="docs-heading-anchor-permalink" href="#行列とベクトルの積" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a = [11 12; 21 22]
 2×2 Array{Int64,2}:
  11  12
  21  22
 
-julia&gt; v = [ 1, -1]
+julia&gt; v = [1, -1]
 2-element Array{Int64,1}:
   1
  -1
@@ -260,66 +262,68 @@ julia&gt; v = [ 1, -1]
 julia&gt; a * v
 2-element Array{Int64,1}:
  -1
- -1</code></pre><h3 id="回転行列とベクトルの積"><a class="docs-heading-anchor" href="#回転行列とベクトルの積">▶ 回転行列とベクトルの積</a><a id="回転行列とベクトルの積-1"></a><a class="docs-heading-anchor-permalink" href="#回転行列とベクトルの積" title="Permalink"></a></h3><p>以下の形の行列を、平面空間に対する回転行列という。</p><div>\[R(\theta) =
+ -1</code></pre><h3 id="回転行列とベクトルの積"><a class="docs-heading-anchor" href="#回転行列とベクトルの積">▶ 回転行列とベクトルの積</a><a id="回転行列とベクトルの積-1"></a><a class="docs-heading-anchor-permalink" href="#回転行列とベクトルの積" title="Permalink"></a></h3><p>以下の形の行列を，平面空間に対する回転行列という．</p><div>\[R(\theta) =
 \begin{bmatrix} \cos\theta &amp; -\sin\theta \\
-\sin\theta &amp; \cos \theta \end{bmatrix}\]</div><p>回転行列とベクトルの積は、 そのベクトルを、原点の周りに 反時計方向に角 <span>$\theta$</span> だけ回転する写像に対応する。</p><div>\[x^{\prime} = R(\theta) x\]</div><pre><code class="language-julia-repl">julia&gt; # 回転行列
-       r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
+\sin\theta &amp; \cos \theta \end{bmatrix}\]</div><p>回転行列とベクトルの積は， そのベクトルを，原点の周りに 反時計方向に角 <span>$\theta$</span> だけ回転する写像に対応する．</p><div>\[x^{\prime} = R(\theta) x\]</div><pre><code class="language-julia-repl">julia&gt; # 回転行列
+       r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
 2×2 Array{Float64,2}:
  0.965926  -0.258819
  0.258819   0.965926
 
-julia&gt; xy=[1, 0]
+julia&gt; xy = [1, 0]
 2-element Array{Int64,1}:
  1
  0
 
-julia&gt; xy=r15*xy
+julia&gt; xy = r15 * xy
 2-element Array{Float64,1}:
  0.9659258262890683
  0.25881904510252074
 
-julia&gt; xy=r15*xy
+julia&gt; xy = r15 * xy
 2-element Array{Float64,1}:
  0.8660254037844387
- 0.49999999999999994</code></pre><p>これらを描こう。軌跡は円を描いた。</p><pre><code class="language-julia">using PyPlot
+ 0.49999999999999994</code></pre><p>これらを描こう．軌跡は円を描いた．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
-xy=[1, 0]
 
-for i in 0:20
-	global xy
-  plt.plot(xy[1], xy[2], &quot;o&quot;)
-  xy = r15*xy
+r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
+xy = [1, 0]
+
+for i = 0:20
+   global xy
+   plt.plot(xy[1], xy[2], &quot;o&quot;)
+   xy = r15 * xy
 end
 
-plt.xlim(-1.2,1.2)
-plt.ylim(-1.2,1.2)
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(0, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch10-rot1-plot.svg" alt/></p><p>原点以外の点 c の周りで回転する場合は、回転の中心をずらして、</p>\begin{align*}
-(x^{\prime}-c) & = R(\theta) (x-c) \\
-x^{\prime} & = c + R(\theta) (x-c)
-\end{align*}<p>とすればよい。</p><pre><code class="language-julia">using PyPlot
+plt.xlim(-1.2, 1.2)
+plt.ylim(-1.2, 1.2)
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(0, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch10-rot1-plot.svg" alt/></p><p>原点以外の点 <span>$c$</span> の周りで回転する場合は，回転の中心をずらして，</p><div>\[\begin{aligned}
+(x^{\prime}-c) &amp; = R(\theta) (x-c) \\
+x^{\prime} &amp; = c + R(\theta) (x-c)
+\end{aligned}\]</div><p>とすればよい．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
-xy=[1, 0]
-c= [1/2,1/2]
 
-for i in 0:20
-  global xy
-  plt.plot(xy[1], xy[2], &quot;o&quot;)
-  xy = c + r15*(xy-c)
+r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
+xy = [1, 0]
+c = [1 / 2, 1 / 2]
+
+for i = 0:20
+   global xy
+   plt.plot(xy[1], xy[2], &quot;o&quot;)
+   xy = c + r15 * (xy - c)
 end
 
-plt.axvline(c[1], color=&quot;k&quot;, lw=0.5)
-plt.axhline(c[2], color=&quot;k&quot;, lw=0.5)
+plt.axvline(c[1], color = &quot;k&quot;, lw = 0.5)
+plt.axhline(c[2], color = &quot;k&quot;, lw = 0.5)
 
-plt.xlim(-1,2)
-plt.ylim(-1,2)</code></pre><p><img src="../ch10-rot2-plot.svg" alt/></p><h2 id="行列と行列の積"><a class="docs-heading-anchor" href="#行列と行列の積">■ 行列と行列の積</a><a id="行列と行列の積-1"></a><a class="docs-heading-anchor-permalink" href="#行列と行列の積" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a = [ 1 2; 3 4]
+plt.xlim(-1, 2)
+plt.ylim(-1, 2)</code></pre><p><img src="../ch10-rot2-plot.svg" alt/></p><h2 id="行列と行列の積"><a class="docs-heading-anchor" href="#行列と行列の積">■ 行列と行列の積</a><a id="行列と行列の積-1"></a><a class="docs-heading-anchor-permalink" href="#行列と行列の積" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a = [1 2; 3 4]
 2×2 Array{Int64,2}:
  1  2
  3  4
 
-julia&gt; b = [ 5 6; 7 8]
+julia&gt; b = [5 6; 7 8]
 2×2 Array{Int64,2}:
  5  6
  7  8
@@ -329,67 +333,67 @@ julia&gt; a * b
  19  22
  43  50</code></pre><h2 id="座標を行列に格納した図形を回転する"><a class="docs-heading-anchor" href="#座標を行列に格納した図形を回転する">▶ 座標を行列に格納した図形を回転する</a><a id="座標を行列に格納した図形を回転する-1"></a><a class="docs-heading-anchor-permalink" href="#座標を行列に格納した図形を回転する" title="Permalink"></a></h2><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
-xy = [ 1 2 2 1 ; 1 1 3 1 ]
+r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
+xy = [1 2 2 1; 1 1 3 1]
 
-for i in 0:20
-  global xy
-  plt.plot(xy[1,:], xy[2,:])
-  xy = r15*xy
+for i = 0:20
+   global xy
+   plt.plot(xy[1, :], xy[2, :])
+   xy = r15 * xy
 end
 
-plt.xlim(-4,4)
-plt.ylim(-4,4)
-plt.axhline(0, color=&quot;k&quot;, lw=0.5)
-plt.axvline(0, color=&quot;k&quot;, lw=0.5)</code></pre><p><img src="../ch10-rot3-plot.svg" alt/></p><p>回転中心をずらしてみる</p><pre><code class="language-julia">using PyPlot
-plt.axes().set_aspect(&quot;equal&quot;)
-r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
-xy = [ 1 2 2 1 ; 1 1 3 1 ]
-c= [1/2,1/2]
+plt.xlim(-4, 4)
+plt.ylim(-4, 4)
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axvline(0, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch10-rot3-plot.svg" alt/></p><p>回転中心をずらしてみる</p><pre><code class="language-julia">plt.axes().set_aspect(&quot;equal&quot;)
 
-for i in 0:20
-  global xy
-  plt.plot(xy[1,:], xy[2,:])
-  xy = c .+ r15*(xy.-c)
+r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
+xy = [1 2 2 1; 1 1 3 1]
+c = [1 / 2, 1 / 2]
+
+for i = 0:20
+   global xy
+   plt.plot(xy[1, :], xy[2, :])
+   xy = c .+ r15 * (xy .- c)
 end
 
-plt.axvline(c[1], color=&quot;k&quot;, lw=0.5)
-plt.axhline(c[2], color=&quot;k&quot;, lw=0.5)
+plt.axvline(c[1], color = &quot;k&quot;, lw = 0.5)
+plt.axhline(c[2], color = &quot;k&quot;, lw = 0.5)
 
-plt.xlim(-4,4)
-plt.ylim(-4,4)</code></pre><p><img src="../ch10-rot4-plot.svg" alt/></p><h2 id="いろいろな行列の生成"><a class="docs-heading-anchor" href="#いろいろな行列の生成">■ いろいろな行列の生成</a><a id="いろいろな行列の生成-1"></a><a class="docs-heading-anchor-permalink" href="#いろいろな行列の生成" title="Permalink"></a></h2><h3 id="要素が-0-の行列を作る"><a class="docs-heading-anchor" href="#要素が-0-の行列を作る">■ 要素が 0 の行列を作る</a><a id="要素が-0-の行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#要素が-0-の行列を作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/base/arrays/#Base.zeros"><code>Base.zeros</code> — Function</a></li></ul><p>関数 <code>zeros</code>は、要素が零 <span>$0$</span> の行列を作るのに使える。</p><ul><li>関数 <code>zeros(n,m)</code> は、要素の型が浮動小数点で、寸法 <code>(n,m)</code> の行列を作る。</li><li>関数 <code>zeros(T, n,m)</code> は、要素の型が <code>T</code> で、寸法 <code>(n,m)</code> の行列を作る。</li></ul><pre><code class="language-julia-repl">julia&gt; zeros(3,4) # 要素は浮動小数点
+plt.xlim(-4, 4)
+plt.ylim(-4, 4)</code></pre><p><img src="../ch10-rot4-plot.svg" alt/></p><h2 id="いろいろな行列の生成"><a class="docs-heading-anchor" href="#いろいろな行列の生成">■ いろいろな行列の生成</a><a id="いろいろな行列の生成-1"></a><a class="docs-heading-anchor-permalink" href="#いろいろな行列の生成" title="Permalink"></a></h2><h3 id="要素が-0-の行列を作る"><a class="docs-heading-anchor" href="#要素が-0-の行列を作る">■ 要素が 0 の行列を作る</a><a id="要素が-0-の行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#要素が-0-の行列を作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/arrays/#Base.zeros"><code>Base.zeros</code> — Function</a></li></ul><p>関数 <code>zeros</code> は，要素が零 <span>$0$</span> の行列を作るのに使える．</p><ul><li>関数 <code>zeros(n,m)</code> は，要素の型が浮動小数点で，寸法 <code>(n,m)</code> の行列を作る．</li><li>関数 <code>zeros(T, n,m)</code> は，要素の型が <code>T</code> で，寸法 <code>(n,m)</code> の行列を作る．</li></ul><pre><code class="language-julia-repl">julia&gt; zeros(3, 4) # 要素は浮動小数点
 3×4 Array{Float64,2}:
  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0
 
-julia&gt; zeros(Float64,3,4) # 上と同じ
+julia&gt; zeros(Float64, 3, 4) # 上と同じ
 3×4 Array{Float64,2}:
  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0
 
-julia&gt; zeros(Int64,3,4) # 要素は整数
+julia&gt; zeros(Int64, 3, 4) # 要素は整数
 3×4 Array{Int64,2}:
  0  0  0  0
  0  0  0  0
- 0  0  0  0</code></pre><p>行列 <code>a</code> と同じ寸法の <code>0</code> ベクトルを作るには、</p><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+ 0  0  0  0</code></pre><p>行列 <code>a</code> と同じ寸法の <code>0</code> ベクトルを作るには，</p><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
  31  32  33  34
 
-julia&gt; zeros(Int64,size(a))
+julia&gt; zeros(Int64, size(a))
 3×4 Array{Int64,2}:
  0  0  0  0
  0  0  0  0
  0  0  0  0
 
-julia&gt; zeros(Float64,size(a))
+julia&gt; zeros(Float64, size(a))
 3×4 Array{Float64,2}:
  0.0  0.0  0.0  0.0
  0.0  0.0  0.0  0.0
- 0.0  0.0  0.0  0.0</code></pre><p>関数 <code>zero.()</code> を以下のように用いれば 行列 <code>a</code> の要素の型と同じ要素の型を持ち、<code>a</code>と寸法が等しい <code>0</code> ベクトルを作れる。</p><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+ 0.0  0.0  0.0  0.0</code></pre><p>関数 <code>zero.()</code> を以下のように用いれば 行列 <code>a</code> の要素の型と同じ要素の型を持ち，<code>a</code> と寸法が等しい <code>0</code> ベクトルを作れる．</p><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
@@ -399,39 +403,39 @@ julia&gt; zero.(a)
 3×4 Array{Int64,2}:
  0  0  0  0
  0  0  0  0
- 0  0  0  0</code></pre><h3 id="要素が-1-の行列を作る"><a class="docs-heading-anchor" href="#要素が-1-の行列を作る">■ 要素が 1 の行列を作る</a><a id="要素が-1-の行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#要素が-1-の行列を作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.1/base/arrays/#Base.ones"><code>Base.ones</code> — Function</a></li></ul><p>関数 <code>ones</code>は、要素が零 <span>$1$</span> の行列を作るのに使える。</p><ul><li>関数 <code>ones(n,m)</code> は、要素の型が浮動小数点で、寸法 <code>(n,m)</code> の行列を作る。</li><li>関数 <code>ones(T, n,m)</code> は、要素の型が <code>T</code> で、寸法 <code>(n,m)</code> の行列を作る。</li></ul><pre><code class="language-julia-repl">julia&gt; ones(3,4) # 要素は浮動小数点
+ 0  0  0  0</code></pre><h3 id="要素が-1-の行列を作る"><a class="docs-heading-anchor" href="#要素が-1-の行列を作る">■ 要素が 1 の行列を作る</a><a id="要素が-1-の行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#要素が-1-の行列を作る" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/arrays/#Base.ones"><code>Base.ones</code> — Function</a></li></ul><p>関数 <code>ones</code> は，要素が零 <span>$1$</span> の行列を作るのに使える．</p><ul><li>関数 <code>ones(n,m)</code> は，要素の型が浮動小数点で，寸法 <code>(n,m)</code> の行列を作る．</li><li>関数 <code>ones(T, n,m)</code> は，要素の型が <code>T</code> で，寸法 <code>(n,m)</code> の行列を作る．</li></ul><pre><code class="language-julia-repl">julia&gt; ones(3, 4) # 要素は浮動小数点
 3×4 Array{Float64,2}:
  1.0  1.0  1.0  1.0
  1.0  1.0  1.0  1.0
  1.0  1.0  1.0  1.0
 
-julia&gt; ones(Float64,3,4) # 上と同じ
+julia&gt; ones(Float64, 3, 4) # 上と同じ
 3×4 Array{Float64,2}:
  1.0  1.0  1.0  1.0
  1.0  1.0  1.0  1.0
  1.0  1.0  1.0  1.0
 
-julia&gt; ones(Int64,3,4) # 要素は整数
+julia&gt; ones(Int64, 3, 4) # 要素は整数
 3×4 Array{Int64,2}:
  1  1  1  1
  1  1  1  1
- 1  1  1  1</code></pre><p>行列 <code>a</code> と同じ寸法の <code>1</code> 行列を作るには、</p><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+ 1  1  1  1</code></pre><p>行列 <code>a</code> と同じ寸法の <code>1</code> 行列を作るには，</p><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
  31  32  33  34
 
-julia&gt; ones(Int64,size(a))
+julia&gt; ones(Int64, size(a))
 3×4 Array{Int64,2}:
  1  1  1  1
  1  1  1  1
  1  1  1  1
 
-julia&gt; ones(Float64,size(a))
+julia&gt; ones(Float64, size(a))
 3×4 Array{Float64,2}:
  1.0  1.0  1.0  1.0
  1.0  1.0  1.0  1.0
- 1.0  1.0  1.0  1.0</code></pre><p>関数 <code>one.()</code> を以下のように用いれば 行列 <code>a</code> の要素の型と同じ要素の型を持ち、<code>a</code>と寸法が等しい <code>1</code> 行列を作れる。</p><pre><code class="language-julia-repl">julia&gt; a=[11 12 13 14; 21 22 23 24; 31 32 33 34]
+ 1.0  1.0  1.0  1.0</code></pre><p>関数 <code>one.()</code> を以下のように用いれば 行列 <code>a</code> の要素の型と同じ要素の型を持ち，<code>a</code> と寸法が等しい <code>1</code> 行列を作れる．</p><pre><code class="language-julia-repl">julia&gt; a = [11 12 13 14; 21 22 23 24; 31 32 33 34]
 3×4 Array{Int64,2}:
  11  12  13  14
  21  22  23  24
@@ -441,79 +445,80 @@ julia&gt; one.(a)
 3×4 Array{Int64,2}:
  1  1  1  1
  1  1  1  1
- 1  1  1  1</code></pre><h3 id="対角要素を指定して、正方行列をつくる"><a class="docs-heading-anchor" href="#対角要素を指定して、正方行列をつくる">■ 対角要素を指定して、正方行列をつくる</a><a id="対角要素を指定して、正方行列をつくる-1"></a><a class="docs-heading-anchor-permalink" href="#対角要素を指定して、正方行列をつくる" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; using LinearAlgebra
+ 1  1  1  1</code></pre><h3 id="対角要素を指定して，正方行列をつくる"><a class="docs-heading-anchor" href="#対角要素を指定して，正方行列をつくる">■ 対角要素を指定して，正方行列をつくる</a><a id="対角要素を指定して，正方行列をつくる-1"></a><a class="docs-heading-anchor-permalink" href="#対角要素を指定して，正方行列をつくる" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; using LinearAlgebra
 
-julia&gt; Diagonal([1,2,3])
+julia&gt; Diagonal([1, 2, 3])
 3×3 LinearAlgebra.Diagonal{Int64,Array{Int64,1}}:
  1  ⋅  ⋅
  ⋅  2  ⋅
- ⋅  ⋅  3</code></pre><h3 id="疑似乱数を要素とする行列を作る"><a class="docs-heading-anchor" href="#疑似乱数を要素とする行列を作る">■ 疑似乱数を要素とする行列を作る</a><a id="疑似乱数を要素とする行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#疑似乱数を要素とする行列を作る" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; rand(3,3)
+ ⋅  ⋅  3</code></pre><h3 id="疑似乱数を要素とする行列を作る"><a class="docs-heading-anchor" href="#疑似乱数を要素とする行列を作る">■ 疑似乱数を要素とする行列を作る</a><a id="疑似乱数を要素とする行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#疑似乱数を要素とする行列を作る" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; rand(3, 3)
 3×3 Array{Float64,2}:
  0.677818  0.930224    0.789515
  0.354494  0.00405935  0.594474
- 0.933992  0.984617    0.932858</code></pre><h3 id="ベクトルをまとめて行列を作る"><a class="docs-heading-anchor" href="#ベクトルをまとめて行列を作る">■ ベクトルをまとめて行列を作る</a><a id="ベクトルをまとめて行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#ベクトルをまとめて行列を作る" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a=[1,2]
+ 0.933992  0.984617    0.932858</code></pre><h3 id="ベクトルをまとめて行列を作る"><a class="docs-heading-anchor" href="#ベクトルをまとめて行列を作る">■ ベクトルをまとめて行列を作る</a><a id="ベクトルをまとめて行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#ベクトルをまとめて行列を作る" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a = [1, 2]
 2-element Array{Int64,1}:
  1
  2
 
-julia&gt; b=[3,4]
+julia&gt; b = [3, 4]
 2-element Array{Int64,1}:
  3
  4
 
-julia&gt; c=[5,6]
+julia&gt; c = [5, 6]
 2-element Array{Int64,1}:
  5
  6
 
-julia&gt; [ a b c ]
+julia&gt; [a b c]
 2×3 Array{Int64,2}:
  1  3  5
  2  4  6
 
-julia&gt; m=hcat(a,b,c)
+julia&gt; m = hcat(a, b, c)
 2×3 Array{Int64,2}:
  1  3  5
  2  4  6
 
 julia&gt; size(m)
-(2, 3)</code></pre><p>さらに転置をとろう。</p><pre><code class="language-julia-repl">julia&gt; mt=transpose(m)
+(2, 3)</code></pre><p>さらに転置をとろう．</p><pre><code class="language-julia-repl">julia&gt; mt = transpose(m)
 3×2 LinearAlgebra.Transpose{Int64,Array{Int64,2}}:
  1  2
  3  4
  5  6
 
 julia&gt; size(mt)
-(3, 2)</code></pre><h3 id="内包表現を用いて行列を作る"><a class="docs-heading-anchor" href="#内包表現を用いて行列を作る">● 内包表現を用いて行列を作る</a><a id="内包表現を用いて行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#内包表現を用いて行列を作る" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; [[t,t.^2] for t in [0,2,4]]
+(3, 2)</code></pre><h3 id="内包表現を用いて行列を作る"><a class="docs-heading-anchor" href="#内包表現を用いて行列を作る">● 内包表現を用いて行列を作る</a><a id="内包表現を用いて行列を作る-1"></a><a class="docs-heading-anchor-permalink" href="#内包表現を用いて行列を作る" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; [[t, t .^ 2] for t in [0, 2, 4]]
 3-element Array{Array{Int64,1},1}:
  [0, 0]
  [2, 4]
  [4, 16]
 
-julia&gt; hcat([[t,t.^2] for t in [0,2,4]]...)
+julia&gt; hcat([[t, t .^ 2] for t in [0, 2, 4]]...)
 2×3 Array{Int64,2}:
  0  2   4
  0  4  16</code></pre><h2 id="楕円を描く・回転する"><a class="docs-heading-anchor" href="#楕円を描く・回転する">▶ 楕円を描く・回転する</a><a id="楕円を描く・回転する-1"></a><a class="docs-heading-anchor-permalink" href="#楕円を描く・回転する" title="Permalink"></a></h2><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-ts=0:pi/18:2pi
-xs=2*cos.(ts)
-ys=sin.(ts)
-xy=transpose(hcat(xs,ys))
-plt.plot(xy[1,:], xy[2,:])
 
-plt.xlim(-2.2,2.2)
-plt.ylim(-2.2,2.2)</code></pre><p><img src="../ch10-rot5-plot.svg" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>楕円の座標を含む行列 <code>xy</code> を作るのに、以下のように<a href="../ch08/#内包表記">● 内包表記</a>を使ってもよい。</p><pre><code class="language-">xy=hcat([ [2*cos.(t), sin(t)] for t=0:pi/18:2pi]...)</code></pre></div></div><p>回転する</p><pre><code class="language-julia">using PyPlot
+ts = 0:pi/18:2pi
+xs = 2 * cos.(ts)
+ys = sin.(ts)
+xy = transpose(hcat(xs, ys))
+plt.plot(xy[1, :], xy[2, :])
+
+plt.xlim(-2.2, 2.2)
+plt.ylim(-2.2, 2.2)</code></pre><p><img src="../ch10-rot5-plot.svg" alt/></p><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>楕円の座標を含む行列 <code>xy</code> を作るのに，以下のように<a href="../ch08/#内包表記">● 内包表記</a>を使ってもよい．</p><pre><code class="language-">xy=hcat([ [2*cos.(t), sin(t)] for t=0:pi/18:2pi]...)</code></pre></div></div><p>回転する</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
 
-ts=0:pi/18:2pi
-xy=transpose(hcat(2*cos.(ts),sin.(ts)))
+r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
+ts = 0:pi/18:2pi
+xy = transpose(hcat(2 * cos.(ts), sin.(ts)))
 
-for i in 0:5
-  global xy
-  plt.plot(xy[1,:], xy[2,:])
-  xy = r15*xy
-end</code></pre><p><img src="../ch10-rot6-plot.svg" alt/></p><h2 id="行列式と逆行列"><a class="docs-heading-anchor" href="#行列式と逆行列">■ 行列式と逆行列</a><a id="行列式と逆行列-1"></a><a class="docs-heading-anchor-permalink" href="#行列式と逆行列" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a=[1 2; 2 3]
+for i = 0:5
+   global xy
+   plt.plot(xy[1, :], xy[2, :])
+   xy = r15 * xy
+end</code></pre><p><img src="../ch10-rot6-plot.svg" alt/></p><h2 id="行列式と逆行列"><a class="docs-heading-anchor" href="#行列式と逆行列">■ 行列式と逆行列</a><a id="行列式と逆行列-1"></a><a class="docs-heading-anchor-permalink" href="#行列式と逆行列" title="Permalink"></a></h2><pre><code class="language-julia-repl">julia&gt; a = [1 2; 2 3]
 2×2 Array{Int64,2}:
  1  2
  2  3
@@ -529,30 +534,30 @@ julia&gt; inv(a) # 逆行列
 julia&gt; a^(-1) # 逆行列
 2×2 Array{Float64,2}:
  -3.0   2.0
-  2.0  -1.0</code></pre><h2 id="行列の商（2x2行列）"><a class="docs-heading-anchor" href="#行列の商（2x2行列）">■ 行列の商（2x2行列）</a><a id="行列の商（2x2行列）-1"></a><a class="docs-heading-anchor-permalink" href="#行列の商（2x2行列）" title="Permalink"></a></h2><p>行列 <span>$A$</span>とベクトル <span>$x$</span> に対して、<span>$x=Ay$</span> を満たすようなベクトル <span>$y$</span>を、<span>$x$</span>を<span>$A$</span>で割った商という。商を求める演算が用意されている。この演算は、<span>$A$</span>の逆行列を計算するよりも、計算コストの上で有利である。</p><pre><code class="language-julia-repl">julia&gt; a=[1 2; 2 3]
+  2.0  -1.0</code></pre><h2 id="行列の商（2x2-行列）"><a class="docs-heading-anchor" href="#行列の商（2x2-行列）">■ 行列の商（2x2 行列）</a><a id="行列の商（2x2-行列）-1"></a><a class="docs-heading-anchor-permalink" href="#行列の商（2x2-行列）" title="Permalink"></a></h2><p>行列 <span>$A$</span>とベクトル <span>$x$</span> に対して，<span>$x=Ay$</span> を満たすようなベクトル <span>$y$</span>を，<span>$x$</span>を<span>$A$</span>で割った商という．商を求める演算が用意されている．この演算は，<span>$A$</span>の逆行列を計算するよりも，計算コストの上で有利である．</p><pre><code class="language-julia-repl">julia&gt; a = [1 2; 2 3]
 2×2 Array{Int64,2}:
  1  2
  2  3
 
-julia&gt; v=[1, 1]
+julia&gt; v = [1, 1]
 2-element Array{Int64,1}:
  1
  1
 
-julia&gt; a\v
+julia&gt; a \ v
 2-element Array{Float64,1}:
  -1.0
   1.0
 
-julia&gt; w=[3, 5]
+julia&gt; w = [3, 5]
 2-element Array{Int64,1}:
  3
  5
 
-julia&gt; a\w
+julia&gt; a \ w
 2-element Array{Float64,1}:
  1.0
- 1.0</code></pre><p>行列 <span>$A$</span> が正則でない（逆行列が存在しない）場合には、例外が発生する。</p><pre><code class="language-julia-repl">julia&gt; c=[1 2; 2 4]
+ 1.0</code></pre><p>行列 <span>$A$</span> が正則でない（逆行列が存在しない）場合には，例外が発生する．</p><pre><code class="language-julia-repl">julia&gt; c = [1 2; 2 4]
 2×2 Array{Int64,2}:
  1  2
  2  4
@@ -560,27 +565,27 @@ julia&gt; a\w
 julia&gt; det(c)
 0.0
 
-julia&gt; c\v # =&gt; SingularException
-ERROR: LinearAlgebra.SingularException(2)</code></pre><p>同様に、行列 <span>$X$</span> に対して、<span>$X=AY$</span> を満たすような行列 <span>$Y$</span> を、<span>$X$</span>を<span>$A$</span>で割った商という。</p><pre><code class="language-julia-repl">julia&gt; b=[1 3; 1 5]
+julia&gt; c \ v # =&gt; SingularException
+ERROR: LinearAlgebra.SingularException(2)</code></pre><p>同様に，行列 <span>$X$</span> に対して，<span>$X=AY$</span> を満たすような行列 <span>$Y$</span> を，<span>$X$</span> を <span>$A$</span> で割った商という．</p><pre><code class="language-julia-repl">julia&gt; b = [1 3; 1 5]
 2×2 Array{Int64,2}:
  1  3
  1  5
 
-julia&gt; a\b
+julia&gt; a \ b
 2×2 Array{Float64,2}:
  -1.0  1.0
-  1.0  1.0</code></pre><h2 id="楕円を、逆に回転する"><a class="docs-heading-anchor" href="#楕円を、逆に回転する">▶ 楕円を、逆に回転する</a><a id="楕円を、逆に回転する-1"></a><a class="docs-heading-anchor-permalink" href="#楕円を、逆に回転する" title="Permalink"></a></h2><p>行列の商を用いて、楕円を逆回転してみよう。</p><pre><code class="language-julia">using PyPlot
+  1.0  1.0</code></pre><h2 id="楕円を，逆に回転する"><a class="docs-heading-anchor" href="#楕円を，逆に回転する">▶ 楕円を，逆に回転する</a><a id="楕円を，逆に回転する-1"></a><a class="docs-heading-anchor-permalink" href="#楕円を，逆に回転する" title="Permalink"></a></h2><p>行列の商を用いて，楕円を逆回転してみよう．</p><pre><code class="language-julia">using PyPlot
 plt.axes().set_aspect(&quot;equal&quot;)
-r15=[ cosd(15) -sind(15); sind(15) cosd(15)]
 
-ts=0:pi/18:2pi
-xy=transpose(hcat(2*cos.(ts),sin.(ts)))
+r15 = [cosd(15) -sind(15); sind(15) cosd(15)]
+ts = 0:pi/18:2pi
+xy = transpose(hcat(2 * cos.(ts), sin.(ts)))
 
-for i in 0:5
-  global xy
-  plt.plot(xy[1,:], xy[2,:])
-  xy = r15\xy
-end</code></pre><p><img src="../ch10-rot7-plot.svg" alt/></p><p>行列式が 0 の行列は、正則ではない</p><pre><code class="language-julia-repl">julia&gt; a=[1 2; 2 4]
+for i = 0:5
+   global xy
+   plt.plot(xy[1, :], xy[2, :])
+   xy = r15 \ xy
+end</code></pre><p><img src="../ch10-rot7-plot.svg" alt/></p><p>行列式が 0 の行列は，正則ではない</p><pre><code class="language-julia-repl">julia&gt; a = [1 2; 2 4]
 2×2 Array{Int64,2}:
  1  2
  2  4
@@ -588,31 +593,31 @@ end</code></pre><p><img src="../ch10-rot7-plot.svg" alt/></p><p>行列式が 0 �
 julia&gt; det(a)
 0.0
 
-julia&gt; v=[1, 1]
+julia&gt; v = [1, 1]
 2-element Array{Int64,1}:
  1
  1
 
 julia&gt; # 例外を発生する
-       a\v
+       a \ v
 ERROR: LinearAlgebra.SingularException(2)</code></pre><pre><code class="language-julia-repl">julia&gt; # 例外を発生する
        inv(a)
-ERROR: LinearAlgebra.SingularException(2)</code></pre><h2 id="空間ベクトル：なす角を求める"><a class="docs-heading-anchor" href="#空間ベクトル：なす角を求める">▶ 空間ベクトル：なす角を求める</a><a id="空間ベクトル：なす角を求める-1"></a><a class="docs-heading-anchor-permalink" href="#空間ベクトル：なす角を求める" title="Permalink"></a></h2><p>空間ベクトルとは、寸法 3 のベクトルである。 内積が <span>$0$</span> なら、それらのベクトルは直交である。</p><p>例: 以下の３つのベクトルが、互いに直行することを示せ。</p><pre><code class="language-julia-repl">julia&gt; using LinearAlgebra
+ERROR: LinearAlgebra.SingularException(2)</code></pre><h2 id="空間ベクトル：なす角を求める"><a class="docs-heading-anchor" href="#空間ベクトル：なす角を求める">▶ 空間ベクトル：なす角を求める</a><a id="空間ベクトル：なす角を求める-1"></a><a class="docs-heading-anchor-permalink" href="#空間ベクトル：なす角を求める" title="Permalink"></a></h2><p>空間ベクトルとは，寸法 3 のベクトルである． 内積が <span>$0$</span> なら，それらのベクトルは直交である．</p><p>例: 以下の３つのベクトルが，互いに直行することを示せ．</p><pre><code class="language-julia-repl">julia&gt; using LinearAlgebra
 
 julia&gt; #
-       a=[  1/2, 1/2+sqrt(2)/4, 1/2-sqrt(2)/4]
+       a = [1 / 2, 1 / 2 + sqrt(2) / 4, 1 / 2 - sqrt(2) / 4]
 3-element Array{Float64,1}:
  0.5
  0.8535533905932737
  0.1464466094067262
 
-julia&gt; b=[ -1/2, 1/2-sqrt(2)/4, 1/2+sqrt(2)/4]
+julia&gt; b = [-1 / 2, 1 / 2 - sqrt(2) / 4, 1 / 2 + sqrt(2) / 4]
 3-element Array{Float64,1}:
  -0.5
   0.1464466094067262
   0.8535533905932737
 
-julia&gt; c=[  1/sqrt(2), -1/2, 1/2]
+julia&gt; c = [1 / sqrt(2), -1 / 2, 1 / 2]
 3-element Array{Float64,1}:
   0.7071067811865475
  -0.5
@@ -627,38 +632,38 @@ julia&gt; norm(b)
 julia&gt; norm(c)
 0.9999999999999999
 
-julia&gt; dot(a,b)
+julia&gt; dot(a, b)
 -5.551115123125783e-17
 
-julia&gt; a⋅b
+julia&gt; a ⋅ b
 -5.551115123125783e-17
 
-julia&gt; b⋅c
+julia&gt; b ⋅ c
 0.0
 
-julia&gt; c⋅a
--2.7755575615628914e-17</code></pre><p>二つのベクトルのなす角を求めよ。</p><pre><code class="language-julia-repl">julia&gt; a=[ -3,  1,  2 ]
+julia&gt; c ⋅ a
+-2.7755575615628914e-17</code></pre><p>二つのベクトルのなす角を求めよ．</p><pre><code class="language-julia-repl">julia&gt; a = [-3, 1, 2]
 3-element Array{Int64,1}:
  -3
   1
   2
 
-julia&gt; b=[  2, -3,  1 ]
+julia&gt; b = [2, -3, 1]
 3-element Array{Int64,1}:
   2
  -3
   1
 
-julia&gt; ab=a⋅b
+julia&gt; ab = a ⋅ b
 -7
 
-julia&gt; na=norm(a)
+julia&gt; na = norm(a)
 3.7416573867739413
 
-julia&gt; nb=norm(b)
+julia&gt; nb = norm(b)
 3.7416573867739413
 
-julia&gt; r=ab/na/nb
+julia&gt; r = ab / na / nb
 -0.5
 
 julia&gt; # ラジアン単位
@@ -670,164 +675,164 @@ julia&gt; # 角度単位
 120.00000000000001
 
 julia&gt; # 一行で書ける
-       acosd( a⋅b / norm(a) / norm(b) )
-120.00000000000001</code></pre><h3 id="空間ベクトルの外積"><a class="docs-heading-anchor" href="#空間ベクトルの外積">■ 空間ベクトルの外積</a><a id="空間ベクトルの外積-1"></a><a class="docs-heading-anchor-permalink" href="#空間ベクトルの外積" title="Permalink"></a></h3><p>関数 <code>cross(a,b)</code> は、空間ベクトル <code>a</code> と <code>b</code> との外積またはベクトル積 (outer product)を返す。</p><p>中置き演算子 <code>×</code> を用いて <code>a×b</code> と書くこともできる。 <code>×</code>は、バックスラッシュ <code>\</code> に times と入力してから、TABキーを押すことによって入力できる。 かな漢字変換システムで入力できる「✕」 とは、別の文字である。</p><p>外積 <span>$a\times b$</span> の向きは、<span>$a$</span> から <span>$b$</span> へ回転したとき、右ねじが進む方向である。</p><p>外積 <span>$a\times b$</span> の大きさは、 <span>$a$</span> と <span>$b$</span> のなす角 <span>$\theta$</span> を用いて、以下のように定義される。 これは、ベクトル a と b がなす平行四辺形の面積である。</p><div>\[\left\vert a\times b\right\vert = \left\vert{a}\right\vert \left\vert{b}\right\vert \sin\theta\]</div><h3 id="空間座標の基本単位ベクトル"><a class="docs-heading-anchor" href="#空間座標の基本単位ベクトル">▶ 空間座標の基本単位ベクトル</a><a id="空間座標の基本単位ベクトル-1"></a><a class="docs-heading-anchor-permalink" href="#空間座標の基本単位ベクトル" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a=[1,0,0]
+       acosd(a ⋅ b / norm(a) / norm(b))
+120.00000000000001</code></pre><h3 id="空間ベクトルの外積"><a class="docs-heading-anchor" href="#空間ベクトルの外積">■ 空間ベクトルの外積</a><a id="空間ベクトルの外積-1"></a><a class="docs-heading-anchor-permalink" href="#空間ベクトルの外積" title="Permalink"></a></h3><p>関数 <code>cross(a,b)</code> は，空間ベクトル <code>a</code> と <code>b</code> との外積または「ベクトル積（outer product）」を返す．</p><p>中置き演算子 <code>×</code> を用いて <code>a×b</code> と書く こともできる． <code>×</code> は，バックスラッシュ <code>\</code> に times と入力してから， TABキーを押すことによって入力できる． かな漢字変換システムで入力できる「✕」 とは，別の文字である．</p><p>外積 <span>$a\times b$</span> の向きは，<span>$a$</span> から <span>$b$</span> へ回転したとき，右ねじが進む方向である．</p><p>外積 <span>$a\times b$</span> の大きさは，<span>$a$</span> と <span>$b$</span> のなす角 <span>$\theta$</span> を用いて，以下のように定義される． これは，ベクトル a と b がなす平行四辺形の面積である．</p><div>\[\left\vert a\times b\right\vert = \left\vert{a}\right\vert \left\vert{b}\right\vert \sin\theta\]</div><h3 id="空間座標の基本単位ベクトル"><a class="docs-heading-anchor" href="#空間座標の基本単位ベクトル">▶ 空間座標の基本単位ベクトル</a><a id="空間座標の基本単位ベクトル-1"></a><a class="docs-heading-anchor-permalink" href="#空間座標の基本単位ベクトル" title="Permalink"></a></h3><pre><code class="language-julia-repl">julia&gt; a = [1, 0, 0]
 3-element Array{Int64,1}:
  1
  0
  0
 
-julia&gt; b=[0,1,0]
+julia&gt; b = [0, 1, 0]
 3-element Array{Int64,1}:
  0
  1
  0
 
-julia&gt; c=[0,0,1]
+julia&gt; c = [0, 0, 1]
 3-element Array{Int64,1}:
  0
  0
  1
 
-julia&gt; cross(a,b)
+julia&gt; cross(a, b)
 3-element Array{Int64,1}:
  0
  0
  1
 
 julia&gt; # a×b = c
-       a×b
+       a × b
 3-element Array{Int64,1}:
  0
  0
  1
 
 julia&gt; # b×c = a
-       b×c
+       b × c
 3-element Array{Int64,1}:
  1
  0
  0
 
 julia&gt; # c×a = b
-       c×a
+       c × a
 3-element Array{Int64,1}:
  0
  1
- 0</code></pre><p>別の正規直交系の例</p><pre><code class="language-julia-repl">julia&gt; a=[  1/2, 1/2+sqrt(2)/4, 1/2-sqrt(2)/4]
+ 0</code></pre><p>別の正規直交系の例</p><pre><code class="language-julia-repl">julia&gt; a = [1 / 2, 1 / 2 + sqrt(2) / 4, 1 / 2 - sqrt(2) / 4]
 3-element Array{Float64,1}:
  0.5
  0.8535533905932737
  0.1464466094067262
 
-julia&gt; b=[ -1/2, 1/2-sqrt(2)/4, 1/2+sqrt(2)/4]
+julia&gt; b = [-1 / 2, 1 / 2 - sqrt(2) / 4, 1 / 2 + sqrt(2) / 4]
 3-element Array{Float64,1}:
  -0.5
   0.1464466094067262
   0.8535533905932737
 
-julia&gt; c=[  1/sqrt(2), -1/2, 1/2]
+julia&gt; c = [1 / sqrt(2), -1 / 2, 1 / 2]
 3-element Array{Float64,1}:
   0.7071067811865475
  -0.5
   0.5
 
 julia&gt; # a×b = c
-       a×b
+       a × b
 3-element Array{Float64,1}:
   0.7071067811865475
  -0.5
   0.5
 
 julia&gt; # b×c = a
-       b×c
+       b × c
 3-element Array{Float64,1}:
  0.5
  0.8535533905932737
  0.14644660940672627
 
 julia&gt; # c×a = b
-       c×a
+       c × a
 3-element Array{Float64,1}:
  -0.5
   0.14644660940672627
-  0.8535533905932737</code></pre><p>ベクトル３重積</p><p>３つの空間ベクトルに対して、一般に、以下が成り立つ。</p><div>\[{a}\times ({b} \times {c}) = ({a}\cdot{c}){b} - ({a}\cdot {b}){c}\]</div><p>例： 具体的なベクトルの例で、上式が成り立つことを示せ。</p><pre><code class="language-julia-repl">julia&gt; a=[ -3,  1,  2 ]
+  0.8535533905932737</code></pre><p>ベクトル３重積</p><p>３つの空間ベクトルに対して，一般に，以下が成り立つ．</p><div>\[{a}\times ({b} \times {c}) = ({a}\cdot{c}){b} - ({a}\cdot {b}){c}\]</div><p>例： 具体的なベクトルの例で，上式が成り立つことを示せ．</p><pre><code class="language-julia-repl">julia&gt; a = [-3, 1, 2]
 3-element Array{Int64,1}:
  -3
   1
   2
 
-julia&gt; b=[  2, -3,  1 ]
+julia&gt; b = [2, -3, 1]
 3-element Array{Int64,1}:
   2
  -3
   1
 
-julia&gt; c=[  1,  2, -3 ]
+julia&gt; c = [1, 2, -3]
 3-element Array{Int64,1}:
   1
   2
  -3
 
 julia&gt; # 左辺
-       lhs=a×(b×c)
+       lhs = a × (b × c)
 3-element Array{Int64,1}:
   -7
   35
  -28
 
 julia&gt; # 右辺
-       rhs=(a⋅c)*b - (a⋅b)*c
+       rhs = (a ⋅ c) * b - (a ⋅ b) * c
 3-element Array{Int64,1}:
   -7
   35
- -28</code></pre><h2 id="行列の商（3x3行列）"><a class="docs-heading-anchor" href="#行列の商（3x3行列）">▶ 行列の商（3x3行列）</a><a id="行列の商（3x3行列）-1"></a><a class="docs-heading-anchor-permalink" href="#行列の商（3x3行列）" title="Permalink"></a></h2><p>行列 <code>A</code> と行列(またはベクトル) <code>Y</code>に対して、 商 <code>A\Y</code> は、<span>$AX-Y$</span>の最小二乗ノルムが最小となる行列(または)ベクトル <code>X</code> を返す。 行列 <code>A</code>が正則なら、<code>A</code>の逆行列を左から <code>Y</code> に乗じた行列ないしベクトルと一致する。</p><pre><code class="language-julia-repl">julia&gt; #
-       a=[ -3,  1,  2 ]
+ -28</code></pre><h2 id="行列の商（3x3-行列）"><a class="docs-heading-anchor" href="#行列の商（3x3-行列）">▶ 行列の商（3x3 行列）</a><a id="行列の商（3x3-行列）-1"></a><a class="docs-heading-anchor-permalink" href="#行列の商（3x3-行列）" title="Permalink"></a></h2><p>行列 <code>A</code> と行列（またはベクトル） <code>Y</code>に対して， 商 <code>A\Y</code> は，<span>$AX-Y$</span>の最小二乗ノルムが最小となる行列（またはベクトル） <code>X</code> を返す． 行列 <code>A</code> が正則なら，<code>A</code> の逆行列を 左から <code>Y</code> に乗じた行列（またはベクトル）と一致する．</p><pre><code class="language-julia-repl">julia&gt; #
+       a = [-3, 1, 2]
 3-element Array{Int64,1}:
  -3
   1
   2
 
-julia&gt; b=[  2, -3,  1 ]
+julia&gt; b = [2, -3, 1]
 3-element Array{Int64,1}:
   2
  -3
   1
 
-julia&gt; w=[ a b ]
+julia&gt; w = [a b]
 3×2 Array{Int64,2}:
  -3   2
   1  -3
   2   1
 
-julia&gt; c=[  1,  2, -3 ]
+julia&gt; c = [1, 2, -3]
 3-element Array{Int64,1}:
   1
   2
  -3
 
-julia&gt; v=w\c
+julia&gt; v = w \ c
 2-element Array{Float64,1}:
  -1.0000000000000004
  -1.0000000000000002
 
-julia&gt; w*v-c
+julia&gt; w * v - c
 3-element Array{Float64,1}:
   8.881784197001252e-16
   4.440892098500626e-16
- -8.881784197001252e-16</code></pre><h2 id="行列の階数-(ランク)"><a class="docs-heading-anchor" href="#行列の階数-(ランク)">▶ 行列の階数 (ランク)</a><a id="行列の階数-(ランク)-1"></a><a class="docs-heading-anchor-permalink" href="#行列の階数-(ランク)" title="Permalink"></a></h2><p>関数 <code>rank(a)</code>は、行列 <code>a</code> の階数（ランク, rank）を返す。</p><pre><code class="language-julia-repl">julia&gt; a=[  1/2, 1/2+sqrt(2)/4, 1/2-sqrt(2)/4]
+ -8.881784197001252e-16</code></pre><h2 id="行列の階数（ランク）"><a class="docs-heading-anchor" href="#行列の階数（ランク）">▶ 行列の階数（ランク）</a><a id="行列の階数（ランク）-1"></a><a class="docs-heading-anchor-permalink" href="#行列の階数（ランク）" title="Permalink"></a></h2><p>関数 <code>rank(a)</code> は，行列 <code>a</code> の階数（ランク，rank）を返す．</p><pre><code class="language-julia-repl">julia&gt; a = [1 / 2, 1 / 2 + sqrt(2) / 4, 1 / 2 - sqrt(2) / 4]
 3-element Array{Float64,1}:
  0.5
  0.8535533905932737
  0.1464466094067262
 
-julia&gt; b=[ -1/2, 1/2-sqrt(2)/4, 1/2+sqrt(2)/4]
+julia&gt; b = [-1 / 2, 1 / 2 - sqrt(2) / 4, 1 / 2 + sqrt(2) / 4]
 3-element Array{Float64,1}:
  -0.5
   0.1464466094067262
   0.8535533905932737
 
-julia&gt; c=[  1/sqrt(2), -1/2, 1/2]
+julia&gt; c = [1 / sqrt(2), -1 / 2, 1 / 2]
 3-element Array{Float64,1}:
   0.7071067811865475
  -0.5
@@ -843,19 +848,19 @@ julia&gt; rank(v)
 3
 
 julia&gt; #
-       a=[ -3,  1,  2 ]
+       a = [-3, 1, 2]
 3-element Array{Int64,1}:
  -3
   1
   2
 
-julia&gt; b=[  2, -3,  1 ]
+julia&gt; b = [2, -3, 1]
 3-element Array{Int64,1}:
   2
  -3
   1
 
-julia&gt; c=[  1,  2, -3 ]
+julia&gt; c = [1, 2, -3]
 3-element Array{Int64,1}:
   1
   2
@@ -868,7 +873,7 @@ julia&gt; v = [a b c]
   2   1  -3
 
 julia&gt; rank(v)
-2</code></pre><h2 id="行列の固有値・固有ベクトル"><a class="docs-heading-anchor" href="#行列の固有値・固有ベクトル">▼ 行列の固有値・固有ベクトル</a><a id="行列の固有値・固有ベクトル-1"></a><a class="docs-heading-anchor-permalink" href="#行列の固有値・固有ベクトル" title="Permalink"></a></h2><div>\[Ax = \lambda x\]</div><pre><code class="language-julia-repl">julia&gt; a=[4 1; 2 3]
+2</code></pre><h2 id="行列の固有値・固有ベクトル"><a class="docs-heading-anchor" href="#行列の固有値・固有ベクトル">▼ 行列の固有値・固有ベクトル</a><a id="行列の固有値・固有ベクトル-1"></a><a class="docs-heading-anchor-permalink" href="#行列の固有値・固有ベクトル" title="Permalink"></a></h2><div>\[Ax = \lambda x\]</div><pre><code class="language-julia-repl">julia&gt; a = [4 1; 2 3]
 2×2 Array{Int64,2}:
  4  1
  2  3
@@ -877,34 +882,34 @@ julia&gt; #
        using LinearAlgebra
 
 julia&gt; # 固有値
-       lam=eigvals(a)
+       lam = eigvals(a)
 2-element Array{Float64,1}:
  2.0
  5.0
 
 julia&gt; # 固有ベクトル
-       evs=eigvecs(a)
+       evs = eigvecs(a)
 2×2 Array{Float64,2}:
  -0.447214  0.707107
   0.894427  0.707107
 
-julia&gt; evs[:,1]
+julia&gt; evs[:, 1]
 2-element Array{Float64,1}:
  -0.4472135954999579
   0.8944271909999159
 
-julia&gt; evs[:,2]
+julia&gt; evs[:, 2]
 2-element Array{Float64,1}:
  0.7071067811865475
  0.7071067811865475
 
 julia&gt; # 確認する a x - lambda x == 0 になるべき
-       a*evs[:,1] - lam[1]*evs[:,1]
+       a * evs[:, 1] - lam[1] * evs[:, 1]
 2-element Array{Float64,1}:
  0.0
  2.220446049250313e-16
 
-julia&gt; a*evs[:,2] - lam[2]*evs[:,2]
+julia&gt; a * evs[:, 2] - lam[2] * evs[:, 2]
 2-element Array{Float64,1}:
  0.0
- 0.0</code></pre><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルの内積</li><li>行列の生成</li><li>行列に対する関数</li><li>行列とベクトルの演算</li><li>行列と行列の演算</li><li>部分行列</li><li>2次元の回転行列</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch09/">« 第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a><a class="docs-footer-nextpage" href="../ch11/">第11回：ファイル入出力 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:33">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+ 0.0</code></pre><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルの内積</li><li>行列の生成</li><li>行列に対する関数</li><li>行列とベクトルの演算</li><li>行列と行列の演算</li><li>部分行列</li><li>2次元の回転行列</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch09/">« 第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a><a class="docs-footer-nextpage" href="../ch11/">第11回：ファイル入出力 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Friday 2 October 2020 13:46">Friday 2 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
