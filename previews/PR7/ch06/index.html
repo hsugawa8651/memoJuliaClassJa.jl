@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>第6回：■ 整数 · memoJuliaClassJa.jl</title><link rel="canonical" href="https://hsugawa8651.github.io/memoJuliaClassJa.jl/stable/ch06/"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">memoJuliaClassJa.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li><a class="tocitem" href="../LICENSE/">MIT License</a></li><li><a class="tocitem" href="../LICENSEja/">MIT License 参考和訳</a></li><li><a class="tocitem" href="../ch00/">はじめに</a></li><li><a class="tocitem" href="../ch01/">第1回：▼ 簡単なグラフを描く</a></li><li><a class="tocitem" href="../ch02/">第2回：▼ 複数のグラフを描く</a></li><li><a class="tocitem" href="../ch03/">第3回：▼ 連続な曲線を描く</a></li><li><a class="tocitem" href="../ch04/">第4回：▼ 不連続な曲線を描く</a></li><li><a class="tocitem" href="../ch05/">第5回：■ 条件式・■ 条件分岐</a></li><li class="is-active"><a class="tocitem" href>第6回：■ 整数</a><ul class="internal"><li><a class="tocitem" href="#型"><span>■ 型</span></a></li><li><a class="tocitem" href="#整数"><span>■ 整数</span></a></li><li><a class="tocitem" href="#整数同士の加減乗算"><span>■ 整数同士の加減乗算</span></a></li><li><a class="tocitem" href="#整数の2進数による表現．"><span>●▼ 整数の2進数による表現．</span></a></li><li><a class="tocitem" href="#整数同士の除算"><span>■ 整数同士の除算</span></a></li><li><a class="tocitem" href="#整数と浮動小数点数との四則演算"><span>■ 整数と浮動小数点数との四則演算</span></a></li><li><a class="tocitem" href="#浮動小数点数から整数への変換"><span>■ 浮動小数点数から整数への変換</span></a></li><li><a class="tocitem" href="#残余-rem-と整商-div"><span>■ 残余 <code>rem</code> と整商 <code>div</code></span></a></li><li><a class="tocitem" href="#練習：硬貨への分割"><span>▲ 練習：硬貨への分割</span></a></li><li><a class="tocitem" href="#ユークリッドの互除法"><span>▼ ユークリッドの互除法</span></a></li><li><a class="tocitem" href="#一般の残余-rem-と整商-div"><span>■ 一般の残余 <code>rem</code> と整商 <code>div</code></span></a></li><li><a class="tocitem" href="#練習：切り捨て"><span>▲ 練習：切り捨て</span></a></li><li><a class="tocitem" href="#練習：四捨五入"><span>▲ 練習：四捨五入</span></a></li><li><a class="tocitem" href="#剰余-mod-と，商の床-fld"><span>■ 剰余 <code>mod</code> と，商の床 <code>fld</code></span></a></li><li><a class="tocitem" href="#練習：「商の床」"><span>◀ 練習：「商の床」</span></a></li><li><a class="tocitem" href="#2piで割った剰余"><span>▶ 2piで割った剰余</span></a></li><li><a class="tocitem" href="#整数-0による除算"><span>■ 整数 0による除算</span></a></li><li><a class="tocitem" href="#床関数・天井関数の型を整数型にする"><span>▶ 床関数・天井関数の型を整数型にする</span></a></li><li><a class="tocitem" href="#今回のまとめ"><span>★ 今回のまとめ</span></a></li></ul></li><li><a class="tocitem" href="../ch07/">第7回：■ 浮動小数点数</a></li><li><a class="tocitem" href="../ch08/">第8回： ▼ 総和・数値積分</a></li><li><a class="tocitem" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法</a></li><li><a class="tocitem" href="../ch10/">第10回：行列・線形代数</a></li><li><a class="tocitem" href="../ch11/">第11回：ファイル入出力</a></li><li><a class="tocitem" href="../ch12/">第12回：関数の定義と呼び出し</a></li><li><a class="tocitem" href="../ch13/">第13回：複素数</a></li><li><a class="tocitem" href="../porting/">Julia 0.6 から 1.x への移植</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>第6回：■ 整数</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>第6回：■ 整数</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/master/docs/src/ch06.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="ch06"><a class="docs-heading-anchor" href="#ch06">第6回：■ 整数</a><a id="ch06-1"></a><a class="docs-heading-anchor-permalink" href="#ch06" title="Permalink"></a></h1><h2 id="型"><a class="docs-heading-anchor" href="#型">■ 型</a><a id="型-1"></a><a class="docs-heading-anchor-permalink" href="#型" title="Permalink"></a></h2><p>型（type）：データの種類のこと</p><ul><li>整数型 <code>Int64</code></li><li>浮動小数点型 <code>Float64</code></li></ul><pre><code class="language-julia-repl">julia&gt; typeof(1)
+Int64
+
+julia&gt; typeof(1.0)
+Float64</code></pre><ul><li>論理型 <code>Bool</code></li></ul><pre><code class="language-julia-repl">julia&gt; typeof(true)
+Bool
+
+julia&gt; typeof(false)
+Bool</code></pre><ul><li>Primitive Types 基本型</li><li>Composite Types 複合型，構成型</li></ul><h2 id="整数"><a class="docs-heading-anchor" href="#整数">■ 整数</a><a id="整数-1"></a><a class="docs-heading-anchor-permalink" href="#整数" title="Permalink"></a></h2><p><a href="https://docs.julialang.org/en/v1.5/manual/integers-and-floating-point-numbers/#Integers-1">Integers (section)</a></p><p>既定の整数型は，<code>Int64</code> であり， <span>$64$</span> 桁（64bit, binary digit）の2進数である．</p><p>負の数 <span>$-n$</span> を <span>$2^{64}-n$</span> で表す「2の補数」方式を用いて， 正負の数を表す「符号付整数」である．</p><p><code>Int64</code> で表される最大の数は <span>$2^{63}-1$</span> である． また，最小の数（絶対値が最大な負の数)は <span>$-2^{63}$</span> である． これらの値は， 関数 <code>typemax(Int64)</code>,<code>typemin(Int64)</code> で，それぞれ求められる．</p><pre><code class="language-julia-repl">julia&gt; 2^63 - 1
+9223372036854775807
+
+julia&gt; typemax(Int64)
+9223372036854775807
+
+julia&gt; typemin(Int64)
+-9223372036854775808</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>2の補数を求める方法が知られていれば， 減算は，引く数の「2の補数」を求め，加算すればよい． 実は，2の補数は簡単に求められる．</p><p>2の補数では，2進数の最上位の桁が，符号に相当する． すなわち，負の数では， 最上位の桁（Most-Significant Bit, MSB）は <code>1</code> , 正の数または <span>$0$</span> では，MSBは <code>0</code> になる．</p></div></div><h2 id="整数同士の加減乗算"><a class="docs-heading-anchor" href="#整数同士の加減乗算">■ 整数同士の加減乗算</a><a id="整数同士の加減乗算-1"></a><a class="docs-heading-anchor-permalink" href="#整数同士の加減乗算" title="Permalink"></a></h2><p>整数同士の加減算は，2の補数として行われる． <code>typemin(Int64)</code> から <code>typemin(Int64)</code> までの範囲を超えても，例外は発生しない．</p><p><a href="https://docs.julialang.org/en/v1.5/manual/integers-and-floating-point-numbers/#Overflow-behavior-1">Overflow behavior (section)</a></p><pre><code class="language-julia-repl">julia&gt; typemax(Int64) + 1
+-9223372036854775808
+
+julia&gt; typemax(Int64) + 2
+-9223372036854775807
+
+julia&gt; typemin(Int64) - 1
+9223372036854775807
+
+julia&gt; typemin(Int64) - 2
+9223372036854775806
+
+julia&gt; typemax(Int64) + typemax(Int64)
+-2
+
+julia&gt; typemax(Int64) * 2
+-2
+
+julia&gt; typemax(Int64) * 4
+-4</code></pre><h2 id="整数の2進数による表現．"><a class="docs-heading-anchor" href="#整数の2進数による表現．">●▼ 整数の2進数による表現．</a><a id="整数の2進数による表現．-1"></a><a class="docs-heading-anchor-permalink" href="#整数の2進数による表現．" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1.5/base/numbers/#Base.bitstring"><code>Base.bitstring</code> — Function</a></li></ul><p>関数 <code>bitstring(x)</code> は，数 <code>x</code> の2進数表現を文字列として返す．</p><pre><code class="language-julia-repl">julia&gt; bitstring(0)
+&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+
+julia&gt; bitstring(1)
+&quot;0000000000000000000000000000000000000000000000000000000000000001&quot;
+
+julia&gt; bitstring(2)
+&quot;0000000000000000000000000000000000000000000000000000000000000010&quot;
+
+julia&gt; bitstring(-1)
+&quot;1111111111111111111111111111111111111111111111111111111111111111&quot;
+
+julia&gt; bitstring(-2)
+&quot;1111111111111111111111111111111111111111111111111111111111111110&quot;
+
+julia&gt; bitstring(typemax(Int64))
+&quot;0111111111111111111111111111111111111111111111111111111111111111&quot;
+
+julia&gt; bitstring(typemin(Int64))
+&quot;1000000000000000000000000000000000000000000000000000000000000000&quot;</code></pre><p>上の例で，以下の理由を説明できただろうか？</p><p><code>typemax(Int64)+1 == typemin(Int64)</code></p><p><code>typemax(Int64)+typemax(Int64) == -2</code></p><p><code>typemax(Int64)*2 == -2</code></p><p>2進数に <span>$2$</span> を乗じることは，左に一つ分ずらすこと（左シフト 1bit）と同じである．</p><h2 id="整数同士の除算"><a class="docs-heading-anchor" href="#整数同士の除算">■ 整数同士の除算</a><a id="整数同士の除算-1"></a><a class="docs-heading-anchor-permalink" href="#整数同士の除算" title="Permalink"></a></h2><p>整数同士の割り算（除算）の結果（商 quotient）は，小数（浮動小数点数）になる．</p><pre><code class="language-julia-repl">julia&gt; 1 / 2
+0.5</code></pre><p>余り（剰余）を求めたい場合は，<a href="#残余-rem-と整商-div">■ 残余 <code>rem</code> と整商 <code>div</code></a> を参照せよ．</p><h2 id="整数と浮動小数点数との四則演算"><a class="docs-heading-anchor" href="#整数と浮動小数点数との四則演算">■ 整数と浮動小数点数との四則演算</a><a id="整数と浮動小数点数との四則演算-1"></a><a class="docs-heading-anchor-permalink" href="#整数と浮動小数点数との四則演算" title="Permalink"></a></h2><p>整数と小数を四則演算すると，小数になる．</p><pre><code class="language-julia-repl">julia&gt; 1 + 2
+3
+
+julia&gt; 1 + 2.0
+3.0
+
+julia&gt; 1 * 2
+2
+
+julia&gt; 1 * 2.0
+2.0</code></pre><h2 id="浮動小数点数から整数への変換"><a class="docs-heading-anchor" href="#浮動小数点数から整数への変換">■ 浮動小数点数から整数への変換</a><a id="浮動小数点数から整数への変換-1"></a><a class="docs-heading-anchor-permalink" href="#浮動小数点数から整数への変換" title="Permalink"></a></h2><p>浮動小数点数を整数に変換するには，<code>Int64(x)</code> を用いる． ただし，<span>$x$</span> が小数部を含むと例外がでる（エラーとなる）ので， 小数部を <span>$0$</span> に変換する必要がある．</p><p>この際，床関数が用いられる． 参考→ <a href="../ch04/#床関数・天井関数">■ 床関数・天井関数</a></p><pre><code class="language-julia-repl">julia&gt; Int64(1.0)
+1
+
+julia&gt; Int64(1.1)  # エラー
+ERROR: InexactError: Int64(1.1)
+
+julia&gt; Int64(floor(1.1))
+1</code></pre><h2 id="残余-rem-と整商-div"><a class="docs-heading-anchor" href="#残余-rem-と整商-div">■ 残余 <code>rem</code> と整商 <code>div</code></a><a id="残余-rem-と整商-div-1"></a><a class="docs-heading-anchor-permalink" href="#残余-rem-と整商-div" title="Permalink"></a></h2><p>正の整数 <span>$x &gt; 0$</span> を，正の整数 <span>$d &gt; 0$</span> で割った結果， 整数の商 <span>$q$</span> と余り <span>$r$</span> が得られたとき，</p><div>\[x=qd+r\]</div><p>が成り立つ．</p><p>割られる数 <span>$x$</span> を「被除数（dividend）」，割る数 <span>$d$</span> を「除数（divisor）」という．</p><p>整数の商 <span>$q$</span> を，「整商（integral quotient）」， 余り <span>$r$</span> を「残余（remainder）」という． 残余は，<span>$d$</span> を超えない，すなわち，</p><div>\[0 \le r \lt d\]</div><p>である．</p><ul><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.rem"><code>Base.rem</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1.5/base/math/#Base.div"><code>Base.div</code> - Function</a></li></ul><p>関数 <code>rem(x,d)</code> は，<span>$x$</span> を <span>$d$</span> で割ったときの残余を返す． 関数 <code>rem</code> の代わりに，<code>%</code> 演算子を用いて <code>x % d</code> と書いてもよい．</p><pre><code class="language-julia-repl">julia&gt; rem(15, 4)
+3
+
+julia&gt; 15 % 4
+3</code></pre><p>関数 <code>div(x,d)</code> は，<span>$x$</span> を <span>$d$</span> で割ったときの整商を返す．</p><pre><code class="language-julia-repl">julia&gt; div(15, 4)
+3</code></pre><p>整数 <span>$0$</span> から <span>$7$</span> までを，<span>$3$</span> で割った整商と残余（ <code>div</code> と <code>rem</code> の計算結果）を描く．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+xs = 0:7
+d = 3
+plt.plot(xs, rem.(xs, d), &quot;ro&quot;, label = &quot;rem(x,&quot; * string(d) * &quot;)&quot;)
+plt.plot(xs, div.(xs, d), &quot;b.&quot;, label = &quot;div(x,&quot; * string(d) * &quot;)&quot;)
+
+plt.xlim(-0.2, 6.2)
+plt.ylim(-0.2, 3.2)
+plt.xlabel(&quot;x&quot;)
+plt.legend()
+
+for x = 0:7
+   plt.axvline(x, color = &quot;k&quot;, lw = 0.5)
+end
+
+for y = 0:3
+   plt.axhline(y, color = &quot;k&quot;, lw = 0.5)
+end</code></pre><p><img src="../ch06-divrem1-int-plot.svg" alt/></p><h2 id="練習：硬貨への分割"><a class="docs-heading-anchor" href="#練習：硬貨への分割">▲ 練習：硬貨への分割</a><a id="練習：硬貨への分割-1"></a><a class="docs-heading-anchor-permalink" href="#練習：硬貨への分割" title="Permalink"></a></h2><p>日本では，小額の取引に，</p><ul><li>500円</li><li>100円</li><li>50円</li><li>10円</li><li>5円</li><li>1円</li></ul><p>の6種類の硬貨がよく用いられる．</p><p>金額が与えられたときに，6種類の硬貨が各々何枚必要か計算せよ． ただし，高額の硬貨を優先して用いるものとする．</p><ul><li>第一段階として，100円，10円，1円に分けるプログラムを書いて実行せよ．</li><li>第二段階として，上の 6種類の硬貨に分けるプログラムを書いて実行せよ．同様な処理は，繰り返し（ <code>for</code> 文）を用いてみよ．</li><li>第三段階として，1円刻みで551円までの金額に対して，6種類の硬貨の枚数を描くプログラムを書いて実行せよ．</li></ul><h2 id="ユークリッドの互除法"><a class="docs-heading-anchor" href="#ユークリッドの互除法">▼ ユークリッドの互除法</a><a id="ユークリッドの互除法-1"></a><a class="docs-heading-anchor-permalink" href="#ユークリッドの互除法" title="Permalink"></a></h2><p>2 つの自然数 <span>$a$</span>, <span>$b$</span>（ただし，<span>$a \ge b$</span> とする）について， <span>$a$</span> の <span>$b$</span> による残余を <span>$r$</span> とすると， <span>$a$</span> と <span>$b$</span> との最大公約数（greatest common divisor, gcd）は <span>$b$</span> と <span>$r$</span> との最大公約数に等しいという性質が成り立つ． この性質を利用して，<span>$b$</span> を <span>$r$</span> で割った残余， 除数 <span>$r$</span> をその剰余で割った残余， と残余を求める計算を逐次繰り返すと， 残余が <span>$0$</span> になった時の除数が <span>$a$</span> と <span>$b$</span> との最大公約数となる．</p><p>以下のプログラムで，変数 <code>t</code> は <code>b</code> の値を一時保存するための役目をする． このような変数を，「一時変数（temporary variable）」と呼ぶ．</p><pre><code class="language-julia-repl">julia&gt; a = 1071
+1071
+
+julia&gt; b = 1029
+1029
+
+julia&gt; @show a, b
+(a, b) = (1071, 1029)
+(1071, 1029)
+
+julia&gt; while b != 0
+          global a, b
+          t = b
+          b = rem(a, b)
+          a = t
+          @show a, b
+       end
+(a, b) = (1029, 42)
+(a, b) = (42, 21)
+(a, b) = (21, 0)
+
+julia&gt; println(&quot;gcd=&quot; * string(a))
+gcd=21
+
+julia&gt; # 公約数の確認
+       @show rem(1071, a);
+rem(1071, a) = 0
+
+julia&gt; @show rem(1029, a);
+rem(1029, a) = 0</code></pre><p>3355と2379の最大公約数を求めてみよう．</p><pre><code class="language-julia-repl">julia&gt; a = 3355
+3355
+
+julia&gt; b = 2379
+2379
+
+julia&gt; @show a, b
+(a, b) = (3355, 2379)
+(3355, 2379)
+
+julia&gt; while b != 0
+          global a, b
+          t = b
+          b = rem(a, b)
+          a = t
+          @show a, b
+       end
+(a, b) = (2379, 976)
+(a, b) = (976, 427)
+(a, b) = (427, 122)
+(a, b) = (122, 61)
+(a, b) = (61, 0)
+
+julia&gt; println(&quot;gcd=&quot; * string(a))
+gcd=61
+
+julia&gt; # 公約数の確認
+       @show rem(3355, a);
+rem(3355, a) = 0
+
+julia&gt; @show rem(2379, a);
+rem(2379, a) = 0</code></pre><h2 id="一般の残余-rem-と整商-div"><a class="docs-heading-anchor" href="#一般の残余-rem-と整商-div">■ 一般の残余 <code>rem</code> と整商 <code>div</code></a><a id="一般の残余-rem-と整商-div-1"></a><a class="docs-heading-anchor-permalink" href="#一般の残余-rem-と整商-div" title="Permalink"></a></h2><p>正の整数 <span>$x$</span> を 正の整数 <span>$d$</span> で割ったときの 「商」 <span>$q$</span> と「余り」 <span>$r$</span> の関係</p><div>\[x = qd + r\]</div><p>は， 被除数 <span>$x$</span> や除数 <span>$d$</span> が，小数や負の数の場合に拡張できる． ここで，「商」<span>$q$</span> は整数であり， 「余り」<span>$r$</span> の絶対値は，除数 <span>$d$</span> の絶対値を超えないものとする．</p><div>\[0 \le \left\vert{r}\right\vert \lt \left\vert{d}\right\vert\]</div><p>さて，被除数 <span>$x$</span> や除数 <span>$d$</span> が負の数の場合， 「商」<span>$q$</span> と「余り」 <span>$r$</span> の取るべき値について，複数の考え方がある．</p><p>残余 <code>rem(x,d)</code> は，「被除数 <span>$x$</span> と同じ符号の余り」を返す． すなわち，被除数 <span>$x$</span> が負なら，残余 <span>$r$</span> は</p><div>\[-|d| \lt r \le 0\]</div><p>の範囲になる． 対応する「商」は 整商 <code>div(x,d)</code> で求められる．</p><p>以下では，<span>$-6$</span> から <span>$6$</span> までの数（被除数）を，<span>$3$</span> （正の除数）で割ったときの 残余と整商を描く． 被除数が負のとき，<span>$−3 \lt r \le 0$</span> となることを観察せよ．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+xs = -6.8:0.2:6.8
+d = 3
+plt.plot(xs, rem.(xs, d), &quot;ro&quot;, label = &quot;rem(x,&quot; * string(d) * &quot;)&quot;)
+plt.plot(xs, div.(xs, d), &quot;b.&quot;, label = &quot;div(x,&quot; * string(d) * &quot;)&quot;)
+
+plt.xlim(-6.2, 6.2)
+plt.ylim(-3.2, 3.2)
+plt.xlabel(&quot;x&quot;)
+plt.legend()
+
+for x = -7:7
+   plt.axvline(x, color = &quot;k&quot;, lw = 0.5)
+end
+
+for y = -3:3
+   plt.axhline(y, color = &quot;k&quot;, lw = 0.5)
+end</code></pre><p><img src="../ch06-divrem2-plot.svg" alt/></p><p>今度は，被除数の範囲は変えずに，<span>$-3$</span>（負の除数）で割ったときの残余と整商を描く．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+xs = -6.8:0.2:6.8
+d = -3
+plt.plot(xs, rem.(xs, d), &quot;ro&quot;, label = &quot;rem(x,&quot; * string(d) * &quot;)&quot;)
+plt.plot(xs, div.(xs, d), &quot;b.&quot;, label = &quot;div(x,&quot; * string(d) * &quot;)&quot;)
+plt.xlim(-6.2, 6.2)
+plt.ylim(-3.2, 3.2)
+
+plt.xlabel(&quot;x&quot;)
+plt.legend()
+
+for x = -7:7
+   plt.axvline(x, color = &quot;k&quot;, lw = 0.5)
+end
+
+for y = -3:3
+   plt.axhline(y, color = &quot;k&quot;, lw = 0.5)
+end</code></pre><p><img src="../ch06-divrem3-plot.svg" alt/></p><p>上の二つのグラフを比較すると， 残余 <code>rem(x,3)</code> と <code>rem(x,-3)</code> が一致することが観察される．また， 整商 <code>div(x,3)</code> と <code>div(x,-3)</code> は，互いに符号が逆である．</p><h2 id="練習：切り捨て"><a class="docs-heading-anchor" href="#練習：切り捨て">▲ 練習：切り捨て</a><a id="練習：切り捨て-1"></a><a class="docs-heading-anchor-permalink" href="#練習：切り捨て" title="Permalink"></a></h2><p>正の数 <code>x</code> を</p><ul><li><span>$10$</span> の位で</li><li><span>$100$</span> の位で</li><li><span>$1000$</span> の位で</li><li><span>$0.1$</span> の位で</li><li>一般に <span>$10^{n}$</span> の位で</li></ul><p>数を切り捨てるには，どうすればよいか？</p><p>プログラムを書いて，実行してみよ．</p><h2 id="練習：四捨五入"><a class="docs-heading-anchor" href="#練習：四捨五入">▲ 練習：四捨五入</a><a id="練習：四捨五入-1"></a><a class="docs-heading-anchor-permalink" href="#練習：四捨五入" title="Permalink"></a></h2><p>正の数 <code>x</code> を</p><ul><li><span>$10$</span> の位で</li><li><span>$100$</span> の位で</li><li><span>$1000$</span> の位で</li><li><span>$0.1$</span> の位で</li><li>一般に <span>$10^{n}$</span> の位で</li></ul><p>数を四捨五入するには，どうしたらよいか？</p><p>プログラムを書いて，実行してみよ．</p><h2 id="剰余-mod-と，商の床-fld"><a class="docs-heading-anchor" href="#剰余-mod-と，商の床-fld">■ 剰余 <code>mod</code> と，商の床 <code>fld</code></a><a id="剰余-mod-と，商の床-fld-1"></a><a class="docs-heading-anchor-permalink" href="#剰余-mod-と，商の床-fld" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1/base/math/#Base.mod"><code>Base.mod</code> - Function</a></li><li><a href="https://docs.julialang.org/en/v1/base/math/#Base.fld"><code>Base.fld</code> - Function</a></li></ul><p>「商」 <span>$q$</span> と「余り」 <span>$r$</span> の一般の関係</p><div>\[\begin{gathered}
+x=qd+r, \\
+0 \le \left\vert{r}\right\vert \lt \left\vert{d}\right\vert
+\end{gathered}\]</div><p>について，別の考え方を示す．</p><p>剰余（modulo）は， 「除数 <span>$d$</span> と同じ符号の余り」<span>$r$</span> である． 剰余関数 <code>mod(x,d)</code> は，この「余り」<span>$r$</span>を返す． 対応する「商」<span>$q$</span> は，関数 <code>fld(x,d)</code> で求められる．</p><ul><li>被除数が非負 <span>$x \ge 0$</span>,かつ，除数が正 <span>$d \gt 0$</span> なら，残余 <code>rem</code> と剰余 <code>mod</code> は一致する．</li><li>被除数が負 <span>$x &lt; 0$</span> の場合も，剰余は非負である．</li></ul><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>被除数と除数の両方とも正なら，残余 <code>rem</code> と剰余 <code>mod</code> は一致する．この場合，残余 <code>rem</code> の方が，少し計算コストが小さく，好まれる．</p></div></div><p>では，<span>$-6$</span> から <span>$6$</span> までの数（被除数）を，<span>$3$</span>（正の除数）で割ったときの剰余と「商」を描こう．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+xs = -6.8:0.2:6.8
+d = 3
+plt.plot(xs, mod.(xs, d), &quot;ro&quot;, label = &quot;mod(x,&quot; * string(d) * &quot;)&quot;)
+plt.plot(xs, fld.(xs, d), &quot;b.&quot;, label = &quot;fld(x,&quot; * string(d) * &quot;)&quot;)
+
+plt.xlim(-6.2, 6.2)
+plt.ylim(-3.2, 3.2)
+plt.xlabel(&quot;x&quot;)
+plt.legend()
+
+for x = -7:7
+   plt.axvline(x, color = &quot;k&quot;, lw = 0.5)
+end
+
+for y = -3:3
+   plt.axhline(y, color = &quot;k&quot;, lw = 0.5)
+end</code></pre><p><img src="../ch06-fldmod1-plot.svg" alt/></p><p>実は，関数 <code>fld(x,d)</code> は，<code>floor(x/d)</code> と同じ値であり，「商の床」 floored division ともいう． すなわち，<span>$\dfrac{x}{d}$</span> 以下の最大の整数である． 参照： <a href="../ch04/#床関数・天井関数">■ 床関数・天井関数</a></p><p>上の例で，「商の床」を描く． 関数 <code>fld</code> と同じ結果が得られることが観測できる．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+xs = -6.8:0.2:6.8
+d = 3
+qs = floor.(xs / d)
+rs = xs - qs * d
+plt.plot(xs, rs, &quot;ro&quot;, label = &quot;remainder divided by &quot; * string(d))
+plt.plot(xs, qs, &quot;b.&quot;, label = &quot;quotient divided by &quot; * string(d))
+
+plt.xlim(-6.2, 6.2)
+plt.ylim(-3.2, 3.2)
+plt.xlabel(&quot;x&quot;)
+plt.legend()
+
+for y = -3:3
+   plt.axvline(y, color = &quot;k&quot;, lw = 0.5)
+end
+
+for x = -7:7
+   plt.axhline(x, color = &quot;k&quot;, lw = 0.5)
+end</code></pre><p><img src="../ch06-fldmod2-plot.svg" alt/></p><p>今度は，被除数の範囲は変えずに，<span>$-3$</span> （負の除数）で割ったときの剰余と「商」を描こう．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+xs = -6.8:0.2:6.8
+d = -3
+plt.plot(xs, mod.(xs, d), &quot;ro&quot;, label = &quot;mod(x,&quot; * string(d) * &quot;)&quot;)
+plt.plot(xs, fld.(xs, d), &quot;b.&quot;, label = &quot;fld(x,&quot; * string(d) * &quot;)&quot;)
+plt.xlim(-6.2, 6.2)
+plt.ylim(-3.2, 3.2)
+plt.xlabel(&quot;x&quot;)
+plt.legend()
+
+for x = -7:7
+   plt.axvline(x, color = &quot;k&quot;, lw = 0.5)
+end
+
+for y = -3:3
+   plt.axhline(y, color = &quot;k&quot;, lw = 0.5)
+end</code></pre><p><img src="../ch06-fldmod3-plot.svg" alt/></p><p>負の数 <span>$-3$</span> で割ったとき，剰余 <span>$r$</span> の範囲は <span>$-3 \lt r \le 0$</span> であることが観察できる．</p><h2 id="練習：「商の床」"><a class="docs-heading-anchor" href="#練習：「商の床」">◀ 練習：「商の床」</a><a id="練習：「商の床」-1"></a><a class="docs-heading-anchor-permalink" href="#練習：「商の床」" title="Permalink"></a></h2><p>上の例で，「商の床」 <code>floor( x/-3 )</code> を描け． 関数 <code>fld(x,-3)</code> と結果が等しいことを確認せよ．</p><h2 id="2piで割った剰余"><a class="docs-heading-anchor" href="#2piで割った剰余">▶ 2piで割った剰余</a><a id="2piで割った剰余-1"></a><a class="docs-heading-anchor-permalink" href="#2piで割った剰余" title="Permalink"></a></h2><ul><li><a href="https://docs.julialang.org/en/v1/base/math/#Base.Math.mod2pi"><code>Base.Math.mod2pi</code> — Function</a></li></ul><p>関数 <code>mod2pi(x)</code> は，<code>mod(x,2*pi)</code> と同じである． すなわち，<span>$x$</span> を <span>$2\pi$</span> で割った剰余を返す．</p><pre><code class="language-julia">using PyPlot
+plt.axes().set_aspect(&quot;equal&quot;)
+
+is = -24:24
+xs = is / 3
+plt.plot(xs, mod2pi.(xs), &quot;.&quot;)
+plt.xlabel(&quot;x&quot;)
+plt.ylabel(&quot;mod2pi(x)&quot;)
+plt.axhline(0, color = &quot;k&quot;, lw = 0.5)
+plt.axhline(2 * pi, color = &quot;k&quot;, lw = 0.5)</code></pre><p><img src="../ch06-mod2pi-plot.svg" alt/></p><h2 id="整数-0による除算"><a class="docs-heading-anchor" href="#整数-0による除算">■ 整数 0による除算</a><a id="整数-0による除算-1"></a><a class="docs-heading-anchor-permalink" href="#整数-0による除算" title="Permalink"></a></h2><p>除数が　<span>$0$</span> であっても，「余り」を計算しない除算では， 例外は発生しない．→ <a href="../ch04/#0による除算">■ 0による除算</a></p><p>しかし，「余り」を計算する <code>rem</code> , <code>mod</code> , <code>div</code> , <code>mod</code> などにおいて， 除数が 0 であると例外（exception）を発生する． 例外が発生すると，プログラムの実行は，そこで中断する．</p><p>除算例外 <a href="https://docs.julialang.org/en/v1.5/manual/integers-and-floating-point-numbers/#Division-errors-1">Division errors (section)</a></p><pre><code class="language-julia-repl">julia&gt; div(3, 0)
+ERROR: DivideError: integer division error
+
+julia&gt; rem(3, 0)
+ERROR: DivideError: integer division error</code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p>例外が発生した場合，それを救済する手続きを書いて，プログラムを続行することもできる．だが，この文書の範囲を超えるので，説明しない． → <a href="https://docs.julialang.org/en/v1.5/manual/control-flow/#Exception-Handling-1">Exception Handling</a></p></div></div><h2 id="床関数・天井関数の型を整数型にする"><a class="docs-heading-anchor" href="#床関数・天井関数の型を整数型にする">▶ 床関数・天井関数の型を整数型にする</a><a id="床関数・天井関数の型を整数型にする-1"></a><a class="docs-heading-anchor-permalink" href="#床関数・天井関数の型を整数型にする" title="Permalink"></a></h2><p><a href="../ch04/#床関数・天井関数">■ 床関数・天井関数</a> <code>floor(x)</code> および <code>ceil</code> の結果の型は， 引数（ひきすう） <code>x</code> の型に一致する．</p><pre><code class="language-julia-repl">julia&gt; floor(2) # =&gt; 整数
+2
+
+julia&gt; floor(0.2) # =&gt; 小数（浮動小数点数)
+0.0
+
+julia&gt; ceil(2) # =&gt; 整数
+2
+
+julia&gt; ceil(0.2) # =&gt; 小数（浮動小数点数)
+1.0</code></pre><p>結果の型を整数にするには，引数 <code>x</code> の前に，型の名前 <code>Int64</code> をつける．</p><pre><code class="language-julia-repl">julia&gt; floor(Int64, 2)
+2
+
+julia&gt; floor(Int64, 0.2)
+0
+
+julia&gt; ceil(Int64, 2)
+2
+
+julia&gt; ceil(Int64, 0.2)
+1</code></pre><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>型</li><li>整数</li><li>整数同士の加減乗算</li><li>整数同士の除算</li><li>整数と浮動小数点数との四則演算</li><li>浮動小数点数から整数への変換</li><li>残余 <code>rem</code> と整商 <code>div</code></li><li>ユークリッドの互除法</li><li>切り捨て，四捨五入（練習）</li><li>剰余 <code>mod</code> と商の床 <code>fld</code></li><li>整数 0 による除算：例外</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch05/">« 第5回：■ 条件式・■ 条件分岐</a><a class="docs-footer-nextpage" href="../ch07/">第7回：■ 浮動小数点数 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 3 October 2020 00:14">Saturday 3 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
