@@ -34,8 +34,8 @@ ERROR: MethodError: no method matching -(::Array{Int64,1}, ::Int64)
 For element-wise subtraction, use broadcasting with dot syntax: array .- scalar
 Closest candidates are:
   -(!Matched::Missing, ::Number) at missing.jl:115
-  -(!Matched::PyCall.PyObject, ::Any) at /home/runner/.julia/packages/PyCall/BcTLp/src/pyoperators.jl:13
   -(!Matched::BigFloat, ::Union{Int16, Int32, Int64, Int8}) at mpfr.jl:425
+  -(!Matched::Base.CoreLogging.LogLevel, ::Integer) at logging.jl:117
   ...
 
 julia&gt; v .- 1
@@ -79,8 +79,8 @@ ERROR: MethodError: no method matching -(::Array{Int64,2}, ::Int64)
 For element-wise subtraction, use broadcasting with dot syntax: array .- scalar
 Closest candidates are:
   -(!Matched::Missing, ::Number) at missing.jl:115
-  -(!Matched::PyCall.PyObject, ::Any) at /home/runner/.julia/packages/PyCall/BcTLp/src/pyoperators.jl:13
   -(!Matched::BigFloat, ::Union{Int16, Int32, Int64, Int8}) at mpfr.jl:425
+  -(!Matched::Base.CoreLogging.LogLevel, ::Integer) at logging.jl:117
   ...
 
 julia&gt; m.-1
@@ -126,8 +126,8 @@ ERROR: MethodError: no method matching -(::Array{Int64,1}, ::Int64)
 For element-wise subtraction, use broadcasting with dot syntax: array .- scalar
 Closest candidates are:
   -(!Matched::Missing, ::Number) at missing.jl:115
-  -(!Matched::PyCall.PyObject, ::Any) at /home/runner/.julia/packages/PyCall/BcTLp/src/pyoperators.jl:13
   -(!Matched::BigFloat, ::Union{Int16, Int32, Int64, Int8}) at mpfr.jl:425
+  -(!Matched::Base.CoreLogging.LogLevel, ::Integer) at logging.jl:117
   ...
 
 julia&gt; v .-= 1
@@ -171,8 +171,8 @@ ERROR: MethodError: no method matching -(::Array{Int64,2}, ::Int64)
 For element-wise subtraction, use broadcasting with dot syntax: array .- scalar
 Closest candidates are:
   -(!Matched::Missing, ::Number) at missing.jl:115
-  -(!Matched::PyCall.PyObject, ::Any) at /home/runner/.julia/packages/PyCall/BcTLp/src/pyoperators.jl:13
   -(!Matched::BigFloat, ::Union{Int16, Int32, Int64, Int8}) at mpfr.jl:425
+  -(!Matched::Base.CoreLogging.LogLevel, ::Integer) at logging.jl:117
   ...
 
 julia&gt; m .-= 1
@@ -267,14 +267,14 @@ PyObject &lt;AxesSubplot:&gt;
 
 julia&gt; ax1.plot([3, 2, 1])
 1-element Array{PyCall.PyObject,1}:
- PyObject &lt;matplotlib.lines.Line2D object at 0x7f9c63c5b190&gt;
+ PyObject &lt;matplotlib.lines.Line2D object at 0x7fe732f415b0&gt;
 
 julia&gt; ax2 = fig.add_subplot(122)
 PyObject &lt;AxesSubplot:&gt;
 
 julia&gt; ax2.plot([2, 3, 1])
 1-element Array{PyCall.PyObject,1}:
- PyObject &lt;matplotlib.lines.Line2D object at 0x7f9c62633c10&gt;</code></pre><p>アスペクト比（縦横の寸法の比）を等しくするのに， <code>plt[:axes]()[:set_aspect](&quot;equal&quot;)</code> と書いていたが， <code>plt.axes().set_aspect(&quot;equal&quot;)</code> とする．</p><pre><code class="language-julia-repl">julia&gt; using PyPlot
+ PyObject &lt;matplotlib.lines.Line2D object at 0x7fe731754940&gt;</code></pre><p>アスペクト比（縦横の寸法の比）を等しくするのに， <code>plt[:axes]()[:set_aspect](&quot;equal&quot;)</code> と書いていたが， <code>plt.axes().set_aspect(&quot;equal&quot;)</code> とする．</p><pre><code class="language-julia-repl">julia&gt; using PyPlot
 
 
 julia&gt; xs = -1:0.1:1
@@ -458,4 +458,4 @@ ERROR: UndefVarError: srand not defined
 julia&gt; using Random # Random パッケージを読み込む
 
 julia&gt; Random.seed!(1234)
-Random.MersenneTwister(UInt32[0x000004d2], Random.DSFMT.DSFMT_state(Int32[-1393240018, 1073611148, 45497681, 1072875908, 436273599, 1073674613, -2043716458, 1073445557, -254908435, 1072827086  …  -599655111, 1073144102, 367655457, 1072985259, -1278750689, 1018350124, -597141475, 249849711, 382, 0]), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], UInt128[0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000  …  0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000], 1002, 0)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch13/">« 第13回：複素数</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 5 October 2020 16:31">Monday 5 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+Random.MersenneTwister(UInt32[0x000004d2], Random.DSFMT.DSFMT_state(Int32[-1393240018, 1073611148, 45497681, 1072875908, 436273599, 1073674613, -2043716458, 1073445557, -254908435, 1072827086  …  -599655111, 1073144102, 367655457, 1072985259, -1278750689, 1018350124, -597141475, 249849711, 382, 0]), [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0  …  0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], UInt128[0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000  …  0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000, 0x00000000000000000000000000000000], 1002, 0)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch13/">« 第13回：複素数</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 5 October 2020 17:19">Monday 5 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
