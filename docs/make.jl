@@ -19,7 +19,7 @@ makedocs(;
     sitename="memoJuliaClassJa.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://hsugawa8651.github.io/memoJuliaClassJa.jl/stable",
+        canonical="https://hsugawa8651.github.io/memoJuliaClassJa.jl/stable/",
         assets=String[],
     ),
     linkcheck = !("skiplinks" in ARGS),
@@ -60,6 +60,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/hsugawa8651/memoJuliaClassJa.jl",
+    repo="github.com/hsugawa8651/memoJuliaClassJa.jl.git",
     push_preview = true,
 )
