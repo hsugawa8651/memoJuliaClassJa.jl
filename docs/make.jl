@@ -11,7 +11,7 @@ if haskey(ENV, "DOCSARGS")
     end
 end
 
-makedocs(;
+makedocs(
     modules=[memoJuliaClassJa],
     authors="Hiroharu Sugawara <hsugawa@gmail.com>",
     repo="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/{commit}{path}#L{line}",
@@ -59,7 +59,7 @@ makedocs(;
    doctest = ("doctest=only" in ARGS) ? :only : true,
 )
 
-deploydocs(;
+deploydocs(
     repo="github.com/hsugawa8651/memoJuliaClassJa.jl.git",
     push_preview = true,
 )
