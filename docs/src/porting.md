@@ -143,6 +143,7 @@ ax1 = fig.add_subplot(121)
 ax1.plot([3, 2, 1])
 ax2 = fig.add_subplot(122)
 ax2.plot([2, 3, 1])
+plt.close("all") #hide
 ```
 
 アスペクト比（縦横の寸法の比）を等しくするのに，
@@ -151,7 +152,7 @@ ax2.plot([2, 3, 1])
 
 ```@repl
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 
 xs = -1:0.1:1
 ys = xs .^ 2;
@@ -159,6 +160,7 @@ zs = xs .^ 3;
 plot(xs, ys);
 plot(xs, zs);
 plt.axes().set_aspect("equal")
+plt.close("all") #hide
 ```
 
 ## `linspace` は廃止． `LinSpace` を用いる
@@ -168,8 +170,8 @@ v0.6.4で等差数列を作る `linspace` 関数は，v1.x で廃止された．
 関数 `LinRange` または `range` を用いる．
 
 v0.6.4 では
-* `linspace(a,b)` は，初項 `a` ,最終項 `b` ,長さ 50 の等差数列を作る．
-* `linspace(a,b,n)` は，初項 `a` ,最終項 `b` ,長さ `n` の等差数列を作る．
+* `linspace(a,b)` は，初項 `a` ，最終項 `b` ，長さ 50 の等差数列を作る．
+* `linspace(a,b,n)` は，初項 `a` ，最終項 `b` ，長さ `n` の等差数列を作る．
 
 v1.1で，上の２つに対応するのは，関数 `LinRange(a,b,n)` である．
 `LinRange` は３番目の引数を省略できない．

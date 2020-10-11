@@ -14,7 +14,6 @@ end
 makedocs(
     modules=[memoJuliaClassJa],
     authors="Hiroharu Sugawara <hsugawa@gmail.com>",
-    repo="https://github.com/hsugawa8651/memoJuliaClassJa.jl/blob/{commit}{path}#L{line}",
     clean = false,
     sitename="memoJuliaClassJa.jl",
     format=Documenter.HTML(;
@@ -61,5 +60,6 @@ makedocs(
 
 deploydocs(
     repo="github.com/hsugawa8651/memoJuliaClassJa.jl.git",
+    devbranch="develop",
     push_preview = true,
 )
