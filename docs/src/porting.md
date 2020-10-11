@@ -143,6 +143,7 @@ ax1 = fig.add_subplot(121)
 ax1.plot([3, 2, 1])
 ax2 = fig.add_subplot(122)
 ax2.plot([2, 3, 1])
+plt.close("all") #hide
 ```
 
 アスペクト比（縦横の寸法の比）を等しくするのに，
@@ -159,6 +160,7 @@ zs = xs .^ 3;
 plot(xs, ys);
 plot(xs, zs);
 plt.axes().set_aspect("equal")
+plt.close("all") #hide
 ```
 
 ## `linspace` は廃止． `LinSpace` を用いる
