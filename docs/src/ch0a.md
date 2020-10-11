@@ -71,7 +71,7 @@ r_{17} & = \dfrac{1}{1+\sin \theta},
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/72:2pi
@@ -92,7 +92,7 @@ plt.ylim(-1,2)
 plt.axhline(0, c="k", lw=0.5)
 plt.axvline(0, c="k", lw=0.5)
 plt.savefig("ch0a-plot1.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot1.svg)
@@ -118,7 +118,7 @@ r_{1} & = \sin \theta + \cos \theta
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/72:2pi
@@ -139,7 +139,7 @@ plt.ylim(-2,5)
 plt.axhline(0, c="k", lw=0.5)
 plt.axvline(0, c="k", lw=0.5)
 plt.savefig("ch0a-plot1b.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot1b.svg)
@@ -152,7 +152,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/72:2pi
@@ -173,7 +173,7 @@ plt.ylim(-2,2)
 plt.axhline(0, c="k", lw=0.5)
 plt.axvline(0, c="k", lw=0.5)
 plt.savefig("ch0a-plot1c.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot1c.svg)
@@ -189,7 +189,7 @@ r_{7} & = \sin \dfrac{\theta}{2} \quad \left( 0 \le \theta \le 6\pi \right)
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 #
@@ -211,7 +211,7 @@ plt.ylim(-3/2,3/2)
 plt.axhline(0, c="k", lw=0.5)
 plt.axvline(0, c="k", lw=0.5)
 plt.savefig("ch0a-plot2.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot2.svg)
@@ -222,7 +222,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 #
 ts4=0:pi/18:pi        # <--
@@ -243,7 +243,7 @@ plt.ylim(-3/2,3/2)
 plt.axhline(0, c="k", lw=0.5)
 plt.axvline(0, c="k", lw=0.5)
 plt.savefig("ch0a-plot2b.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot2b.svg)
@@ -257,7 +257,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 #
 ts=0:pi/72:2pi
@@ -275,7 +275,7 @@ plt.legend()
 plt.xlim(-5,5)
 plt.ylim(-5,5)
 plt.savefig("ch0a-plot3.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot3.svg)
@@ -284,7 +284,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 #
 ts=0:pi/72:2pi *3/8 # <--
@@ -302,7 +302,7 @@ plt.legend()
 plt.xlim(-5,5)
 plt.ylim(-5,5)
 plt.savefig("ch0a-plot3b.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot3b.svg)
@@ -315,7 +315,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/72:2pi
@@ -334,7 +334,7 @@ plt.legend()
 plt.xlim(-5/4,5/4)
 plt.ylim(-5/4,5/4)
 plt.savefig("ch0a-plot4.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot4.svg)
@@ -352,7 +352,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/72:2pi
@@ -371,7 +371,7 @@ plt.legend()
 plt.xlim(-4,4)
 plt.ylim(-4,4)
 plt.savefig("ch0a-plot5.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot5.svg)
@@ -397,7 +397,7 @@ r_{15} & = \dfrac{1}{1+2\cos \theta}
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/144:2pi
@@ -424,7 +424,7 @@ plt.legend()
 plt.xlim(-4,4)
 plt.ylim(-4,4)
 plt.savefig("ch0a-plot6.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot6.svg)
@@ -435,7 +435,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/144:2pi
@@ -457,7 +457,7 @@ plt.axvline(0, color="k", lw=0.5)
 plt.xlim(-4,4)
 plt.ylim(-4,4)
 plt.savefig("ch0a-plot7.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot7.svg)
@@ -468,7 +468,7 @@ plt.close("all"); nothing #hide
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 ts=0:pi/144:2pi
@@ -489,7 +489,7 @@ plt.axvline(0, color="k", lw=0.5)
 plt.xlim(-4,4)
 plt.ylim(-4,4)
 plt.savefig("ch0a-plot8.svg"); nothing #hide
-plt.close("all"); nothing #hide
+plt.close("all") #hide
 ```
 
 ![](ch0a-plot8.svg)

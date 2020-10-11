@@ -73,14 +73,14 @@ end
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 dora1()
 plt.xlim(-7, 7)
 plt.ylim(-7, 7)
-plt.savefig("ch0b-dora1.svg"); nothing; #hide
-plt.close("all"); nothing; #hide
+plt.savefig("ch0b-dora1.svg") #hide
+plt.close("all") #hide
 ```
 
 ![](ch0b-dora1.svg)
@@ -116,7 +116,7 @@ end
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 draw_ellipse(1, 1, 2, 1, "g")
@@ -126,8 +126,7 @@ plt.ylim(-2, 4)
 plt.axhline(1, color = "k", lw = 0.5)
 plt.axvline(1, color = "k", lw = 0.5)
 
-plt.savefig("ch0b-dora-ellipse.svg"); nothing; #hide
-nothing; #hide
+plt.savefig("ch0b-dora-ellipse.svg") #hide
 ```
 
 ![](ch0b-dora-ellipse.svg)
@@ -151,8 +150,7 @@ plt.xlim(-2, 4)
 plt.ylim(-2, 4)
 plt.axhline(1, color = "k", lw = 0.5)
 plt.axvline(1, color = "k", lw = 0.5)
-plt.savefig("ch0b-dora-line.svg"); nothing; #hide
-nothing; #hide
+plt.savefig("ch0b-dora-line.svg") #hide
 ```
 
 ![](ch0b-dora-line.svg)
@@ -179,7 +177,7 @@ plt.ylim(-3, 3)
 plt.axhline(0, color = "k", lw = 0.5)
 plt.axvline(0, color = "k", lw = 0.5)
 plt.savefig("ch0b-dora-para.svg"); nothing; #hide
-plt.close("all"); nothing; #hide
+plt.close("all") #hide
 ```
 
 ![](ch0b-dora-para.svg)
@@ -229,14 +227,14 @@ end
 
 ```@example ch000
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 plt.axes().set_aspect("equal")
 
 dora2()
 plt.xlim(-7, 7)
 plt.ylim(-7, 7)
 plt.savefig("ch0b-dora2.svg"); nothing; #hide
-plt.close("all"); nothing; #hide
+plt.close("all") #hide
 ```
 
 ![](ch0b-dora2.svg)

@@ -151,7 +151,7 @@ ax2.plot([2, 3, 1])
 
 ```@repl
 using PyPlot
-plt.figure(); nothing #hide
+plt.figure() #hide
 
 xs = -1:0.1:1
 ys = xs .^ 2;
