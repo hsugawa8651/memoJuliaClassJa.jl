@@ -342,7 +342,7 @@ plt.axes().set_aspect(&quot;equal&quot;)
 
 ts = -3.5pi:pi/6:3.5pi
 for nmax = 3:2:11
-   ys = one.(ts) * (pi / 2)
+   local ys = one.(ts) * (pi / 2)
    for n = 1:2:nmax
       ys -= cos.(n * ts) * (4 / n^2 / pi)
    end
@@ -350,14 +350,13 @@ for nmax = 3:2:11
 end
 plt.xlim(-pi * 0.1, pi * 2.1)
 plt.ylim(-pi * 0.1, pi * 1.1)
-plt.legend()</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `ys` in soft scope is ambiguous because a global variable by the same name exists: `ys` will be treated as a new local. Disambiguate by using `local ys` to suppress this warning or `global ys` to assign to the existing global variable.
-└ @ none:2</pre><p><img src="../ch08-fo-tri4-plot.svg" alt/></p><pre><code class="language-julia">using PyPlot
+plt.legend()</code></pre><p><img src="../ch08-fo-tri4-plot.svg" alt/></p><pre><code class="language-julia">using PyPlot
 fig, axs = plt.subplots(6, 1)
 
 ts = -3.5pi:pi/6:3.5pi
 for j = 1:6
-   nmax = 1 + 2 * j
-   ys = one.(ts) * (pi / 2)
+   local nmax = 1 + 2 * j
+   local ys = one.(ts) * (pi / 2)
    for n = 1:2:nmax
       ys -= cos.(n * ts) * (4 / n^2 / pi)
    end
@@ -365,10 +364,7 @@ for j = 1:6
    ax.plot(ts, triangular.(ts))
    ax.plot(ts, ys, &quot;o&quot;)
    ax.set_ylim(-pi * 0.1, pi * 1.1)
-end</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `nmax` in soft scope is ambiguous because a global variable by the same name exists: `nmax` will be treated as a new local. Disambiguate by using `local nmax` to suppress this warning or `global nmax` to assign to the existing global variable.
-└ @ none:2
-┌ Warning: Assignment to `ys` in soft scope is ambiguous because a global variable by the same name exists: `ys` will be treated as a new local. Disambiguate by using `local ys` to suppress this warning or `global ys` to assign to the existing global variable.
-└ @ none:3</pre><p><img src="../ch08-fo-tri5-plot.svg" alt/></p><h3 id="練習：フーリエ級数の有限和"><a class="docs-heading-anchor" href="#練習：フーリエ級数の有限和">◀ 練習：フーリエ級数の有限和</a><a id="練習：フーリエ級数の有限和-1"></a><a class="docs-heading-anchor-permalink" href="#練習：フーリエ級数の有限和" title="Permalink"></a></h3><p>次の級数和で表される曲線を描け．</p><div>\[f(t) = \dfrac{4}{\pi}\left\{ \sin t - \dfrac{\sin 3t}{3^2} + \dfrac{\sin 5t}{5^2} - \cdots\right\}\]</div><h2 id="数値積分"><a class="docs-heading-anchor" href="#数値積分">▼ 数値積分</a><a id="数値積分-1"></a><a class="docs-heading-anchor-permalink" href="#数値積分" title="Permalink"></a></h2><p>定積分の近似値を，級数和として求めることができる（数値積分）．</p><p>以下では，連続関数の，有限な区間に対する定積分の近似値を求めてみる． 参考→ <a href="../ch04/#関数が連続とは">▼ 関数が連続とは</a></p><p>例として，関数 <span>$g(x)$</span></p><div>\[g(x) = \dfrac{1}{1+x}\]</div><p>を，<span>$x = 0$</span> から <span>$1$</span> の範囲で積分しよう．</p><p>関数 <span>$g(x)$</span> は，この範囲で単調減少である．</p><pre><code class="language-julia">using PyPlot
+end</code></pre><p><img src="../ch08-fo-tri5-plot.svg" alt/></p><h3 id="練習：フーリエ級数の有限和"><a class="docs-heading-anchor" href="#練習：フーリエ級数の有限和">◀ 練習：フーリエ級数の有限和</a><a id="練習：フーリエ級数の有限和-1"></a><a class="docs-heading-anchor-permalink" href="#練習：フーリエ級数の有限和" title="Permalink"></a></h3><p>次の級数和で表される曲線を描け．</p><div>\[f(t) = \dfrac{4}{\pi}\left\{ \sin t - \dfrac{\sin 3t}{3^2} + \dfrac{\sin 5t}{5^2} - \cdots\right\}\]</div><h2 id="数値積分"><a class="docs-heading-anchor" href="#数値積分">▼ 数値積分</a><a id="数値積分-1"></a><a class="docs-heading-anchor-permalink" href="#数値積分" title="Permalink"></a></h2><p>定積分の近似値を，級数和として求めることができる（数値積分）．</p><p>以下では，連続関数の，有限な区間に対する定積分の近似値を求めてみる． 参考→ <a href="../ch04/#関数が連続とは">▼ 関数が連続とは</a></p><p>例として，関数 <span>$g(x)$</span></p><div>\[g(x) = \dfrac{1}{1+x}\]</div><p>を，<span>$x = 0$</span> から <span>$1$</span> の範囲で積分しよう．</p><p>関数 <span>$g(x)$</span> は，この範囲で単調減少である．</p><pre><code class="language-julia">using PyPlot
 xmin = 0
 xmax = 1
 m = 6
@@ -405,10 +401,10 @@ end
 
 se = log(2)
 for m = 0:12
-   n = 2^m
-   xs = range(xmin, xmax, length = n + 1)
-   d = (xmax - xmin) / n
-   s1 = 0
+   local n = 2^m
+   local xs = range(xmin, xmax, length = n + 1)
+   local d = (xmax - xmin) / n
+   local s1 = 0
    for i = 1:n
       x = xs[i]
       s1 += g(x) * d
@@ -417,19 +413,12 @@ for m = 0:12
 end
 plt.xscale(&quot;log&quot;)
 plt.xlabel(&quot;n&quot;)
-plt.ylabel(&quot;absolute error&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
-└ @ none:2
-┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
-└ @ none:3
-┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
-└ @ none:4
-┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
-└ @ none:5</pre><p><img src="../ch08-rie2-plot.svg" alt/></p><p>今度は，相対誤差を，両対数グラフで描く．</p><pre><code class="language-julia">using PyPlot
+plt.ylabel(&quot;absolute error&quot;)</code></pre><p><img src="../ch08-rie2-plot.svg" alt/></p><p>今度は，相対誤差を，両対数グラフで描く．</p><pre><code class="language-julia">using PyPlot
 for m = 0:12
-   n = 2^m
-   xs = range(xmin, xmax, length = n + 1)
-   d = (xmax - xmin) / n
-   s1 = 0
+   local n = 2^m
+   local xs = range(xmin, xmax, length = n + 1)
+   local d = (xmax - xmin) / n
+   local s1 = 0
    for i = 1:n
       x = xs[i]
       s1 += g(x) * d
@@ -439,14 +428,7 @@ end
 plt.xlabel(&quot;n&quot;)
 plt.ylabel(&quot;relative error (absolute value)&quot;)
 plt.xscale(&quot;log&quot;)
-plt.yscale(&quot;log&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
-└ @ none:2
-┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
-└ @ none:3
-┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
-└ @ none:4
-┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
-└ @ none:5</pre><p><img src="../ch08-rie3-plot.svg" alt/></p><h3 id="総和関数-sum"><a class="docs-heading-anchor" href="#総和関数-sum">■ 総和関数 sum</a><a id="総和関数-sum-1"></a><a class="docs-heading-anchor-permalink" href="#総和関数-sum" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/collections/#Base.sum"><code>Base.sum</code> — Function</a></li></ul><p>関数 <code>sum(xs)</code> は，数のコレクション <span>$v$</span> を引数にとり，<span>$v$</span> の全ての要素の総和を求める．</p><pre><code class="language-julia-repl">julia&gt; sum([1, 2, 3, 4, 5])
+plt.yscale(&quot;log&quot;)</code></pre><p><img src="../ch08-rie3-plot.svg" alt/></p><h3 id="総和関数-sum"><a class="docs-heading-anchor" href="#総和関数-sum">■ 総和関数 sum</a><a id="総和関数-sum-1"></a><a class="docs-heading-anchor-permalink" href="#総和関数-sum" title="Permalink"></a></h3><ul><li><a href="https://docs.julialang.org/en/v1.5/base/collections/#Base.sum"><code>Base.sum</code> — Function</a></li></ul><p>関数 <code>sum(xs)</code> は，数のコレクション <span>$v$</span> を引数にとり，<span>$v$</span> の全ての要素の総和を求める．</p><pre><code class="language-julia-repl">julia&gt; sum([1, 2, 3, 4, 5])
 15
 
 julia&gt; sum(1:5)
@@ -457,16 +439,13 @@ plt.plot(xs1, xs1 .* (xs1 .+ 1) / 2, label = &quot;sum i&quot;, &quot;b&quot;)
 
 ns = 0:nmax
 for n in ns
-   xs = 1:n
-   s1 = sum(xs)
+   local xs = 1:n
+   local s1 = sum(xs)
    plt.plot(n, s1, &quot;bo&quot;)
 end
 
 plt.xlabel(&quot;n&quot;)
-plt.ylabel(&quot;sum i up to n&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
-└ @ none:2
-┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
-└ @ none:3</pre><p><img src="../ch08-sum3-plot.svg" alt/></p><div>\[\sum_{k=1}^{n} k^2 = 1^2 + 2^2 + \cdots + k^2 + \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}\]</div><pre><code class="language-julia">using PyPlot
+plt.ylabel(&quot;sum i up to n&quot;)</code></pre><p><img src="../ch08-sum3-plot.svg" alt/></p><div>\[\sum_{k=1}^{n} k^2 = 1^2 + 2^2 + \cdots + k^2 + \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}\]</div><pre><code class="language-julia">using PyPlot
 nmax = 25
 xs1 = 0:0.2:nmax
 plt.plot(xs1, xs1 .* (xs1 .+ 1) .* (2 * xs1 .+ 1) / 6, &quot;b&quot;)
@@ -474,21 +453,20 @@ plt.plot(xs1, xs1 .* (xs1 .+ 1) .* (2 * xs1 .+ 1) / 6, &quot;b&quot;)
 ns = 0:nmax
 for n in ns
    # 各要素を二乗
-   xs = (1:n) .^ 2
+   local xs = (1:n) .^ 2
    s = sum(xs)
    plt.plot(n, s, &quot;bo&quot;)
 end
 plt.xlabel(&quot;n&quot;)
-plt.ylabel(&quot;sum i^2 up to n&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
-└ @ none:3</pre><p><img src="../ch08-sum4-plot.svg" alt/></p><h3 id="Riemann和（関数-sumを用いる)"><a class="docs-heading-anchor" href="#Riemann和（関数-sumを用いる)">▼ Riemann和（関数 sumを用いる)</a><a id="Riemann和（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#Riemann和（関数-sumを用いる)" title="Permalink"></a></h3><p>Riemann和において， 刻み幅 <span>$d$</span> は全ての短冊に共通であるから，<span>$d$</span> をくくりだして</p><div>\[s_{1} = \sum_{i=1}^{n} g(x_{i})\cdot{d} = d\cdot\sum_{i=1}^{n} g( x_{i})\]</div><p>のようにまとめることができる．すなわち，関数の値の和 <span>$\sum_{i=1}^{n} g( x_{i})$</span> をとってから <span>$d$</span> 倍すればよい．関数の値の和を取るのに，関数 <code>sum</code> を使うことができる．</p><p>下のプログラムで <code>g.(xs[1:end-1])</code> は，ベクトル <code>xs[1:end-1]</code> の各要素に関数 <code>g()</code> を適用したベクトルである．</p><p>ループで和を計算した場合と，関数 <code>sum</code> を用いる場合との両方で，相対誤差を描く． 計算結果が一致していることが見える． (参考: 結果が一致することを確かめるグラフの描画   → <a href="../ch04/#周期関数を確認する">●▼ 周期関数を確認する</a></p><pre><code class="language-julia">using PyPlot
+plt.ylabel(&quot;sum i^2 up to n&quot;)</code></pre><p><img src="../ch08-sum4-plot.svg" alt/></p><h3 id="Riemann和（関数-sumを用いる)"><a class="docs-heading-anchor" href="#Riemann和（関数-sumを用いる)">▼ Riemann和（関数 sumを用いる)</a><a id="Riemann和（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#Riemann和（関数-sumを用いる)" title="Permalink"></a></h3><p>Riemann和において， 刻み幅 <span>$d$</span> は全ての短冊に共通であるから，<span>$d$</span> をくくりだして</p><div>\[s_{1} = \sum_{i=1}^{n} g(x_{i})\cdot{d} = d\cdot\sum_{i=1}^{n} g( x_{i})\]</div><p>のようにまとめることができる．すなわち，関数の値の和 <span>$\sum_{i=1}^{n} g( x_{i})$</span> をとってから <span>$d$</span> 倍すればよい．関数の値の和を取るのに，関数 <code>sum</code> を使うことができる．</p><p>下のプログラムで <code>g.(xs[1:end-1])</code> は，ベクトル <code>xs[1:end-1]</code> の各要素に関数 <code>g()</code> を適用したベクトルである．</p><p>ループで和を計算した場合と，関数 <code>sum</code> を用いる場合との両方で，相対誤差を描く． 計算結果が一致していることが見える． (参考: 結果が一致することを確かめるグラフの描画   → <a href="../ch04/#周期関数を確認する">●▼ 周期関数を確認する</a></p><pre><code class="language-julia">using PyPlot
 se = log(2)
 for m = 0:12
-   n = 2^m
-   xs = range(xmin, xmax, length = n + 1)
-   d = (xmax - xmin) / n
+   local n = 2^m
+   local xs = range(xmin, xmax, length = n + 1)
+   local d = (xmax - xmin) / n
 
    # 和を取る
-   s1 = 0
+   local s1 = 0
    for i = 1:n
       x = xs[i]
       s1 += g(x) * d
@@ -502,14 +480,7 @@ end
 plt.xscale(&quot;log&quot;)
 plt.yscale(&quot;log&quot;)
 plt.xlabel(&quot;n&quot;)
-plt.ylabel(&quot;absolute error&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
-└ @ none:2
-┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
-└ @ none:3
-┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
-└ @ none:4
-┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
-└ @ none:7</pre><p><img src="../ch08-rie4-plot.svg" alt/></p><h3 id="台形則（関数-sumを用いる)"><a class="docs-heading-anchor" href="#台形則（関数-sumを用いる)">▼ 台形則（関数 sumを用いる)</a><a id="台形則（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#台形則（関数-sumを用いる)" title="Permalink"></a></h3><p>今度は，短冊を台形として計算してみる．</p><pre><code class="language-julia">using PyPlot
+plt.ylabel(&quot;absolute error&quot;)</code></pre><p><img src="../ch08-rie4-plot.svg" alt/></p><h3 id="台形則（関数-sumを用いる)"><a class="docs-heading-anchor" href="#台形則（関数-sumを用いる)">▼ 台形則（関数 sumを用いる)</a><a id="台形則（関数-sumを用いる)-1"></a><a class="docs-heading-anchor-permalink" href="#台形則（関数-sumを用いる)" title="Permalink"></a></h3><p>今度は，短冊を台形として計算してみる．</p><pre><code class="language-julia">using PyPlot
 m = 2
 n = 2^m
 xmin = 0
@@ -556,13 +527,13 @@ st *= d
 @show s1, st, (s1 - se) / se, (s1 - se) / se;</code></pre><pre class="documenter-example-output">(0.7090162022075267, 0.6933912022075267, 0.022894158834725318, 0.022894158834725318)</pre><p>相対誤差を描く．</p><pre><code class="language-julia">using PyPlot
 se = log(2)
 for m = 0:12
-   n = 2^m
-   xs = range(xmin, xmax, length = n + 1)
-   d = (xmax - xmin) / n
+   local n = 2^m
+   local xs = range(xmin, xmax, length = n + 1)
+   local d = (xmax - xmin) / n
 
-   s1 = sum(g.(xs[1:end-1])) * d
+   local s1 = sum(g.(xs[1:end-1])) * d
 
-   st = (g(xs[1]) + g(xs[end])) / 2
+   local st = (g(xs[1]) + g(xs[end])) / 2
    st += sum(g.(xs[2:end-1]))
    st *= d
 
@@ -573,16 +544,7 @@ end
 plt.xlabel(&quot;n&quot;)
 plt.ylabel(&quot;relative error (absolute value)&quot;)
 plt.xscale(&quot;log&quot;)
-plt.yscale(&quot;log&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `n` in soft scope is ambiguous because a global variable by the same name exists: `n` will be treated as a new local. Disambiguate by using `local n` to suppress this warning or `global n` to assign to the existing global variable.
-└ @ none:2
-┌ Warning: Assignment to `xs` in soft scope is ambiguous because a global variable by the same name exists: `xs` will be treated as a new local. Disambiguate by using `local xs` to suppress this warning or `global xs` to assign to the existing global variable.
-└ @ none:3
-┌ Warning: Assignment to `d` in soft scope is ambiguous because a global variable by the same name exists: `d` will be treated as a new local. Disambiguate by using `local d` to suppress this warning or `global d` to assign to the existing global variable.
-└ @ none:4
-┌ Warning: Assignment to `s1` in soft scope is ambiguous because a global variable by the same name exists: `s1` will be treated as a new local. Disambiguate by using `local s1` to suppress this warning or `global s1` to assign to the existing global variable.
-└ @ none:6
-┌ Warning: Assignment to `st` in soft scope is ambiguous because a global variable by the same name exists: `st` will be treated as a new local. Disambiguate by using `local st` to suppress this warning or `global st` to assign to the existing global variable.
-└ @ none:8</pre><p><img src="../ch08-tra3-plot.svg" alt/></p><h3 id="練習：Riemann和・台形則"><a class="docs-heading-anchor" href="#練習：Riemann和・台形則">◀ 練習：Riemann和・台形則</a><a id="練習：Riemann和・台形則-1"></a><a class="docs-heading-anchor-permalink" href="#練習：Riemann和・台形則" title="Permalink"></a></h3><p>以下の定積分の近似値を，Riemann和と台形則でそれぞれ評価してみよ． （注記されていない）定積分の理論値は各自計算せよ．</p><div>\[\begin{gathered}
+plt.yscale(&quot;log&quot;)</code></pre><p><img src="../ch08-tra3-plot.svg" alt/></p><h3 id="練習：Riemann和・台形則"><a class="docs-heading-anchor" href="#練習：Riemann和・台形則">◀ 練習：Riemann和・台形則</a><a id="練習：Riemann和・台形則-1"></a><a class="docs-heading-anchor-permalink" href="#練習：Riemann和・台形則" title="Permalink"></a></h3><p>以下の定積分の近似値を，Riemann和と台形則でそれぞれ評価してみよ． （注記されていない）定積分の理論値は各自計算せよ．</p><div>\[\begin{gathered}
 \int^{1}_{0} 3x^2\;dx\;, \\
 \int^{1}_{0} 3 \left(x+1 \right)^2\;dx\;, \\
 \int^{1}_{0} \exp{x}\;dx\;, \\
@@ -638,4 +600,4 @@ i=3 j=1</code></pre><p><code>for</code> ブロックの内部で，<code>continu
        end
 3
 6
-9</code></pre><h2 id="練習：-条件が成り立つまで繰り返す：数値積分"><a class="docs-heading-anchor" href="#練習：-条件が成り立つまで繰り返す：数値積分">◀● 練習： 条件が成り立つまで繰り返す：数値積分</a><a id="練習：-条件が成り立つまで繰り返す：数値積分-1"></a><a class="docs-heading-anchor-permalink" href="#練習：-条件が成り立つまで繰り返す：数値積分" title="Permalink"></a></h2><p>(少し難しいので，後回しにしてもよい)</p><p>分割数 <span>$n$</span> を <span>$2^{20}$</span> まで，<span>$2$</span> の冪乗で増やしていけ， ただし，相対誤差が <span>$10^{-4}$</span> 以下になったら，そこで終了せよ．</p><p><a href="#Riemann和（関数-sumを用いる)">▼ Riemann和（関数 sumを用いる)</a> ,または， <a href="#台形則（関数-sumを用いる)">▼ 台形則（関数 sumを用いる)</a> の，どちらを用いてもよい．</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルのインデックス</li><li>要素が <code>0</code> または <code>1</code> のベクトルの生成</li><li>ベクトルの総和 <code>sum</code></li><li>級数和</li><li>フーリエ級数の和</li><li>数値積分：Riemann和</li><li>数値積分：台形則</li><li>繰返し内部からの脱出</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch07/">« 第7回：■ 浮動小数点数</a><a class="docs-footer-nextpage" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 11 October 2020 13:21">Sunday 11 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+9</code></pre><h2 id="練習：-条件が成り立つまで繰り返す：数値積分"><a class="docs-heading-anchor" href="#練習：-条件が成り立つまで繰り返す：数値積分">◀● 練習： 条件が成り立つまで繰り返す：数値積分</a><a id="練習：-条件が成り立つまで繰り返す：数値積分-1"></a><a class="docs-heading-anchor-permalink" href="#練習：-条件が成り立つまで繰り返す：数値積分" title="Permalink"></a></h2><p>(少し難しいので，後回しにしてもよい)</p><p>分割数 <span>$n$</span> を <span>$2^{20}$</span> まで，<span>$2$</span> の冪乗で増やしていけ， ただし，相対誤差が <span>$10^{-4}$</span> 以下になったら，そこで終了せよ．</p><p><a href="#Riemann和（関数-sumを用いる)">▼ Riemann和（関数 sumを用いる)</a> ,または， <a href="#台形則（関数-sumを用いる)">▼ 台形則（関数 sumを用いる)</a> の，どちらを用いてもよい．</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルのインデックス</li><li>要素が <code>0</code> または <code>1</code> のベクトルの生成</li><li>ベクトルの総和 <code>sum</code></li><li>級数和</li><li>フーリエ級数の和</li><li>数値積分：Riemann和</li><li>数値積分：台形則</li><li>繰返し内部からの脱出</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch07/">« 第7回：■ 浮動小数点数</a><a class="docs-footer-nextpage" href="../ch09/">第9回： ■ 配列要素の操作／▶常微分方程式の数値解法 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 11 October 2020 14:09">Sunday 11 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
