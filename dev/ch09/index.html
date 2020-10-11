@@ -294,7 +294,7 @@ xs = zeros(n)
 xs[1] = 0 # initial condition
 
 for i = 1:n-1
-   x_now = xs[i]
+   local x_now = xs[i]
    t = ts[i]
    x_next = x_now + h * f(x_now, t)
    xs[i+1] = x_next
@@ -302,8 +302,7 @@ end
 plt.plot(ts, xs, &quot;.&quot;)
 plt.plot(ts, tanh.(ts), &quot;r&quot;)
 plt.xlabel(&quot;t&quot;)
-plt.ylabel(&quot;x&quot;)</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `x_now` in soft scope is ambiguous because a global variable by the same name exists: `x_now` will be treated as a new local. Disambiguate by using `local x_now` to suppress this warning or `global x_now` to assign to the existing global variable.
-└ @ none:3</pre><p><img src="../ch09-euler2-plot.svg" alt/></p><h4 id="刻みを狭くする"><a class="docs-heading-anchor" href="#刻みを狭くする">刻みを狭くする</a><a id="刻みを狭くする-1"></a><a class="docs-heading-anchor-permalink" href="#刻みを狭くする" title="Permalink"></a></h4><p>刻み <span>$h$</span> を <span>$0.4, 0.2, 0.1, 0.05$</span> と小さくしてみる． 刻みを小さくすると，近似解が厳密解に近づいていくことが観察できる．</p><pre><code class="language-julia">using PyPlot
+plt.ylabel(&quot;x&quot;)</code></pre><p><img src="../ch09-euler2-plot.svg" alt/></p><h4 id="刻みを狭くする"><a class="docs-heading-anchor" href="#刻みを狭くする">刻みを狭くする</a><a id="刻みを狭くする-1"></a><a class="docs-heading-anchor-permalink" href="#刻みを狭くする" title="Permalink"></a></h4><p>刻み <span>$h$</span> を <span>$0.4, 0.2, 0.1, 0.05$</span> と小さくしてみる． 刻みを小さくすると，近似解が厳密解に近づいていくことが観察できる．</p><pre><code class="language-julia">using PyPlot
 
 tmin = 0
 tmax = 1.6
@@ -422,7 +421,7 @@ for k = 1:4
    xs[1] = 0 # initial condition
    for i = 1:n-1
       t = ts[i]
-      x_now = xs[i]
+      local x_now = xs[i]
       t_next = ts[i+1]
       f_now = f(x_now, t)
       x_mid = x_now + h * f_now
@@ -438,9 +437,7 @@ end
 plt.xlabel(&quot;t&quot;)
 plt.ylabel(&quot;x&quot;)
 plt.plot(ts, tanh.(ts), &quot;b&quot;, label = &quot;tanh(t)&quot;, lw = 0.5)
-plt.legend()</code></pre><pre class="documenter-example-output">┌ Warning: Assignment to `x_now` in soft scope is ambiguous because a global variable by the same name exists: `x_now` will be treated as a new local. Disambiguate by using `local x_now` to suppress this warning or `global x_now` to assign to the existing global variable.
-└ @ none:9
-(h, e) = (0.4, 0.048085853296269084)
+plt.legend()</code></pre><pre class="documenter-example-output">(h, e) = (0.4, 0.048085853296269084)
 (h, e) = (0.2, 0.013351045559265527)
 (h, e) = (0.1, 0.0042050468178388605)
 (h, e) = (0.05, 0.001404770260316803)</pre><p><img src="../ch09-meuler2-plot.svg" alt/></p><h4 id="正確な解との誤差評価-2"><a class="docs-heading-anchor" href="#正確な解との誤差評価-2">正確な解との誤差評価</a><a class="docs-heading-anchor-permalink" href="#正確な解との誤差評価-2" title="Permalink"></a></h4><pre><code class="language-julia">using LinearAlgebra
@@ -479,4 +476,4 @@ plt.ylim(1e-5, 1e-1)</code></pre><pre class="documenter-example-output">(h, e) =
 \dfrac{dx}{dt} &amp; = x^2, \\
 x(0) &amp; = \dfrac{1}{2}, \\
  0 &amp; \le t &lt; 2
-\end{aligned}\]</div><p>解析解は，</p><div>\[x = \dfrac{1}{2-t}\]</div><p>となり，<span>$t \longrightarrow 0$</span> で無限大に発散する「素性の悪い」方程式である．</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルを引数とする関数</li><li>複数の数を引数とする関数</li><li><code>splatting</code> 演算子</li><li>ベクトル要素への代入</li><li>エラトステネスの篩：素数を算出する</li><li>微分方程式の初期値問題，Euler法，修正Euler法</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch08/">« 第8回： ▼ 総和・数値積分</a><a class="docs-footer-nextpage" href="../ch10/">第10回：行列・線形代数 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 10 October 2020 17:25">Saturday 10 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+\end{aligned}\]</div><p>解析解は，</p><div>\[x = \dfrac{1}{2-t}\]</div><p>となり，<span>$t \longrightarrow 0$</span> で無限大に発散する「素性の悪い」方程式である．</p><h2 id="今回のまとめ"><a class="docs-heading-anchor" href="#今回のまとめ">★ 今回のまとめ</a><a id="今回のまとめ-1"></a><a class="docs-heading-anchor-permalink" href="#今回のまとめ" title="Permalink"></a></h2><ul><li>ベクトルを引数とする関数</li><li>複数の数を引数とする関数</li><li><code>splatting</code> 演算子</li><li>ベクトル要素への代入</li><li>エラトステネスの篩：素数を算出する</li><li>微分方程式の初期値問題，Euler法，修正Euler法</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../ch08/">« 第8回： ▼ 総和・数値積分</a><a class="docs-footer-nextpage" href="../ch10/">第10回：行列・線形代数 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 11 October 2020 02:24">Sunday 11 October 2020</span>. Using Julia version 1.5.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
